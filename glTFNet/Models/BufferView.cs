@@ -1,0 +1,38 @@
+namespace glTFNet.Models
+{
+    /// <summary>
+    /// A view into a buffer generally representing a subset of the buffer.
+    /// </summary>
+    [System.Serializable]
+    public class BufferView : GlTFChildOfRootProperty
+    {
+        /// <summary>
+        /// The index of the buffer.
+        /// </summary>
+        public required System.Int32 Buffer { get; set; }
+
+        /// <summary>
+        /// The offset into the buffer in bytes.
+        /// </summary>
+        public System.Int32? ByteOffset { get; set; }
+
+        /// <inheritdoc cref="ByteOffset"/>
+        [System.Text.Json.Serialization.JsonIgnore]
+        public System.Int32 ByteOffsetOrDefault => ByteOffset ?? 0;
+
+        /// <summary>
+        /// The length of the bufferView in bytes.
+        /// </summary>
+        public required System.Int32 ByteLength { get; set; }
+
+        /// <summary>
+        /// The stride, in bytes, between vertex attributes.  When this is not defined, data is tightly packed. When two or more accessors use the same buffer view, this field **MUST** be defined.
+        /// </summary>
+        public System.Int32? ByteStride { get; set; }
+
+        /// <summary>
+        /// The hint representing the intended GPU buffer type to use with this buffer view.
+        /// </summary>
+        public System.Int32? Target { get; set; }
+    }
+}
