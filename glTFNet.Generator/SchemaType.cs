@@ -10,9 +10,11 @@ namespace glTFNet.Generator;
 public interface ISchemaType
 {
     /// <summary>
-    /// Gets the full C# type name.
+    /// Gets the C# type name in the given context.
     /// </summary>
-    string FullName { get; }
+    /// <param name="context"></param>
+    /// <returns>Returns the type name.</returns>
+    string GetName(SchemaTypeContext context);
 }
 
 /// <summary>
@@ -20,8 +22,8 @@ public interface ISchemaType
 /// </summary>
 public static class SchemaType
 {
-    /// <param name="baseType">The base type.</param>
-    extension(ISchemaType baseType)
+    /// <param name="schemaType">The schema type.</param>
+    extension(ISchemaType schemaType)
     {
         /// <summary>
         /// Creates an array type information of this type.
@@ -29,7 +31,7 @@ public static class SchemaType
         /// <returns>Returns the new array type.</returns>
         public ISchemaType AsArray()
         {
-            return new SchemaTypeArray(baseType);
+            return new SchemaTypeArray(schemaType);
         }
 
         /// <summary>
@@ -38,16 +40,32 @@ public static class SchemaType
         /// <returns>Returns the new nullable type.</returns>
         public ISchemaType AsNullable()
         {
-            return new SchemaTypeNullable(baseType);
+            return new SchemaTypeNullable(schemaType);
         }
 
         /// <summary>
         /// Returns the type syntax.
         /// </summary>
+        /// <param name="context">The current type context.</param>
         /// <returns>Returns the type syntax.</returns>
-        public TypeSyntax AsTypeSyntax()
+        public TypeSyntax AsTypeSyntax(SchemaTypeContext context)
         {
-            return SyntaxFactory.ParseTypeName(baseType.FullName);
+            return SyntaxFactory.ParseTypeName(schemaType.GetName(context));
+        }
+
+        /// <summary>
+        /// Returns the attribute syntax name.
+        /// </summary>
+        /// <param name="context">The current type context.</param>
+        /// <returns>Returns the attribute syntax.</returns>
+        public AttributeSyntax AsAttributeSyntax(SchemaTypeContext context)
+        {
+            var name = schemaType.GetName(context);
+            if (name.EndsWith("Attribute"))
+            {
+                name = name[..^9];
+            }
+            return SyntaxFactory.Attribute(SyntaxFactory.ParseName(name));
         }
         
         /// <summary>
@@ -57,7 +75,11 @@ public static class SchemaType
         /// <returns>Returns true, if the type matches.</returns>
         public bool Is<T>()
         {
-            return baseType.FullName == typeof(T).FullName;
+            if (schemaType is SchemaTypeNative schemaTypeNative)
+            {
+                return schemaTypeNative.Type == typeof(T);
+            }
+            return false;
         }
     }
 

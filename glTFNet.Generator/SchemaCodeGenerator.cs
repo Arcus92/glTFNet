@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -8,6 +9,10 @@ namespace glTFNet.Generator;
 
 public class SchemaCodeGenerator
 {
+    private static readonly SchemaTypeNative AttributeTypeSerializable = new(typeof(SerializableAttribute));
+    private static readonly SchemaTypeNative AttributeTypeJsonIgnore = new(typeof(JsonIgnoreAttribute));
+    private static readonly SchemaTypeNative AttributeTypeJsonPropertyName = new(typeof(JsonPropertyNameAttribute));
+
     /// <summary>
     /// Exports a schema file to the given directory.
     /// </summary>
@@ -19,9 +24,9 @@ public class SchemaCodeGenerator
         var codeUnit = CreateCodeFromType(type);
         if (codeUnit is null)
             return;
-        
+
         var fileName = $"{type.Name}.cs";
-        
+
         // Formating code
         using var workspace = new AdhocWorkspace();
         var project = workspace.AddProject("Generator", LanguageNames.CSharp);
@@ -29,7 +34,7 @@ public class SchemaCodeGenerator
         document = document.WithSyntaxRoot(codeUnit);
         document = await Formatter.FormatAsync(document);
         var formattedRoot = (await document.GetSyntaxRootAsync())!;
-        
+
         // Writing to output
         var filePath = Path.Combine(outputPath, fileName);
         await using var textWriter = File.CreateText(filePath);
@@ -41,12 +46,18 @@ public class SchemaCodeGenerator
     /// </summary>
     /// <param name="type">The type to generate.</param>
     /// <returns>Returns the whole compilation unit of the type.</returns>
-    private CompilationUnitSyntax? CreateCodeFromType(ISchemaType type)
+    private CompilationUnitSyntax? CreateCodeFromType(ISchemaGeneratedType type)
     {
+        var context = new SchemaTypeContext
+        {
+            Namespace = type.Namespace,
+            Usings = ["System", "System.Collections.Generic"]
+        };
+
         return type switch
         {
-            SchemaClass schemaClass => CreateCodeFromClass(schemaClass),
-            SchemaEnum schemaEnum => CreateCodeFromEnum(schemaEnum),
+            SchemaClass schemaClass => CreateCodeFromClass(context, schemaClass),
+            SchemaEnum schemaEnum => CreateCodeFromEnum(context, schemaEnum),
             _ => null
         };
     }
@@ -54,27 +65,28 @@ public class SchemaCodeGenerator
     /// <summary>
     /// Generates a code class from the given schema type.
     /// </summary>
+    /// <param name="context">The current type context.</param>
     /// <param name="type">The class type to generate.</param>
     /// <returns>Returns the whole compilation unit of the class.</returns>
-    private CompilationUnitSyntax CreateCodeFromClass(SchemaClass type)
+    private CompilationUnitSyntax CreateCodeFromClass(SchemaTypeContext context, SchemaClass type)
     {
         var unit = SyntaxFactory.CompilationUnit();
 
         var schemaNamespace = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(type.Namespace));
-        
+
         var schemaClass = SyntaxFactory.ClassDeclaration(type.Name)
             .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
 
         // Adding [Serializable]
         schemaClass = schemaClass.AddAttributeLists(
             SyntaxFactory.AttributeList(
-                SyntaxFactory.SingletonSeparatedList(
-                    SyntaxFactory.Attribute(SyntaxFactory.ParseName("System.Serializable")))));
+                SyntaxFactory.SingletonSeparatedList(AttributeTypeSerializable.AsAttributeSyntax(context))));
 
         // Inheritance
         if (type.ParentClassType is not null)
         {
-            schemaClass = schemaClass.AddBaseListTypes(SyntaxFactory.SimpleBaseType(type.ParentClassType.AsTypeSyntax()));
+            schemaClass =
+                schemaClass.AddBaseListTypes(SyntaxFactory.SimpleBaseType(type.ParentClassType.AsTypeSyntax(context)));
         }
 
         // Adding comments to class
@@ -83,7 +95,7 @@ public class SchemaCodeGenerator
         // Adding properties
         foreach (var property in type.Properties)
         {
-            schemaClass = AddPropertyFromSchema(schemaClass, property);
+            schemaClass = AddPropertyFromSchema(context, schemaClass, property);
         }
 
         schemaNamespace = schemaNamespace.AddMembers(schemaClass);
@@ -94,14 +106,15 @@ public class SchemaCodeGenerator
     /// <summary>
     /// Generates a code class from the given schema type.
     /// </summary>
+    /// <param name="context">The current type context.</param>
     /// <param name="type">The class type to generate.</param>
     /// <returns>Returns the whole compilation unit of the class.</returns>
-    private CompilationUnitSyntax CreateCodeFromEnum(SchemaEnum type)
+    private CompilationUnitSyntax CreateCodeFromEnum(SchemaTypeContext context, SchemaEnum type)
     {
         var unit = SyntaxFactory.CompilationUnit();
 
         var schemaNamespace = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(type.Namespace));
-        
+
         var schemaEnum = SyntaxFactory.EnumDeclaration(type.Name)
             .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
 
@@ -114,7 +127,8 @@ public class SchemaCodeGenerator
             {
                 schemaEnumMember = schemaEnumMember.WithEqualsValue(
                     SyntaxFactory.EqualsValueClause(
-                        SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(value.IntegerValue.Value))));
+                        SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression,
+                            SyntaxFactory.Literal(value.IntegerValue.Value))));
             }
 
             // Adding [JsonPropertyName("JSON_VALUE")]
@@ -122,18 +136,19 @@ public class SchemaCodeGenerator
             {
                 schemaEnumMember = schemaEnumMember.AddAttributeLists(
                     SyntaxFactory.AttributeList(
-                        SyntaxFactory.SingletonSeparatedList(
-                            SyntaxFactory.Attribute(SyntaxFactory.ParseName("System.Text.Json.Serialization.JsonPropertyName"))
-                                .WithArgumentList(SyntaxFactory.AttributeArgumentList()
-                                    .AddArguments(SyntaxFactory.AttributeArgument(SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression, SyntaxFactory.Literal(value.StringValue))))))));
+                        SyntaxFactory.SingletonSeparatedList(AttributeTypeJsonPropertyName.AsAttributeSyntax(context)
+                            .WithArgumentList(SyntaxFactory.AttributeArgumentList()
+                                .AddArguments(SyntaxFactory.AttributeArgument(
+                                    SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression,
+                                        SyntaxFactory.Literal(value.StringValue))))))));
             }
-            
+
             // Adding documentation
             schemaEnumMember = SchemaCodeGeneratorHelper.AddDocumentationSummery(schemaEnumMember, value.Description);
-            
+
             schemaEnum = schemaEnum.AddMembers(schemaEnumMember);
         }
-        
+
         schemaNamespace = schemaNamespace.AddMembers(schemaEnum);
         unit = unit.AddMembers(schemaNamespace);
         return unit;
@@ -143,10 +158,12 @@ public class SchemaCodeGenerator
     /// <summary>
     /// Adds a schema property to the class definition.
     /// </summary>
+    /// <param name="context">The current type context.</param>
     /// <param name="schemaClass">The class declaration to add the property to.</param>
     /// <param name="property">The property to add.</param>
     /// <returns>Returns the modified class declaration.</returns>
-    private ClassDeclarationSyntax AddPropertyFromSchema(ClassDeclarationSyntax schemaClass, SchemaClassProperty property)
+    private ClassDeclarationSyntax AddPropertyFromSchema(SchemaTypeContext context, ClassDeclarationSyntax schemaClass,
+        SchemaClassProperty property)
     {
         // Building property header
         var propertyTokens = new List<SyntaxToken>
@@ -159,9 +176,12 @@ public class SchemaCodeGenerator
         }
 
         var isNullable = !property.IsRequired;
-        
+
         // Creating the property with default getter and setter.
-        var propertyUnit = SyntaxFactory.PropertyDeclaration(isNullable ? property.Type.AsNullable().AsTypeSyntax() : property.Type.AsTypeSyntax(), property.Name)
+        var propertyUnit = SyntaxFactory
+            .PropertyDeclaration(
+                isNullable ? property.Type.AsNullable().AsTypeSyntax(context) : property.Type.AsTypeSyntax(context),
+                property.Name)
             .AddModifiers(propertyTokens.ToArray())
             .AddAccessorListAccessors(
                 SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration)
@@ -169,34 +189,37 @@ public class SchemaCodeGenerator
                 SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration)
                     .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)))
             .WithTrailingTrivia(SyntaxFactory.CarriageReturnLineFeed);
-        
+
         // Adding the default value for non-nullable properties
-        var defaultExpression = SchemaCodeGeneratorHelper.GetExpressionSyntaxFromJsonNode(property.Default, property.Type);
+        var defaultExpression =
+            SchemaCodeGeneratorHelper.GetExpressionSyntaxFromJsonNode(context, property.Default, property.Type);
         if (!isNullable && defaultExpression is not null)
         {
             propertyUnit = propertyUnit
                 .WithInitializer(SyntaxFactory.EqualsValueClause(defaultExpression))
                 .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken));
         }
-        
+
         // Adding comments to property
         propertyUnit = SchemaCodeGeneratorHelper.AddDocumentationSummery(propertyUnit, property.Description);
 
         schemaClass = schemaClass.AddMembers(propertyUnit);
-        
+
         // Adding a second expression for nullable default values
         if (isNullable && defaultExpression is not null)
         {
-            propertyUnit = SyntaxFactory.PropertyDeclaration(property.Type.AsTypeSyntax(),$"{property.Name}OrDefault")
+            propertyUnit = SyntaxFactory
+                .PropertyDeclaration(property.Type.AsTypeSyntax(context), $"{property.Name}OrDefault")
                 .AddAttributeLists(SyntaxFactory.AttributeList(
-                    SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Attribute(SyntaxFactory.ParseName("System.Text.Json.Serialization.JsonIgnore")))))
+                    SyntaxFactory.SingletonSeparatedList(AttributeTypeJsonIgnore.AsAttributeSyntax(context))))
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
-                .WithExpressionBody(SyntaxFactory.ArrowExpressionClause(SyntaxFactory.BinaryExpression(SyntaxKind.CoalesceExpression, SyntaxFactory.IdentifierName(property.Name), defaultExpression)))
+                .WithExpressionBody(SyntaxFactory.ArrowExpressionClause(SyntaxFactory.BinaryExpression(
+                    SyntaxKind.CoalesceExpression, SyntaxFactory.IdentifierName(property.Name), defaultExpression)))
                 .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken))
                 .WithTrailingTrivia(SyntaxFactory.CarriageReturnLineFeed);
 
             propertyUnit = SchemaCodeGeneratorHelper.AddDocumentationInheritDoc(propertyUnit, property.Name);
-            
+
             schemaClass = schemaClass.AddMembers(propertyUnit);
         }
 

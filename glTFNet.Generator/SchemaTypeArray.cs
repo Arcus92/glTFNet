@@ -12,5 +12,11 @@ public class SchemaTypeArray(ISchemaType baseType) : ISchemaType
     public ISchemaType BaseType { get; } = baseType;
     
     /// <inheritdoc />
-    public string FullName => $"{BaseType.FullName}[]";
+    public string GetName(SchemaTypeContext context)
+    {
+        if (context.Contains("System.Collections.Generic"))
+            return $"List<{BaseType.GetName(context)}>";
+
+        return $"System.Collections.Generic.List<{BaseType.GetName(context)}>";
+    }
 }

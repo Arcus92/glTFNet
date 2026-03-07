@@ -1,9 +1,9 @@
 namespace glTFNet.Models
 {
-    [System.Serializable]
+    [Serializable]
     public class GlTFProperty
     {
-        public glTFNet.Models.Extension? Extensions { get; set; }
-        public System.Object? Extras { get; set; }
+        public Extension? Extensions { get; set; }
+        public object? Extras { get; set; }
     }
 }

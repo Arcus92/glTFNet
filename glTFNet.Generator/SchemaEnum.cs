@@ -16,8 +16,14 @@ public class SchemaEnum : ISchemaGeneratedType
     public required string Namespace { get; init; }
     
     /// <inheritdoc />
-    public string FullName => $"{Namespace}.{Name}";
-    
+    public string GetName(SchemaTypeContext context)
+    {
+        if (context.Contains(Namespace))
+            return Name;
+
+        return $"{Namespace}.{Name}";
+    }
+
     /// <summary>
     /// Gets the description.
     /// </summary>

@@ -12,5 +12,8 @@ public class SchemaTypeNullable(ISchemaType baseType) : ISchemaType
     public ISchemaType BaseType { get; } = baseType;
     
     /// <inheritdoc />
-    public string FullName => $"{BaseType.FullName}?";
+    public string GetName(SchemaTypeContext context)
+    {
+        return $"{BaseType.GetName(context)}?";
+    }
 }

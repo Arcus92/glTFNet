@@ -15,10 +15,11 @@ public static class SchemaCodeGeneratorHelper
     /// <summary>
     /// Gets the expression syntax from the given JSON value.
     /// </summary>
+    /// <param name="context">The current type context.</param>
     /// <param name="jsonNode">The JSON value.</param>
     /// <param name="propertyType">The target property type name.</param>
     /// <returns>Returns an expression for this value if possible.</returns>
-    public static ExpressionSyntax? GetExpressionSyntaxFromJsonNode(JsonNode? jsonNode, ISchemaType propertyType)
+    public static ExpressionSyntax? GetExpressionSyntaxFromJsonNode(SchemaTypeContext context, JsonNode? jsonNode, ISchemaType propertyType)
     {
         if (jsonNode is null)
         {
@@ -37,7 +38,7 @@ public static class SchemaCodeGeneratorHelper
                 {
                     return SyntaxFactory.MemberAccessExpression(
                         SyntaxKind.SimpleMemberAccessExpression,
-                        SyntaxFactory.IdentifierName(schemaEnum.FullName),
+                        SyntaxFactory.IdentifierName(schemaEnum.GetName(context)),
                         SyntaxFactory.IdentifierName(value.Name)
                     );
                 }
@@ -53,24 +54,25 @@ public static class SchemaCodeGeneratorHelper
             JsonValueKind.Number when propertyType.Is<float>() => SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(jsonNode.GetValue<float>())),
             JsonValueKind.Number => SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(jsonNode.GetValue<int>())),
             JsonValueKind.Array when propertyType.Is<Vector2>() && jsonNode.AsArray().Count == 2 => SyntaxFactory.ImplicitObjectCreationExpression()
-                .WithArgumentList(GetArgumentListFromArray(jsonNode.AsArray(), SchemaType.Single)),
+                .WithArgumentList(GetArgumentListFromArray(context, jsonNode.AsArray(), SchemaType.Single)),
             JsonValueKind.Array when propertyType.Is<Vector3>() && jsonNode.AsArray().Count == 3 => SyntaxFactory.ImplicitObjectCreationExpression()
-                .WithArgumentList(GetArgumentListFromArray(jsonNode.AsArray(), SchemaType.Single)),
+                .WithArgumentList(GetArgumentListFromArray(context, jsonNode.AsArray(), SchemaType.Single)),
             JsonValueKind.Array when (propertyType.Is<Vector4>() || propertyType.Is<Quaternion>()) && jsonNode.AsArray().Count == 4 => SyntaxFactory.ImplicitObjectCreationExpression()
-                .WithArgumentList(GetArgumentListFromArray(jsonNode.AsArray(), SchemaType.Single)),
+                .WithArgumentList(GetArgumentListFromArray(context, jsonNode.AsArray(), SchemaType.Single)),
             JsonValueKind.Array when propertyType.Is<Matrix4x4>() && jsonNode.AsArray().Count == 16 => SyntaxFactory.ImplicitObjectCreationExpression()
-                .WithArgumentList(GetArgumentListFromArray(jsonNode.AsArray(), SchemaType.Single)),
+                .WithArgumentList(GetArgumentListFromArray(context, jsonNode.AsArray(), SchemaType.Single)),
             _ => null
         };
     }
-    
+
     /// <summary>
     /// Creates an argument list from the given JSON value.
     /// </summary>
+    /// <param name="context">The current type context.</param>
     /// <param name="jsonArray">The JSON values.</param>
     /// <param name="propertyType">The target property type for all values.</param>
     /// <returns>Returns the argument list.</returns>
-    private static ArgumentListSyntax GetArgumentListFromArray(JsonArray jsonArray, ISchemaType propertyType)
+    private static ArgumentListSyntax GetArgumentListFromArray(SchemaTypeContext context, JsonArray jsonArray, ISchemaType propertyType)
     {
         var argumentList = SyntaxFactory.ArgumentList();
 
@@ -78,7 +80,7 @@ public static class SchemaCodeGeneratorHelper
         {
             argumentList =
                 argumentList.AddArguments(
-                    SyntaxFactory.Argument(GetExpressionSyntaxFromJsonNode(jsonNode!, propertyType)!));
+                    SyntaxFactory.Argument(GetExpressionSyntaxFromJsonNode(context, jsonNode!, propertyType)!));
         }
         
         return argumentList;

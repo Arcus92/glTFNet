@@ -18,5 +18,11 @@ public class SchemaTypeReference(string name, string ns) : ISchemaType
     public string Namespace { get; } = ns;
     
     /// <inheritdoc />
-    public string FullName => $"{Namespace}.{Name}";
+    public string GetName(SchemaTypeContext context)
+    {
+        if (context.Contains(Namespace))
+            return Name;
+
+        return $"{Namespace}.{Name}";
+    }
 }

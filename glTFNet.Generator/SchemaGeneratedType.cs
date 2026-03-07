@@ -9,4 +9,9 @@ public interface ISchemaGeneratedType : ISchemaType
     /// Gets the name of the generated type.
     /// </summary>
     string Name { get; }
+
+    /// <summary>
+    /// Gets the namespace.
+    /// </summary>
+    string Namespace { get; }
 }
