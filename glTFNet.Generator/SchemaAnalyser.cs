@@ -245,7 +245,7 @@ public class SchemaAnalyser(JsonSchemaLoader loader, string ns)
             // Collecting all possible values
             if (any.Const is JsonValue jsonValue)
             {
-                jsonValue.TryGetValue<int>(out var integerValue);
+                jsonValue.TryGetValue<int?>(out var integerValue);
                 jsonValue.TryGetValue<string>(out var stringValue);
 
                 var valueName = stringValue ?? any.Description;

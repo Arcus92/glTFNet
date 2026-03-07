@@ -27,7 +27,7 @@ public static class SchemaCodeGeneratorHelper
 
         if (propertyType is SchemaEnum schemaEnum && jsonNode is JsonValue jsonValue)
         {
-            jsonValue.TryGetValue<int>(out var integerValue);
+            jsonValue.TryGetValue<int?>(out var integerValue);
             jsonValue.TryGetValue<string>(out var stringValue);
 
             // Find matching enum value
