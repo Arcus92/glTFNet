@@ -1,0 +1,14 @@
+namespace glTFNet.Models
+{
+    public enum SamplerMagFilter
+    {
+        /// <summary>
+        /// NEAREST
+        /// </summary>
+        Nearest = 9728,
+        /// <summary>
+        /// LINEAR
+        /// </summary>
+        Linear = 9729
+    }
+}

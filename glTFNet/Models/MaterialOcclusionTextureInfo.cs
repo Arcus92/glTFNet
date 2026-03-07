@@ -1,7 +1,7 @@
 namespace glTFNet.Models
 {
     [System.Serializable]
-    public class MaterialOcclusionTextureInfo : TextureInfo
+    public class MaterialOcclusionTextureInfo : glTFNet.Models.TextureInfo
     {
         /// <summary>
         /// A scalar parameter controlling the amount of occlusion applied. A value of `0.0` means no occlusion. A value of `1.0` means full occlusion. This value affects the final occlusion value as: `1.0 + strength * (&lt;sampled occlusion texture value&gt; - 1.0)`.

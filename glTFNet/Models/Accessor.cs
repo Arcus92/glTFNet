@@ -4,7 +4,7 @@ namespace glTFNet.Models
     /// A typed view into a buffer view that contains raw binary data.
     /// </summary>
     [System.Serializable]
-    public class Accessor : GlTFChildOfRootProperty
+    public class Accessor : glTFNet.Models.GlTFChildOfRootProperty
     {
         /// <summary>
         /// The index of the buffer view. When undefined, the accessor **MUST** be initialized with zeros; `sparse` property or extensions **MAY** override zeros with actual values.
@@ -23,7 +23,7 @@ namespace glTFNet.Models
         /// <summary>
         /// The datatype of the accessor's components.  UNSIGNED_INT type **MUST NOT** be used for any accessor that is not referenced by `mesh.primitive.indices`.
         /// </summary>
-        public required System.Int32 ComponentType { get; set; }
+        public required glTFNet.Models.AccessorComponentType ComponentType { get; set; }
 
         /// <summary>
         /// Specifies whether integer data values are normalized (`true`) to [0, 1] (for unsigned types) or to [-1, 1] (for signed types) when they are accessed. This property **MUST NOT** be set to `true` for accessors with `FLOAT` or `UNSIGNED_INT` component type.
@@ -42,7 +42,7 @@ namespace glTFNet.Models
         /// <summary>
         /// Specifies if the accessor's elements are scalars, vectors, or matrices.
         /// </summary>
-        public required System.String Type { get; set; }
+        public required glTFNet.Models.AccessorType Type { get; set; }
 
         /// <summary>
         /// Maximum value of each component in this accessor.  Array elements **MUST** be treated as having the same data type as accessor's `componentType`. Both `min` and `max` arrays have the same length.  The length is determined by the value of the `type` property; it can be 1, 2, 3, 4, 9, or 16.
@@ -59,6 +59,6 @@ namespace glTFNet.Models
         /// <summary>
         /// Sparse storage of elements that deviate from their initialization value.
         /// </summary>
-        public AccessorSparse? Sparse { get; set; }
+        public glTFNet.Models.AccessorSparse? Sparse { get; set; }
     }
 }

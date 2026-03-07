@@ -4,34 +4,34 @@ namespace glTFNet.Models
     /// Texture sampler properties for filtering and wrapping modes.
     /// </summary>
     [System.Serializable]
-    public class Sampler : GlTFChildOfRootProperty
+    public class Sampler : glTFNet.Models.GlTFChildOfRootProperty
     {
         /// <summary>
         /// Magnification filter.
         /// </summary>
-        public System.Int32? MagFilter { get; set; }
+        public glTFNet.Models.SamplerMagFilter? MagFilter { get; set; }
 
         /// <summary>
         /// Minification filter.
         /// </summary>
-        public System.Int32? MinFilter { get; set; }
+        public glTFNet.Models.SamplerMinFilter? MinFilter { get; set; }
 
         /// <summary>
         /// S (U) wrapping mode.  All valid values correspond to WebGL enums.
         /// </summary>
-        public System.Int32? WrapS { get; set; }
+        public glTFNet.Models.SamplerWrapS? WrapS { get; set; }
 
         /// <inheritdoc cref="WrapS"/>
         [System.Text.Json.Serialization.JsonIgnore]
-        public System.Int32 WrapSOrDefault => WrapS ?? 10497;
+        public glTFNet.Models.SamplerWrapS WrapSOrDefault => WrapS ?? glTFNet.Models.SamplerWrapS.Repeat;
 
         /// <summary>
         /// T (V) wrapping mode.
         /// </summary>
-        public System.Int32? WrapT { get; set; }
+        public glTFNet.Models.SamplerWrapT? WrapT { get; set; }
 
         /// <inheritdoc cref="WrapT"/>
         [System.Text.Json.Serialization.JsonIgnore]
-        public System.Int32 WrapTOrDefault => WrapT ?? 10497;
+        public glTFNet.Models.SamplerWrapT WrapTOrDefault => WrapT ?? glTFNet.Models.SamplerWrapT.Repeat;
     }
 }

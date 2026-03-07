@@ -4,7 +4,7 @@ namespace glTFNet.Models
     /// Reference to a texture.
     /// </summary>
     [System.Serializable]
-    public class TextureInfo : GlTFProperty
+    public class TextureInfo : glTFNet.Models.GlTFProperty
     {
         /// <summary>
         /// The index of the texture.

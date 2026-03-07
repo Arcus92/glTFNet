@@ -4,7 +4,7 @@ namespace glTFNet.Models
     /// An object pointing to a buffer view containing the indices of deviating accessor values. The number of indices is equal to `accessor.sparse.count`. Indices **MUST** strictly increase.
     /// </summary>
     [System.Serializable]
-    public class AccessorSparseIndices : GlTFProperty
+    public class AccessorSparseIndices : glTFNet.Models.GlTFProperty
     {
         /// <summary>
         /// The index of the buffer view with sparse indices. The referenced buffer view **MUST NOT** have its `target` or `byteStride` properties defined. The buffer view and the optional `byteOffset` **MUST** be aligned to the `componentType` byte length.
@@ -23,6 +23,6 @@ namespace glTFNet.Models
         /// <summary>
         /// The indices data type.
         /// </summary>
-        public required System.Int32 ComponentType { get; set; }
+        public required glTFNet.Models.AccessorSparseIndicesComponentType ComponentType { get; set; }
     }
 }

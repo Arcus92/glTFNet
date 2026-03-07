@@ -4,7 +4,7 @@ namespace glTFNet.Models
     /// A texture and its sampler.
     /// </summary>
     [System.Serializable]
-    public class Texture : GlTFChildOfRootProperty
+    public class Texture : glTFNet.Models.GlTFChildOfRootProperty
     {
         /// <summary>
         /// The index of the sampler used by this texture. When undefined, a sampler with repeat wrapping and auto filtering **SHOULD** be used.

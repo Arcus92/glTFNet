@@ -4,7 +4,7 @@ namespace glTFNet.Models
     /// A view into a buffer generally representing a subset of the buffer.
     /// </summary>
     [System.Serializable]
-    public class BufferView : GlTFChildOfRootProperty
+    public class BufferView : glTFNet.Models.GlTFChildOfRootProperty
     {
         /// <summary>
         /// The index of the buffer.
@@ -33,6 +33,6 @@ namespace glTFNet.Models
         /// <summary>
         /// The hint representing the intended GPU buffer type to use with this buffer view.
         /// </summary>
-        public System.Int32? Target { get; set; }
+        public glTFNet.Models.BufferViewTarget? Target { get; set; }
     }
 }

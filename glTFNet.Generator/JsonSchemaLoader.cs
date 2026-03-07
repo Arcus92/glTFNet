@@ -17,10 +17,10 @@ public class JsonSchemaLoader : IReadOnlyCollection<Schema>
     /// </summary>
     /// <param name="path">The file path to the JSON schema.</param>
     /// <returns>Returns the loaded schema.</returns>
-    public async Task<Schema> LoadSchemaAsync(string path)
+    public async Task<Schema> LoadSchema(string path)
     {
         await using var fileStream = File.OpenRead(path);
-        return await LoadSchemaAsync(fileStream);
+        return await LoadSchema(fileStream);
     }
 
     /// <summary>
@@ -28,7 +28,7 @@ public class JsonSchemaLoader : IReadOnlyCollection<Schema>
     /// </summary>
     /// <param name="stream">The stream to the JSON schema.</param>
     /// <returns>Returns the loaded schema.</returns>
-    public async Task<Schema> LoadSchemaAsync(Stream stream)
+    public async Task<Schema> LoadSchema(Stream stream)
     {
         var schema = await JsonSerializer.DeserializeAsync(stream, JsonSchemaSerializerContext.Default.Schema);
         if (schema is null)
@@ -50,12 +50,12 @@ public class JsonSchemaLoader : IReadOnlyCollection<Schema>
     /// <param name="path">The path to the directory.</param>
     /// <param name="searchOption">Optional directory search options.</param>
     /// <returns></returns>
-    public async Task LoadSchemasFromDirectoryAsync(string path, SearchOption searchOption = SearchOption.TopDirectoryOnly)
+    public async Task LoadSchemasFromDirectory(string path, SearchOption searchOption = SearchOption.TopDirectoryOnly)
     {
         var files = Directory.EnumerateFiles(path, "*.schema.json", searchOption);
         foreach (var file in files)
         {
-            await LoadSchemaAsync(file);
+            await LoadSchema(file);
         }
     }
     

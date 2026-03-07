@@ -4,7 +4,7 @@ namespace glTFNet.Models
     /// A node in the node hierarchy.  When the node contains `skin`, all `mesh.primitives` **MUST** contain `JOINTS_0` and `WEIGHTS_0` attributes.  A node **MAY** have either a `matrix` or any combination of `translation`/`rotation`/`scale` (TRS) properties. TRS properties are converted to matrices and postmultiplied in the `T * R * S` order to compose the transformation matrix; first the scale is applied to the vertices, then the rotation, and then the translation. If none are provided, the transform is the identity. When a node is targeted for animation (referenced by an animation.channel.target), `matrix` **MUST NOT** be present.
     /// </summary>
     [System.Serializable]
-    public class Node : GlTFChildOfRootProperty
+    public class Node : glTFNet.Models.GlTFChildOfRootProperty
     {
         /// <summary>
         /// The index of the camera referenced by this node.

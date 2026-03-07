@@ -4,7 +4,7 @@ namespace glTFNet.Models
     /// Metadata about the glTF asset.
     /// </summary>
     [System.Serializable]
-    public class Asset : GlTFProperty
+    public class Asset : glTFNet.Models.GlTFProperty
     {
         /// <summary>
         /// A copyright message suitable for display to credit the content creator.

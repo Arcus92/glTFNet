@@ -4,7 +4,7 @@ namespace glTFNet.Generator.Utils;
 
 public static class StringHelper
 {
-    private static readonly char[] Separators = [' ', '.', '_'];
+    private static readonly char[] Separators = [' ', '.', '_', '/'];
     
     /// <summary>
     /// Converts the given text into PascalCase.

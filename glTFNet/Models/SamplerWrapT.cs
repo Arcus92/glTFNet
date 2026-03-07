@@ -1,0 +1,18 @@
+namespace glTFNet.Models
+{
+    public enum SamplerWrapT
+    {
+        /// <summary>
+        /// CLAMP_TO_EDGE
+        /// </summary>
+        ClampToEdge = 33071,
+        /// <summary>
+        /// MIRRORED_REPEAT
+        /// </summary>
+        MirroredRepeat = 33648,
+        /// <summary>
+        /// REPEAT
+        /// </summary>
+        Repeat = 10497
+    }
+}

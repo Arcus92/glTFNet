@@ -7,7 +7,10 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace glTFNet.Generator;
 
-public static class CodeGeneratorHelper
+/// <summary>
+/// Static helper methods for code generation.
+/// </summary>
+public static class SchemaCodeGeneratorHelper
 {
     /// <summary>
     /// Gets the expression syntax from the given JSON value.
@@ -15,11 +18,30 @@ public static class CodeGeneratorHelper
     /// <param name="jsonNode">The JSON value.</param>
     /// <param name="propertyType">The target property type name.</param>
     /// <returns>Returns an expression for this value if possible.</returns>
-    public static ExpressionSyntax? GetExpressionSyntaxFromJsonNode(JsonNode? jsonNode, SchemaTypeInfo propertyType)
+    public static ExpressionSyntax? GetExpressionSyntaxFromJsonNode(JsonNode? jsonNode, ISchemaType propertyType)
     {
         if (jsonNode is null)
         {
             return null;
+        }
+
+        if (propertyType is SchemaEnum schemaEnum && jsonNode is JsonValue jsonValue)
+        {
+            jsonValue.TryGetValue<int>(out var integerValue);
+            jsonValue.TryGetValue<string>(out var stringValue);
+
+            // Find matching enum value
+            foreach (var value in schemaEnum.Values)
+            {
+                if (value.IntegerValue == integerValue && value.StringValue == stringValue)
+                {
+                    return SyntaxFactory.MemberAccessExpression(
+                        SyntaxKind.SimpleMemberAccessExpression,
+                        SyntaxFactory.IdentifierName(schemaEnum.FullName),
+                        SyntaxFactory.IdentifierName(value.Name)
+                    );
+                }
+            }
         }
         
         return jsonNode.GetValueKind() switch
@@ -31,13 +53,13 @@ public static class CodeGeneratorHelper
             JsonValueKind.Number when propertyType.Is<float>() => SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(jsonNode.GetValue<float>())),
             JsonValueKind.Number => SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(jsonNode.GetValue<int>())),
             JsonValueKind.Array when propertyType.Is<Vector2>() && jsonNode.AsArray().Count == 2 => SyntaxFactory.ImplicitObjectCreationExpression()
-                .WithArgumentList(GetArgumentListFromArray(jsonNode.AsArray(), SchemaTypeInfo.Single)),
+                .WithArgumentList(GetArgumentListFromArray(jsonNode.AsArray(), SchemaType.Single)),
             JsonValueKind.Array when propertyType.Is<Vector3>() && jsonNode.AsArray().Count == 3 => SyntaxFactory.ImplicitObjectCreationExpression()
-                .WithArgumentList(GetArgumentListFromArray(jsonNode.AsArray(), SchemaTypeInfo.Single)),
+                .WithArgumentList(GetArgumentListFromArray(jsonNode.AsArray(), SchemaType.Single)),
             JsonValueKind.Array when (propertyType.Is<Vector4>() || propertyType.Is<Quaternion>()) && jsonNode.AsArray().Count == 4 => SyntaxFactory.ImplicitObjectCreationExpression()
-                .WithArgumentList(GetArgumentListFromArray(jsonNode.AsArray(), SchemaTypeInfo.Single)),
+                .WithArgumentList(GetArgumentListFromArray(jsonNode.AsArray(), SchemaType.Single)),
             JsonValueKind.Array when propertyType.Is<Matrix4x4>() && jsonNode.AsArray().Count == 16 => SyntaxFactory.ImplicitObjectCreationExpression()
-                .WithArgumentList(GetArgumentListFromArray(jsonNode.AsArray(), SchemaTypeInfo.Single)),
+                .WithArgumentList(GetArgumentListFromArray(jsonNode.AsArray(), SchemaType.Single)),
             _ => null
         };
     }
@@ -48,7 +70,7 @@ public static class CodeGeneratorHelper
     /// <param name="jsonArray">The JSON values.</param>
     /// <param name="propertyType">The target property type for all values.</param>
     /// <returns>Returns the argument list.</returns>
-    private static ArgumentListSyntax GetArgumentListFromArray(JsonArray jsonArray, SchemaTypeInfo propertyType)
+    private static ArgumentListSyntax GetArgumentListFromArray(JsonArray jsonArray, ISchemaType propertyType)
     {
         var argumentList = SyntaxFactory.ArgumentList();
 
