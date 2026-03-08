@@ -69,6 +69,16 @@ public static class SchemaType
         }
         
         /// <summary>
+        /// Returns a generic type reference from this type.
+        /// </summary>
+        /// <param name="types">The list of generic types.</param>
+        /// <returns>Returns a new type reference.</returns>
+        public SchemaTypeNativeGeneric MakeGenericType(params ISchemaType[] types)
+        {
+            return new SchemaTypeNativeGeneric(schemaType, types);
+        }
+        
+        /// <summary>
         /// Returns if this type matches the type information.
         /// </summary>
         /// <typeparam name="T">The type to check.</typeparam>

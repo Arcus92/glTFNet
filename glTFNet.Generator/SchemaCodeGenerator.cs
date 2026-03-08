@@ -9,10 +9,13 @@ namespace glTFNet.Generator;
 
 public class SchemaCodeGenerator
 {
-    private static readonly SchemaTypeNative AttributeTypeSerializable = new(typeof(SerializableAttribute));
-    private static readonly SchemaTypeNative AttributeTypeJsonIgnore = new(typeof(JsonIgnoreAttribute));
-    private static readonly SchemaTypeNative AttributeTypeJsonPropertyName = new(typeof(JsonPropertyNameAttribute));
-
+    private static readonly SchemaTypeNative TypeSerializableAttribute = new(typeof(SerializableAttribute));
+    private static readonly SchemaTypeNative TypeJsonIgnoreAttribute = new(typeof(JsonIgnoreAttribute));
+    private static readonly SchemaTypeNative TypeJsonPropertyNameAttribute = new(typeof(JsonPropertyNameAttribute));
+    private static readonly SchemaTypeNative TypeStringEnumMemberNameAttribute = new(typeof(JsonStringEnumMemberNameAttribute));
+    private static readonly SchemaTypeNative TypeJsonConverterAttribute = new(typeof(JsonConverterAttribute));
+    private static readonly SchemaTypeNative TypeJsonStringEnumConverter = new(typeof(JsonStringEnumConverter<>));
+    
     /// <summary>
     /// Exports a schema file to the given directory.
     /// </summary>
@@ -80,7 +83,7 @@ public class SchemaCodeGenerator
         // Adding [Serializable]
         schemaClass = schemaClass.AddAttributeLists(
             SyntaxFactory.AttributeList(
-                SyntaxFactory.SingletonSeparatedList(AttributeTypeSerializable.AsAttributeSyntax(context))));
+                SyntaxFactory.SingletonSeparatedList(TypeSerializableAttribute.AsAttributeSyntax(context))));
 
         // Inheritance
         if (type.ParentClassType is not null)
@@ -118,6 +121,21 @@ public class SchemaCodeGenerator
         var schemaEnum = SyntaxFactory.EnumDeclaration(type.Name)
             .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
 
+        // Adding the string enum converter
+        if (type.Type.Is<string>())
+        {
+            schemaEnum = schemaEnum.AddAttributeLists(
+                SyntaxFactory.AttributeList(
+                    SyntaxFactory.SingletonSeparatedList(TypeJsonConverterAttribute.AsAttributeSyntax(context)
+                        .WithArgumentList(SyntaxFactory.AttributeArgumentList()
+                            .AddArguments(SyntaxFactory.AttributeArgument(
+                                SyntaxFactory.TypeOfExpression(
+                                    TypeJsonStringEnumConverter.MakeGenericType(type).AsTypeSyntax(context))
+                                )
+                            )))));
+        }
+        
+        // Adding all values
         foreach (var value in type.Values)
         {
             var schemaEnumMember = SyntaxFactory.EnumMemberDeclaration(value.Name);
@@ -136,7 +154,7 @@ public class SchemaCodeGenerator
             {
                 schemaEnumMember = schemaEnumMember.AddAttributeLists(
                     SyntaxFactory.AttributeList(
-                        SyntaxFactory.SingletonSeparatedList(AttributeTypeJsonPropertyName.AsAttributeSyntax(context)
+                        SyntaxFactory.SingletonSeparatedList(TypeStringEnumMemberNameAttribute.AsAttributeSyntax(context)
                             .WithArgumentList(SyntaxFactory.AttributeArgumentList()
                                 .AddArguments(SyntaxFactory.AttributeArgument(
                                     SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression,
@@ -211,7 +229,7 @@ public class SchemaCodeGenerator
             propertyUnit = SyntaxFactory
                 .PropertyDeclaration(property.Type.AsTypeSyntax(context), $"{property.Name}OrDefault")
                 .AddAttributeLists(SyntaxFactory.AttributeList(
-                    SyntaxFactory.SingletonSeparatedList(AttributeTypeJsonIgnore.AsAttributeSyntax(context))))
+                    SyntaxFactory.SingletonSeparatedList(TypeJsonIgnoreAttribute.AsAttributeSyntax(context))))
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
                 .WithExpressionBody(SyntaxFactory.ArrowExpressionClause(SyntaxFactory.BinaryExpression(
                     SyntaxKind.CoalesceExpression, SyntaxFactory.IdentifierName(property.Name), defaultExpression)))
