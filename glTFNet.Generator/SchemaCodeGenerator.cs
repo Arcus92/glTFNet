@@ -75,7 +75,7 @@ public class SchemaCodeGenerator
     {
         var unit = SyntaxFactory.CompilationUnit();
 
-        var schemaNamespace = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(type.Namespace));
+        var schemaNamespace = SyntaxFactory.FileScopedNamespaceDeclaration(SyntaxFactory.ParseName(type.Namespace));
 
         var schemaClass = SyntaxFactory.ClassDeclaration(type.Name)
             .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
@@ -116,7 +116,7 @@ public class SchemaCodeGenerator
     {
         var unit = SyntaxFactory.CompilationUnit();
 
-        var schemaNamespace = SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(type.Namespace));
+        var schemaNamespace = SyntaxFactory.FileScopedNamespaceDeclaration(SyntaxFactory.ParseName(type.Namespace));
 
         var schemaEnum = SyntaxFactory.EnumDeclaration(type.Name)
             .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));

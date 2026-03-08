@@ -1,37 +1,36 @@
-namespace glTFNet.Models
+namespace glTFNet.Models;
+
+/// <summary>
+/// Texture sampler properties for filtering and wrapping modes.
+/// </summary>
+[Serializable]
+public class Sampler : GlTFChildOfRootProperty
 {
     /// <summary>
-    /// Texture sampler properties for filtering and wrapping modes.
+    /// Magnification filter.
     /// </summary>
-    [Serializable]
-    public class Sampler : GlTFChildOfRootProperty
-    {
-        /// <summary>
-        /// Magnification filter.
-        /// </summary>
-        public SamplerMagFilter? MagFilter { get; set; }
+    public SamplerMagFilter? MagFilter { get; set; }
 
-        /// <summary>
-        /// Minification filter.
-        /// </summary>
-        public SamplerMinFilter? MinFilter { get; set; }
+    /// <summary>
+    /// Minification filter.
+    /// </summary>
+    public SamplerMinFilter? MinFilter { get; set; }
 
-        /// <summary>
-        /// S (U) wrapping mode.  All valid values correspond to WebGL enums.
-        /// </summary>
-        public SamplerWrapS? WrapS { get; set; }
+    /// <summary>
+    /// S (U) wrapping mode.  All valid values correspond to WebGL enums.
+    /// </summary>
+    public SamplerWrapS? WrapS { get; set; }
 
-        /// <inheritdoc cref="WrapS"/>
-        [System.Text.Json.Serialization.JsonIgnore]
-        public SamplerWrapS WrapSOrDefault => WrapS ?? SamplerWrapS.Repeat;
+    /// <inheritdoc cref="WrapS"/>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public SamplerWrapS WrapSOrDefault => WrapS ?? SamplerWrapS.Repeat;
 
-        /// <summary>
-        /// T (V) wrapping mode.
-        /// </summary>
-        public SamplerWrapT? WrapT { get; set; }
+    /// <summary>
+    /// T (V) wrapping mode.
+    /// </summary>
+    public SamplerWrapT? WrapT { get; set; }
 
-        /// <inheritdoc cref="WrapT"/>
-        [System.Text.Json.Serialization.JsonIgnore]
-        public SamplerWrapT WrapTOrDefault => WrapT ?? SamplerWrapT.Repeat;
-    }
+    /// <inheritdoc cref="WrapT"/>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public SamplerWrapT WrapTOrDefault => WrapT ?? SamplerWrapT.Repeat;
 }

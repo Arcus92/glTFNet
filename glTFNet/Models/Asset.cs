@@ -1,29 +1,28 @@
-namespace glTFNet.Models
+namespace glTFNet.Models;
+
+/// <summary>
+/// Metadata about the glTF asset.
+/// </summary>
+[Serializable]
+public class Asset : GlTFProperty
 {
     /// <summary>
-    /// Metadata about the glTF asset.
+    /// A copyright message suitable for display to credit the content creator.
     /// </summary>
-    [Serializable]
-    public class Asset : GlTFProperty
-    {
-        /// <summary>
-        /// A copyright message suitable for display to credit the content creator.
-        /// </summary>
-        public string? Copyright { get; set; }
+    public string? Copyright { get; set; }
 
-        /// <summary>
-        /// Tool that generated this glTF model.  Useful for debugging.
-        /// </summary>
-        public string? Generator { get; set; }
+    /// <summary>
+    /// Tool that generated this glTF model.  Useful for debugging.
+    /// </summary>
+    public string? Generator { get; set; }
 
-        /// <summary>
-        /// The glTF version in the form of `&lt;major&gt;.&lt;minor&gt;` that this asset targets.
-        /// </summary>
-        public required string Version { get; set; }
+    /// <summary>
+    /// The glTF version in the form of `&lt;major&gt;.&lt;minor&gt;` that this asset targets.
+    /// </summary>
+    public required string Version { get; set; }
 
-        /// <summary>
-        /// The minimum glTF version in the form of `&lt;major&gt;.&lt;minor&gt;` that this asset targets. This property **MUST NOT** be greater than the asset version.
-        /// </summary>
-        public string? MinVersion { get; set; }
-    }
+    /// <summary>
+    /// The minimum glTF version in the form of `&lt;major&gt;.&lt;minor&gt;` that this asset targets. This property **MUST NOT** be greater than the asset version.
+    /// </summary>
+    public string? MinVersion { get; set; }
 }

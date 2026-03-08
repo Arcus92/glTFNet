@@ -1,22 +1,21 @@
-namespace glTFNet.Models
+namespace glTFNet.Models;
+
+[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<MaterialAlphaMode>))]
+public enum MaterialAlphaMode
 {
-    [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<MaterialAlphaMode>))]
-    public enum MaterialAlphaMode
-    {
-        /// <summary>
-        /// The alpha value is ignored, and the rendered output is fully opaque.
-        /// </summary>
-        [System.Text.Json.Serialization.JsonStringEnumMemberName("OPAQUE")]
-        Opaque,
-        /// <summary>
-        /// The rendered output is either fully opaque or fully transparent depending on the alpha value and the specified `alphaCutoff` value; the exact appearance of the edges **MAY** be subject to implementation-specific techniques such as "`Alpha-to-Coverage`".
-        /// </summary>
-        [System.Text.Json.Serialization.JsonStringEnumMemberName("MASK")]
-        Mask,
-        /// <summary>
-        /// The alpha value is used to composite the source and destination areas. The rendered output is combined with the background using the normal painting operation (i.e. the Porter and Duff over operator).
-        /// </summary>
-        [System.Text.Json.Serialization.JsonStringEnumMemberName("BLEND")]
-        Blend
-    }
+    /// <summary>
+    /// The alpha value is ignored, and the rendered output is fully opaque.
+    /// </summary>
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("OPAQUE")]
+    Opaque,
+    /// <summary>
+    /// The rendered output is either fully opaque or fully transparent depending on the alpha value and the specified `alphaCutoff` value; the exact appearance of the edges **MAY** be subject to implementation-specific techniques such as "`Alpha-to-Coverage`".
+    /// </summary>
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("MASK")]
+    Mask,
+    /// <summary>
+    /// The alpha value is used to composite the source and destination areas. The rendered output is combined with the background using the normal painting operation (i.e. the Porter and Duff over operator).
+    /// </summary>
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("BLEND")]
+    Blend
 }

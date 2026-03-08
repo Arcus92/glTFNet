@@ -1,19 +1,18 @@
-namespace glTFNet.Models
+namespace glTFNet.Models;
+
+/// <summary>
+/// A texture and its sampler.
+/// </summary>
+[Serializable]
+public class Texture : GlTFChildOfRootProperty
 {
     /// <summary>
-    /// A texture and its sampler.
+    /// The index of the sampler used by this texture. When undefined, a sampler with repeat wrapping and auto filtering **SHOULD** be used.
     /// </summary>
-    [Serializable]
-    public class Texture : GlTFChildOfRootProperty
-    {
-        /// <summary>
-        /// The index of the sampler used by this texture. When undefined, a sampler with repeat wrapping and auto filtering **SHOULD** be used.
-        /// </summary>
-        public int? Sampler { get; set; }
+    public int? Sampler { get; set; }
 
-        /// <summary>
-        /// The index of the image used by this texture. When undefined, an extension or other mechanism **SHOULD** supply an alternate texture source, otherwise behavior is undefined.
-        /// </summary>
-        public int? Source { get; set; }
-    }
+    /// <summary>
+    /// The index of the image used by this texture. When undefined, an extension or other mechanism **SHOULD** supply an alternate texture source, otherwise behavior is undefined.
+    /// </summary>
+    public int? Source { get; set; }
 }

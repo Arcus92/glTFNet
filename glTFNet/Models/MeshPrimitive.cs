@@ -1,38 +1,37 @@
-namespace glTFNet.Models
+namespace glTFNet.Models;
+
+/// <summary>
+/// Geometry to be rendered with the given material.
+/// </summary>
+[Serializable]
+public class MeshPrimitive : GlTFProperty
 {
     /// <summary>
-    /// Geometry to be rendered with the given material.
+    /// A plain JSON object, where each key corresponds to a mesh attribute semantic and each value is the index of the accessor containing attribute's data.
     /// </summary>
-    [Serializable]
-    public class MeshPrimitive : GlTFProperty
-    {
-        /// <summary>
-        /// A plain JSON object, where each key corresponds to a mesh attribute semantic and each value is the index of the accessor containing attribute's data.
-        /// </summary>
-        public required Dictionary<string, int> Attributes { get; set; }
+    public required Dictionary<string, int> Attributes { get; set; }
 
-        /// <summary>
-        /// The index of the accessor that contains the vertex indices.  When this is undefined, the primitive defines non-indexed geometry.  When defined, the accessor **MUST** have `SCALAR` type and an unsigned integer component type.
-        /// </summary>
-        public int? Indices { get; set; }
+    /// <summary>
+    /// The index of the accessor that contains the vertex indices.  When this is undefined, the primitive defines non-indexed geometry.  When defined, the accessor **MUST** have `SCALAR` type and an unsigned integer component type.
+    /// </summary>
+    public int? Indices { get; set; }
 
-        /// <summary>
-        /// The index of the material to apply to this primitive when rendering.
-        /// </summary>
-        public int? Material { get; set; }
+    /// <summary>
+    /// The index of the material to apply to this primitive when rendering.
+    /// </summary>
+    public int? Material { get; set; }
 
-        /// <summary>
-        /// The topology type of primitives to render.
-        /// </summary>
-        public MeshPrimitiveMode? Mode { get; set; }
+    /// <summary>
+    /// The topology type of primitives to render.
+    /// </summary>
+    public MeshPrimitiveMode? Mode { get; set; }
 
-        /// <inheritdoc cref="Mode"/>
-        [System.Text.Json.Serialization.JsonIgnore]
-        public MeshPrimitiveMode ModeOrDefault => Mode ?? MeshPrimitiveMode.Triangles;
+    /// <inheritdoc cref="Mode"/>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public MeshPrimitiveMode ModeOrDefault => Mode ?? MeshPrimitiveMode.Triangles;
 
-        /// <summary>
-        /// An array of morph targets.
-        /// </summary>
-        public List<Dictionary<string, int>>? Targets { get; set; }
-    }
+    /// <summary>
+    /// An array of morph targets.
+    /// </summary>
+    public List<Dictionary<string, int>>? Targets { get; set; }
 }

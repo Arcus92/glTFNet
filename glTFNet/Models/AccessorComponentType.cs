@@ -1,30 +1,29 @@
-namespace glTFNet.Models
+namespace glTFNet.Models;
+
+public enum AccessorComponentType
 {
-    public enum AccessorComponentType
-    {
-        /// <summary>
-        /// BYTE
-        /// </summary>
-        Byte = 5120,
-        /// <summary>
-        /// UNSIGNED_BYTE
-        /// </summary>
-        UnsignedByte = 5121,
-        /// <summary>
-        /// SHORT
-        /// </summary>
-        Short = 5122,
-        /// <summary>
-        /// UNSIGNED_SHORT
-        /// </summary>
-        UnsignedShort = 5123,
-        /// <summary>
-        /// UNSIGNED_INT
-        /// </summary>
-        UnsignedInt = 5125,
-        /// <summary>
-        /// FLOAT
-        /// </summary>
-        Float = 5126
-    }
+    /// <summary>
+    /// BYTE
+    /// </summary>
+    Byte = 5120,
+    /// <summary>
+    /// UNSIGNED_BYTE
+    /// </summary>
+    UnsignedByte = 5121,
+    /// <summary>
+    /// SHORT
+    /// </summary>
+    Short = 5122,
+    /// <summary>
+    /// UNSIGNED_SHORT
+    /// </summary>
+    UnsignedShort = 5123,
+    /// <summary>
+    /// UNSIGNED_INT
+    /// </summary>
+    UnsignedInt = 5125,
+    /// <summary>
+    /// FLOAT
+    /// </summary>
+    Float = 5126
 }

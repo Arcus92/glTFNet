@@ -1,30 +1,29 @@
-namespace glTFNet.Models
+namespace glTFNet.Models;
+
+public enum SamplerMinFilter
 {
-    public enum SamplerMinFilter
-    {
-        /// <summary>
-        /// NEAREST
-        /// </summary>
-        Nearest = 9728,
-        /// <summary>
-        /// LINEAR
-        /// </summary>
-        Linear = 9729,
-        /// <summary>
-        /// NEAREST_MIPMAP_NEAREST
-        /// </summary>
-        NearestMipmapNearest = 9984,
-        /// <summary>
-        /// LINEAR_MIPMAP_NEAREST
-        /// </summary>
-        LinearMipmapNearest = 9985,
-        /// <summary>
-        /// NEAREST_MIPMAP_LINEAR
-        /// </summary>
-        NearestMipmapLinear = 9986,
-        /// <summary>
-        /// LINEAR_MIPMAP_LINEAR
-        /// </summary>
-        LinearMipmapLinear = 9987
-    }
+    /// <summary>
+    /// NEAREST
+    /// </summary>
+    Nearest = 9728,
+    /// <summary>
+    /// LINEAR
+    /// </summary>
+    Linear = 9729,
+    /// <summary>
+    /// NEAREST_MIPMAP_NEAREST
+    /// </summary>
+    NearestMipmapNearest = 9984,
+    /// <summary>
+    /// LINEAR_MIPMAP_NEAREST
+    /// </summary>
+    LinearMipmapNearest = 9985,
+    /// <summary>
+    /// NEAREST_MIPMAP_LINEAR
+    /// </summary>
+    NearestMipmapLinear = 9986,
+    /// <summary>
+    /// LINEAR_MIPMAP_LINEAR
+    /// </summary>
+    LinearMipmapLinear = 9987
 }

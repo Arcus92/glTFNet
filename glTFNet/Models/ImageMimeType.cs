@@ -1,11 +1,10 @@
-namespace glTFNet.Models
+namespace glTFNet.Models;
+
+[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<ImageMimeType>))]
+public enum ImageMimeType
 {
-    [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<ImageMimeType>))]
-    public enum ImageMimeType
-    {
-        [System.Text.Json.Serialization.JsonStringEnumMemberName("image/jpeg")]
-        ImageJpeg,
-        [System.Text.Json.Serialization.JsonStringEnumMemberName("image/png")]
-        ImagePng
-    }
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("image/jpeg")]
+    ImageJpeg,
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("image/png")]
+    ImagePng
 }

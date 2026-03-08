@@ -1,38 +1,37 @@
-namespace glTFNet.Models
+namespace glTFNet.Models;
+
+/// <summary>
+/// A view into a buffer generally representing a subset of the buffer.
+/// </summary>
+[Serializable]
+public class BufferView : GlTFChildOfRootProperty
 {
     /// <summary>
-    /// A view into a buffer generally representing a subset of the buffer.
+    /// The index of the buffer.
     /// </summary>
-    [Serializable]
-    public class BufferView : GlTFChildOfRootProperty
-    {
-        /// <summary>
-        /// The index of the buffer.
-        /// </summary>
-        public required int Buffer { get; set; }
+    public required int Buffer { get; set; }
 
-        /// <summary>
-        /// The offset into the buffer in bytes.
-        /// </summary>
-        public int? ByteOffset { get; set; }
+    /// <summary>
+    /// The offset into the buffer in bytes.
+    /// </summary>
+    public int? ByteOffset { get; set; }
 
-        /// <inheritdoc cref="ByteOffset"/>
-        [System.Text.Json.Serialization.JsonIgnore]
-        public int ByteOffsetOrDefault => ByteOffset ?? 0;
+    /// <inheritdoc cref="ByteOffset"/>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public int ByteOffsetOrDefault => ByteOffset ?? 0;
 
-        /// <summary>
-        /// The length of the bufferView in bytes.
-        /// </summary>
-        public required int ByteLength { get; set; }
+    /// <summary>
+    /// The length of the bufferView in bytes.
+    /// </summary>
+    public required int ByteLength { get; set; }
 
-        /// <summary>
-        /// The stride, in bytes, between vertex attributes.  When this is not defined, data is tightly packed. When two or more accessors use the same buffer view, this field **MUST** be defined.
-        /// </summary>
-        public int? ByteStride { get; set; }
+    /// <summary>
+    /// The stride, in bytes, between vertex attributes.  When this is not defined, data is tightly packed. When two or more accessors use the same buffer view, this field **MUST** be defined.
+    /// </summary>
+    public int? ByteStride { get; set; }
 
-        /// <summary>
-        /// The hint representing the intended GPU buffer type to use with this buffer view.
-        /// </summary>
-        public BufferViewTarget? Target { get; set; }
-    }
+    /// <summary>
+    /// The hint representing the intended GPU buffer type to use with this buffer view.
+    /// </summary>
+    public BufferViewTarget? Target { get; set; }
 }

@@ -1,21 +1,20 @@
-namespace glTFNet.Models
+namespace glTFNet.Models;
+
+[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<AccessorType>))]
+public enum AccessorType
 {
-    [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<AccessorType>))]
-    public enum AccessorType
-    {
-        [System.Text.Json.Serialization.JsonStringEnumMemberName("SCALAR")]
-        Scalar,
-        [System.Text.Json.Serialization.JsonStringEnumMemberName("VEC2")]
-        Vec2,
-        [System.Text.Json.Serialization.JsonStringEnumMemberName("VEC3")]
-        Vec3,
-        [System.Text.Json.Serialization.JsonStringEnumMemberName("VEC4")]
-        Vec4,
-        [System.Text.Json.Serialization.JsonStringEnumMemberName("MAT2")]
-        Mat2,
-        [System.Text.Json.Serialization.JsonStringEnumMemberName("MAT3")]
-        Mat3,
-        [System.Text.Json.Serialization.JsonStringEnumMemberName("MAT4")]
-        Mat4
-    }
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("SCALAR")]
+    Scalar,
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("VEC2")]
+    Vec2,
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("VEC3")]
+    Vec3,
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("VEC4")]
+    Vec4,
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("MAT2")]
+    Mat2,
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("MAT3")]
+    Mat3,
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("MAT4")]
+    Mat4
 }

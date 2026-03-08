@@ -1,19 +1,18 @@
-namespace glTFNet.Models
+namespace glTFNet.Models;
+
+/// <summary>
+/// A keyframe animation.
+/// </summary>
+[Serializable]
+public class Animation : GlTFChildOfRootProperty
 {
     /// <summary>
-    /// A keyframe animation.
+    /// An array of animation channels. An animation channel combines an animation sampler with a target property being animated. Different channels of the same animation **MUST NOT** have the same targets.
     /// </summary>
-    [Serializable]
-    public class Animation : GlTFChildOfRootProperty
-    {
-        /// <summary>
-        /// An array of animation channels. An animation channel combines an animation sampler with a target property being animated. Different channels of the same animation **MUST NOT** have the same targets.
-        /// </summary>
-        public required List<AnimationChannel> Channels { get; set; }
+    public required List<AnimationChannel> Channels { get; set; }
 
-        /// <summary>
-        /// An array of animation samplers. An animation sampler combines timestamps with a sequence of output values and defines an interpolation algorithm.
-        /// </summary>
-        public required List<AnimationSampler> Samplers { get; set; }
-    }
+    /// <summary>
+    /// An array of animation samplers. An animation sampler combines timestamps with a sequence of output values and defines an interpolation algorithm.
+    /// </summary>
+    public required List<AnimationSampler> Samplers { get; set; }
 }
