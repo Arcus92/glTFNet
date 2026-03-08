@@ -1,0 +1,15 @@
+namespace glTFNet.Models.Extensions.KhrDracoMeshCompression;
+
+[Serializable]
+public class MeshPrimitiveKHRDracoMeshCompression : GlTFProperty
+{
+    /// <summary>
+    /// The index of the bufferView.
+    /// </summary>
+    public required int BufferView { get; set; }
+
+    /// <summary>
+    /// A dictionary object, where each key corresponds to an attribute and its unique attribute id stored in the compressed geometry.
+    /// </summary>
+    public required Dictionary<string, int> Attributes { get; set; }
+}

@@ -1,21 +1,48 @@
 ﻿using glTFNet.Generator;
+using glTFNet.Generator.Analyser;
 
-var schemaDirectory = Path.Combine("../../../../glTF/specification/2.0/schema");
-var outputDirectory = Path.Combine("../../../../glTFNet/Models");
+var inputDirectory = Path.Combine("../../../../glTF/");
+var outputDirectory = Path.Combine("../../../../");
 var outputNamespace = "glTFNet.Models";
 
 // Load all schema files
-var schemaLoader = new JsonSchemaLoader();
-await schemaLoader.LoadSchemasFromDirectory(schemaDirectory);
+var analyser = new SchemaAnalyser();
 
-var schemaAnalyser = new SchemaAnalyser(schemaLoader, outputNamespace);
-foreach (var schema in schemaLoader)
-{
-    schemaAnalyser.Analyse(schema);
-}
+await AddSchemaDirectory(Path.Combine(inputDirectory, "specification/2.0/schema"), outputNamespace);
+await AddExtensionDirectory(Path.Combine(inputDirectory, "extensions/2.0/Khronos"), $"{outputNamespace}.Extensions");
 
+analyser.Analyse();
+
+// Generate the files
 var codeGenerator = new SchemaCodeGenerator();
-foreach (var type in schemaAnalyser.Types)
+foreach (var type in analyser.Types)
 {
     await codeGenerator.Export(type, outputDirectory);
+}
+
+return;
+
+// Analyzes a schema directory with the given namespace
+async Task AddSchemaDirectory(string directory, string ns)
+{
+    await analyser.AddDirectory(directory, ns);
+}
+
+// Analyzes a directory with extension schemas
+async Task AddExtensionDirectory(string directory, string ns)
+{
+    foreach (var extensionDirectory in Directory.EnumerateDirectories(directory))
+    {
+        var extensionDirectoryName = Path.GetFileName(extensionDirectory);
+        var extensionName = SchemaAnalyser.GetCSharpNamespace(extensionDirectoryName);
+        var extensionNamespace = $"{ns}.{extensionName}";
+        
+        var extensionSchemaDirectory = Path.Combine(extensionDirectory, "schema");
+        if (!Directory.Exists(extensionSchemaDirectory))
+        {
+            continue;
+        }
+
+        await AddSchemaDirectory(extensionSchemaDirectory, extensionNamespace);
+    }
 }

@@ -1,0 +1,40 @@
+namespace glTFNet.Models.Extensions.KhrTextureTransform;
+
+/// <summary>
+/// glTF extension that enables shifting and scaling UV coordinates on a per-texture basis
+/// </summary>
+[Serializable]
+public class TextureInfoKHRTextureTransform : GlTFProperty
+{
+    /// <summary>
+    /// The offset of the UV coordinate origin as a factor of the texture dimensions.
+    /// </summary>
+    public System.Numerics.Vector2? Offset { get; set; }
+
+    /// <inheritdoc cref="Offset"/>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public System.Numerics.Vector2 OffsetOrDefault => Offset ?? new(0F, 0F);
+
+    /// <summary>
+    /// Rotate the UVs by this many radians counter-clockwise around the origin.
+    /// </summary>
+    public float? Rotation { get; set; }
+
+    /// <inheritdoc cref="Rotation"/>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public float RotationOrDefault => Rotation ?? 0F;
+
+    /// <summary>
+    /// The scale factor applied to the components of the UV coordinates.
+    /// </summary>
+    public System.Numerics.Vector2? Scale { get; set; }
+
+    /// <inheritdoc cref="Scale"/>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public System.Numerics.Vector2 ScaleOrDefault => Scale ?? new(1F, 1F);
+
+    /// <summary>
+    /// Overrides the textureInfo texCoord value if supplied, and if this extension is supported.
+    /// </summary>
+    public int? TexCoord { get; set; }
+}

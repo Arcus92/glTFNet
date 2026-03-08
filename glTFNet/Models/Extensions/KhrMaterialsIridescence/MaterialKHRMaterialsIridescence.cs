@@ -1,0 +1,54 @@
+namespace glTFNet.Models.Extensions.KhrMaterialsIridescence;
+
+/// <summary>
+/// glTF extension that defines an iridescence effect.
+/// </summary>
+[Serializable]
+public class MaterialKHRMaterialsIridescence : GlTFProperty
+{
+    /// <summary>
+    /// The iridescence intensity factor.
+    /// </summary>
+    public float? IridescenceFactor { get; set; }
+
+    /// <inheritdoc cref="IridescenceFactor"/>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public float IridescenceFactorOrDefault => IridescenceFactor ?? 0F;
+
+    /// <summary>
+    /// The iridescence intensity texture. The values are sampled from the R channel. These values are linear. If a texture is not given, a value of `1.0` **MUST** be assumed. If other channels are present (GBA), they are ignored for iridescence intensity calculations.
+    /// </summary>
+    public TextureInfo? IridescenceTexture { get; set; }
+
+    /// <summary>
+    /// The index of refraction of the dielectric thin-film layer.
+    /// </summary>
+    public float? IridescenceIor { get; set; }
+
+    /// <inheritdoc cref="IridescenceIor"/>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public float IridescenceIorOrDefault => IridescenceIor ?? 1.3F;
+
+    /// <summary>
+    /// The minimum thickness of the thin-film layer given in nanometers.
+    /// </summary>
+    public float? IridescenceThicknessMinimum { get; set; }
+
+    /// <inheritdoc cref="IridescenceThicknessMinimum"/>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public float IridescenceThicknessMinimumOrDefault => IridescenceThicknessMinimum ?? 100F;
+
+    /// <summary>
+    /// The maximum thickness of the thin-film layer given in nanometers.
+    /// </summary>
+    public float? IridescenceThicknessMaximum { get; set; }
+
+    /// <inheritdoc cref="IridescenceThicknessMaximum"/>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public float IridescenceThicknessMaximumOrDefault => IridescenceThicknessMaximum ?? 400F;
+
+    /// <summary>
+    /// The thickness texture of the thin-film layer to linearly interpolate between the minimum and maximum thickness given by the corresponding properties, where a sampled value of `0.0` represents the minimum thickness and a sampled value of `1.0` represents the maximum thickness. The values are sampled from the G channel. These values are linear. If a texture is not given, the maximum thickness **MUST** be assumed. If other channels are present (RBA), they are ignored for thickness calculations.
+    /// </summary>
+    public TextureInfo? IridescenceThicknessTexture { get; set; }
+}
