@@ -519,7 +519,25 @@ public static class GlTFRef
             }
         }
     }
-    
+
+    /// <param name="instance">The GlTF image reference.</param>
+    extension(GlTFRef<Image> instance)
+    {
+        /// <summary>
+        /// Opens the image.
+        /// </summary>
+        /// <returns>Returns the image stream.</returns>
+        public Stream Load()
+        {
+            if (!instance.Loader.TryResolveStream(instance.Model.Uri, out var stream))
+            {
+                throw new Exception($"Could not resolve image: {instance.Model.Uri ?? "(null)"}");
+            }
+
+            return stream;
+        }
+    }
+
     /// <param name="instance">The GlTF base instance.</param>
     extension(GlTFRef<GlTFProperty> instance)
     {

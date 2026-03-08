@@ -5,14 +5,23 @@ namespace glTFNet.Loader;
 /// <summary>
 /// An open buffer from a <see cref="GlTFLoader"/>.
 /// </summary>
-/// <param name="stream">The buffer stream.</param>
 // ReSharper disable once InconsistentNaming
-public class GlTFBuffer(Stream stream) : IDisposable, IAsyncDisposable
+public class GlTFBuffer : IDisposable, IAsyncDisposable
 {
+    public GlTFBuffer(Stream stream)
+    {
+        _stream = stream;
+    }
+
+    public GlTFBuffer(byte[] data)
+    {
+        _stream = new MemoryStream(data);
+    }
+    
     /// <summary>
     /// The internal data stream.
     /// </summary>
-    private readonly Stream _stream = stream;
+    private readonly Stream _stream;
 
     /// <summary>
     /// The list of loaded buffer views.
