@@ -4,6 +4,6 @@ namespace glTFNet.Models;
 /// JSON object with extension-specific objects.
 /// </summary>
 [Serializable]
-public class Extension
+public class Extension : Dictionary<string, object>
 {
 }

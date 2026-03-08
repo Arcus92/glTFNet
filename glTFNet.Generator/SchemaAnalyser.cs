@@ -46,6 +46,12 @@ public class SchemaAnalyser(JsonSchemaLoader loader, string ns)
         {
             parentClass = GetSchemaType(schema.AllOf[0], className);
         }
+        // Inherit from dictionary if addition properties are allowed
+        else if (schema.AdditionalProperties is not null)
+        {
+            var valueType = GetSchemaType(schema.AdditionalProperties);
+            parentClass = SchemaType.Dictionary.MakeGenericType(SchemaType.String, valueType);
+        }
         
         // Adding properties
         if (schema.Properties is not null)
@@ -202,7 +208,7 @@ public class SchemaAnalyser(JsonSchemaLoader loader, string ns)
                 return GetSchemaType(schema.AllOf[0]);
             }
 
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         // Mark additional properties as string dictionary
