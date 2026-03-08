@@ -7,7 +7,7 @@ namespace glTFNet.Generator;
 /// </summary>
 /// <param name="type">The base type.</param>
 /// <param name="genericTypes">The generic type arguments.</param>
-public class SchemaTypeNativeGeneric(ISchemaType type, ISchemaType[] genericTypes) : ISchemaType
+public class SchemaTypeNativeGeneric(ISchemaType type, params ISchemaType[] genericTypes) : ISchemaType
 {
     /// <summary>
     /// Gets the internal type.

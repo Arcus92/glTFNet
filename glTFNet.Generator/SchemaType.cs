@@ -96,6 +96,13 @@ public static class SchemaType
     /// <summary>
     /// Creates a new type info from the given C# type.
     /// </summary>
+    /// <param name="type">The type to create.</param>
+    /// <returns>Returns the type information instance.</returns>
+    public static ISchemaType From(Type type) => new SchemaTypeNative(type);
+    
+    /// <summary>
+    /// Creates a new type info from the given C# type.
+    /// </summary>
     /// <typeparam name="T">The type to create.</typeparam>
     /// <returns>Returns the type information instance.</returns>
     public static ISchemaType From<T>() => new SchemaTypeNative(typeof(T));
@@ -149,4 +156,9 @@ public static class SchemaType
     /// Gets the <see cref="System.Numerics.Matrix4x4"/> type.
     /// </summary>
     public static ISchemaType Matrix4x4 { get; } = From<Matrix4x4>();
+    
+    /// <summary>
+    /// Gets the <see cref="Dictionary"/> type.
+    /// </summary>
+    public static ISchemaType Dictionary { get; } = From(typeof(Dictionary<,>));
 }

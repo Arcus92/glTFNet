@@ -9,7 +9,7 @@ namespace glTFNet.Models
         /// <summary>
         /// A plain JSON object, where each key corresponds to a mesh attribute semantic and each value is the index of the accessor containing attribute's data.
         /// </summary>
-        public required object Attributes { get; set; }
+        public required Dictionary<string, int> Attributes { get; set; }
 
         /// <summary>
         /// The index of the accessor that contains the vertex indices.  When this is undefined, the primitive defines non-indexed geometry.  When defined, the accessor **MUST** have `SCALAR` type and an unsigned integer component type.
@@ -33,6 +33,6 @@ namespace glTFNet.Models
         /// <summary>
         /// An array of morph targets.
         /// </summary>
-        public List<object>? Targets { get; set; }
+        public List<Dictionary<string, int>>? Targets { get; set; }
     }
 }

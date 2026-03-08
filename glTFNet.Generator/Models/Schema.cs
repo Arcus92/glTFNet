@@ -25,10 +25,13 @@ public class Schema
     public JsonNode? Default { get; set; }
     public int? MaxItems { get; set; }
     public int? MinItems { get; set; }
+    public int? MaxProperties { get; set; }
+    public int? MinProperties { get; set; }
     public JsonNode? Minimum { get; set; }
     public JsonNode? Maximum { get; set; }
     public Dictionary<string, Schema>? Properties { get; set; }
     public string[]? Required { get; set; }
+    public Schema? AdditionalProperties { get; set; }
     
     // Custom properties
     

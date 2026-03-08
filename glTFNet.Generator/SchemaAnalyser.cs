@@ -205,6 +205,13 @@ public class SchemaAnalyser(JsonSchemaLoader loader, string ns)
             throw new NotImplementedException();
         }
 
+        // Mark additional properties as string dictionary
+        if (schema.AdditionalProperties is not null)
+        {
+            var valueType = GetSchemaType(schema.AdditionalProperties);
+            return SchemaType.Dictionary.MakeGenericType(SchemaType.String, valueType);
+        }
+        
         // Unknown
         return SchemaType.Object;
     }
