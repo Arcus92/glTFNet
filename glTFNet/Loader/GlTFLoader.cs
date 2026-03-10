@@ -51,6 +51,7 @@ public class GlTFLoader : IDisposable, IAsyncDisposable
         {
             var ms = new MemoryStream();
             await stream.CopyToAsync(ms);
+            ms.Seek(0, SeekOrigin.Begin);
             stream = ms;
         }
         
