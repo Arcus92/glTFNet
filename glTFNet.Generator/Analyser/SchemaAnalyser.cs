@@ -13,16 +13,6 @@ namespace glTFNet.Generator.Analyser;
 public class SchemaAnalyser
 {
     /// <summary>
-    /// The JSON schema loader.
-    /// </summary>
-    private readonly JsonSchemaLoader _loader = new();
-    
-    /// <summary>
-    /// The list of input files.
-    /// </summary>
-    private readonly List<SchemaAnalyserInput> _inputs = [];
-    
-    /// <summary>
     /// The found types by type name.
     /// </summary>
     private readonly List<ISchemaGeneratedType> _types = [];
@@ -31,24 +21,21 @@ public class SchemaAnalyser
     /// Gets all found types.
     /// </summary>
     public IReadOnlyList<ISchemaGeneratedType> Types => _types.AsReadOnly();
-
+    
     /// <summary>
-    /// The current input to analyze.
+    /// The list of input files.
     /// </summary>
-    private SchemaAnalyserInput _input = null!;
+    private readonly List<JsonSchemaContext> _schemas = [];
     
     /// <summary>
     /// Adds a schema to analyze.
     /// </summary>
     /// <param name="schema">The JSON schema.</param>
+    /// <param name="className">The schema class name.</param>
     /// <param name="ns">The destination namespace.</param>
-    public void Add(JsonSchema schema, string ns)
+    public void Add(JsonSchema schema, string className, string ns)
     {
-        _inputs.Add(new SchemaAnalyserInput
-        {
-            Schema = schema,
-            Namespace = ns,
-        });
+        _schemas.Add(JsonSchemaContext.From(schema).WithClassName(className).WithNamespace(ns));
     }
     
     /// <summary>
@@ -58,29 +45,32 @@ public class SchemaAnalyser
     /// <param name="ns">The destination namespace.</param>
     public async Task Add(string path, string ns)
     {
-        var schema = await _loader.LoadSchema(path);
-        Add(schema, ns);
+        var schema = await JsonSchemaLoader.Load(path);
+        var fileName = Path.GetFileName(path);
+        var className = GetCSharpClassName(fileName);
+        Add(schema, className, ns);
     }
-    
+
     /// <summary>
-    /// Adds a all schemas from a directory to analyze.
+    /// Adds an all schemas from a directory to analyze.
     /// </summary>
     /// <param name="path">The JSON schema directory path.</param>
     /// <param name="ns">The destination namespace.</param>
-    public async Task AddDirectory(string path, string ns)
+    /// <param name="searchOption">The optional directory search options.</param>
+    public async Task AddDirectory(string path, string ns, SearchOption searchOption = SearchOption.TopDirectoryOnly)
     {
-        await foreach (var schema in _loader.LoadSchemasFromDirectory(path))
+        foreach (var file in Directory.EnumerateFiles(path, "*.schema.json", searchOption))
         {
-            Add(schema, ns);
+            await Add(file, ns);
         }
     }
 
     /// <summary>
-    /// Analyses all schemas added with <see cref="Add"/>.
+    /// Analyses all schemas added with Add or AddDirectory.
     /// </summary>
     public void Analyse()
     {
-        foreach (var input in _inputs)
+        foreach (var input in _schemas)
         {
             Analyse(input);
         }
@@ -89,17 +79,18 @@ public class SchemaAnalyser
     /// <summary>
     /// Analyses the given schema.
     /// </summary>
-    /// <param name="input">The schema to analyze.</param>
-    private void Analyse(SchemaAnalyserInput input)
+    /// <param name="context">The schema to analyze.</param>
+    private void Analyse(JsonSchemaContext context)
     {
-        _input = input;
-        var schema = input.Schema;
-
-        // All entry schema files should be a class with an id
-        if (schema.Type != "object" || string.IsNullOrEmpty(schema.Id))
+        var schema = context.Schema;
+        if (schema is null)
             return;
 
-        var className = GetCSharpClassName(schema.Id);
+        // All entry schema files should be a class with an id
+        if (schema.Type != "object" || context.ClassName is null)
+            return;
+
+        var className = context.ClassName;
         var classDescription = schema.DetailedDescription ?? schema.Description;
         var properties = new List<SchemaClassProperty>();
         
@@ -107,12 +98,12 @@ public class SchemaAnalyser
         ISchemaType? parentClass = null;
         if (schema.AllOf is not null && schema.AllOf.Length == 1)
         {
-            parentClass = GetSchemaType(schema.AllOf[0], className);
+            parentClass = GetSchemaType(context.SubSchema(schema.AllOf[0]));
         }
         // Inherit from dictionary if addition properties are allowed
         else if (schema.AdditionalProperties is not null)
         {
-            var valueType = GetSchemaType(schema.AdditionalProperties);
+            var valueType = GetSchemaType(context.SubSchema(schema.AdditionalProperties));
             parentClass = SchemaType.Dictionary.MakeGenericType(SchemaType.String, valueType);
         }
         
@@ -131,7 +122,7 @@ public class SchemaAnalyser
                 var isRequired = IsPropertyRequired(schema, name);
                 
                 var propertyName = GetCSharpPropertyName(name);
-                var propertyType = GetSchemaType(propertySchema, className, propertyName);
+                var propertyType = GetSchemaType(context.Property(propertySchema, propertyName));
                 var propertyDescription = propertySchema.DetailedDescription ?? propertySchema.Description;
                 
                 properties.Add(new SchemaClassProperty
@@ -148,7 +139,7 @@ public class SchemaAnalyser
         _types.Add(new SchemaClass
         {
             Name = className,
-            Namespace = _input.Namespace,
+            Namespace = context.Namespace ?? "",
             Description = classDescription,
             ParentClassType = parentClass,
             Properties = properties
@@ -165,16 +156,15 @@ public class SchemaAnalyser
     {
         return schema.Required is not null && schema.Required.Contains(propertyName);
     }
-
+    
     /// <summary>
     /// Returns the C# type information of the given schema.
     /// </summary>
-    /// <param name="schema">The schema to convert to a C# type.</param>
-    /// <param name="parentClassName">The parent class name of the type.</param>
-    /// <param name="parentPropertyName">The parent property name of this type.</param>
+    /// <param name="context">The schema context to convert to a C# type.</param>
     /// <returns>Returns the C# type information.</returns>
-    private ISchemaType GetSchemaType(JsonSchema? schema, string? parentClassName = null, string? parentPropertyName = null)
+    private ISchemaType GetSchemaType(JsonSchemaContext context)
     {
+        var schema = context.Schema;
         if (schema is null)
         {
             return SchemaType.Object;
@@ -183,17 +173,21 @@ public class SchemaAnalyser
         // Resolve type reference
         if (schema.Ref is not null)
         {
-            if (schema.Ref.StartsWith("#/definitions/") && _input.Schema.Definitions is not null)
+            // References a definition inside the current schema.
+            if (schema.Ref.StartsWith("#/definitions/") && context.Root?.Definitions is not null)
             {
                 var definitionName = schema.Ref[14..];
-                if (_input.Schema.Definitions.TryGetValue(definitionName, out var schemaDef))
+                if (context.Root.Definitions.TryGetValue(definitionName, out var schemaDef))
                 {
-                    return GetSchemaType(schemaDef, parentClassName, parentPropertyName);
+                    return GetSchemaType(context.SubSchema(schemaDef));
                 }
             }
-            if (_loader.TryGetSchema(schema.Ref, out var schemaRef))
+
+            // References an external schema
+            var refClassName = GetCSharpClassName(schema.Ref);
+            if (TryGetExternalSchema(refClassName, context.Namespace, out var refSchema))
             {
-                return GetSchemaType(schemaRef, parentClassName, parentPropertyName);
+                return GetSchemaType(refSchema);
             }
 
             throw new ArgumentException($"Schema could not be found in SchemaLoader: {schema.Ref}", nameof(schema));
@@ -208,7 +202,7 @@ public class SchemaAnalyser
             {
                 if (schema is { MinItems: 4, MaxItems: 4 })
                 {
-                    if (parentPropertyName == "Rotation")
+                    if (context.ParentPropertyName == "Rotation")
                     {
                         return SchemaType.Quaternion;
                     }
@@ -228,17 +222,16 @@ public class SchemaAnalyser
                 }
             }
             
-            var itemType = GetSchemaType(schema.Items, parentClassName, parentPropertyName);
+            var itemType = GetSchemaType(context.SubSchema(schema.Items));
             return itemType.AsArray();
         }
         
         // Object
         if (schema.Type == "object")
         {
-            if (schema.Id is not null)
+            if (context.ClassName is not null && context.Namespace is not null)
             {
-                var className = GetCSharpClassName(schema.Id);
-                return new SchemaTypeReference(className, _input.Namespace);
+                return new SchemaTypeReference(context.ClassName, context.Namespace);
             }
         }
 
@@ -271,7 +264,7 @@ public class SchemaAnalyser
         {
             if (schema.AllOf.Length == 1)
             {
-                return GetSchemaType(schema.AllOf[0], parentClassName, parentPropertyName);
+                return GetSchemaType(context.SubSchema(schema.AllOf[0]));
             }
 
             throw new NotSupportedException();
@@ -280,12 +273,12 @@ public class SchemaAnalyser
         // Mark additional properties as string dictionary
         if (schema.AdditionalProperties is not null)
         {
-            var valueType = GetSchemaType(schema.AdditionalProperties);
+            var valueType = GetSchemaType(context.SubSchema(schema.AdditionalProperties));
             return SchemaType.Dictionary.MakeGenericType(SchemaType.String, valueType);
         }
         
         // Handle enum type
-        if (TryGetEnumType(schema.AnyOf, $"{parentClassName}{parentPropertyName}", out var enumType))
+        if (TryGetEnumType(context, out var enumType))
         {
             _types.Add(enumType);
             return enumType;
@@ -294,16 +287,37 @@ public class SchemaAnalyser
         // Unknown
         return SchemaType.Object;
     }
+    
+    /// <summary>
+    /// Tries to get a known schema context by name and namespace.
+    /// It looks for a matching schema in the given namespace first. If nothing was found, it searches all in namespaces.
+    /// </summary>
+    /// <param name="name">The class name.</param>
+    /// <param name="ns">The current namespace to look into.</param>
+    /// <param name="result">Returns the found schema context.</param>
+    /// <returns>Returns true, if the schema was found.</returns>
+    private bool TryGetExternalSchema(string name, string? ns, out JsonSchemaContext result)
+    {
+        result = _schemas.FirstOrDefault(x => x.ClassName == name && x.Namespace == ns);
+        if (result.Schema is not null) return true;
+        
+        result = _schemas.FirstOrDefault(x => x.ClassName == name);
+        if (result.Schema is not null) return true;
+        
+        result = default;
+        return false;
+    }
 
     /// <summary>
     /// Extracts the enum type name from a collection of 'AnyOf'.
     /// </summary>
-    /// <param name="anyOf">The collection of AnyOf.</param>
-    /// <param name="enumName">The name of the enum.</param>
+    /// <param name="context">The current schema context.</param>
     /// <param name="enumType">Returns the enum type info.</param>
     /// <returns>Returns true, if the type name could be extracted.</returns>
-    private bool TryGetEnumType(JsonSchema[]? anyOf, string enumName, [MaybeNullWhen(false)] out SchemaEnum enumType)
+    private bool TryGetEnumType(JsonSchemaContext context, [MaybeNullWhen(false)] out SchemaEnum enumType)
     {
+        var anyOf = context.Schema?.AnyOf;
+        
         enumType = null;
         if (anyOf is null || anyOf.Length == 0) return false;
 
@@ -314,7 +328,7 @@ public class SchemaAnalyser
         var first = true;
         foreach (var any in anyOf)
         {
-            var type = any.Type;
+            var type = any.Type?.Types.FirstOrDefault();
             
             // Get indirect type by const value
             if (type is null && any.Const is not null)
@@ -379,8 +393,8 @@ public class SchemaAnalyser
         
         enumType = new SchemaEnum
         {
-            Name = enumName,
-            Namespace = _input.Namespace,
+            Name = $"{context.ParentClassName}{context.ParentPropertyName}",
+            Namespace = context.Namespace ?? "",
             Type = enumValueType,
             Values = values
         };

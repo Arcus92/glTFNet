@@ -16,7 +16,7 @@ public class JsonSchema
     public string? Ref { get; set; }
     public string? Title { get; set; }
     public string? Description { get; set; }
-    public string? Type { get; set; }
+    public JsonSchemaTypeList? Type { get; set; }
     public JsonSchema? Items { get; set; }
     public JsonSchema[]? OneOf { get; set; }
     public JsonSchema[]? AllOf { get; set; }
