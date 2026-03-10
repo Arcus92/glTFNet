@@ -67,7 +67,7 @@ public static class SchemaType
             }
             return SyntaxFactory.Attribute(SyntaxFactory.ParseName(name));
         }
-        
+
         /// <summary>
         /// Returns a generic type reference from this type.
         /// </summary>
@@ -77,7 +77,7 @@ public static class SchemaType
         {
             return new SchemaTypeNativeGeneric(schemaType, types);
         }
-        
+
         /// <summary>
         /// Returns if this type matches the type information.
         /// </summary>

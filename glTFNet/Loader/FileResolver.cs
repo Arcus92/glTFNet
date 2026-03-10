@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
 
 namespace glTFNet.Loader;
 
@@ -6,6 +7,7 @@ namespace glTFNet.Loader;
 /// A <see cref="IResourceResolver"/> looking for resources relative to a directory.
 /// </summary>
 /// <param name="root">The root directory to load files from.</param>
+[PublicAPI]
 public class FileResolver(string root) : IResourceResolver
 {
     /// <summary>

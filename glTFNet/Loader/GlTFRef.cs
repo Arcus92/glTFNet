@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using glTFNet.Models;
+using JetBrains.Annotations;
 using Buffer = glTFNet.Models.Buffer;
 
 namespace glTFNet.Loader;
@@ -13,11 +14,12 @@ namespace glTFNet.Loader;
 /// <param name="root">The GlTF root model.</param>
 /// <param name="loader">The loader this GlTF was loaded from.</param>
 /// <typeparam name="T">The model type.</typeparam>
+[PublicAPI]
 // ReSharper disable once InconsistentNaming
 public readonly struct GlTFRef<T>(T model, GlTF root, GlTFLoader loader)
 {
     /// <summary>
-    /// Gets the underlaying model.
+    /// Gets the underlying model.
     /// </summary>
     public T Model { get; } = model;
     
@@ -53,6 +55,7 @@ public readonly struct GlTFRef<T>(T model, GlTF root, GlTFLoader loader)
 /// <summary>
 /// The extension class for <see cref="GlTFRef"/>.
 /// </summary>
+[PublicAPI]
 // ReSharper disable once InconsistentNaming
 public static class GlTFRef
 {

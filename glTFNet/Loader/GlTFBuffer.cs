@@ -1,18 +1,28 @@
 using glTFNet.Models;
+using JetBrains.Annotations;
 
 namespace glTFNet.Loader;
 
 /// <summary>
 /// An open buffer from a <see cref="GlTFLoader"/>.
 /// </summary>
+[PublicAPI]
 // ReSharper disable once InconsistentNaming
 public class GlTFBuffer : IDisposable, IAsyncDisposable
 {
+    /// <summary>
+    /// Creates a new buffer from stream.
+    /// </summary>
+    /// <param name="stream">The stream.</param>
     public GlTFBuffer(Stream stream)
     {
         _stream = stream;
     }
 
+    /// <summary>
+    /// Creates a new buffer from a byte array.
+    /// </summary>
+    /// <param name="data">The byte data.</param>
     public GlTFBuffer(byte[] data)
     {
         _stream = new MemoryStream(data);

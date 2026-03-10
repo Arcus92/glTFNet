@@ -1,6 +1,7 @@
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using glTFNet.Models;
+using JetBrains.Annotations;
 
 namespace glTFNet.Loader;
 
@@ -8,6 +9,7 @@ namespace glTFNet.Loader;
 /// Gets a loaded buffer view.
 /// </summary>
 /// <param name="data">The initial data.</param>
+[PublicAPI]
 // ReSharper disable once InconsistentNaming
 public class GlTFBufferView(byte[] data, BufferView bufferView)
 {

@@ -1,10 +1,12 @@
 using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
 
 namespace glTFNet.Loader;
 
 /// <summary>
 /// Resolves a resource uri and loads the resource stream.
 /// </summary>
+[PublicAPI]
 public interface IResourceResolver
 {
     /// <summary>

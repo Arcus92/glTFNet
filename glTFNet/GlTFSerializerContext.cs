@@ -4,6 +4,9 @@ using glTFNet.Models;
 
 namespace glTFNet;
 
+/// <summary>
+/// The JSON serializer context 
+/// </summary>
 [JsonSourceGenerationOptions(
     PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,
     Converters = [
@@ -16,6 +19,4 @@ namespace glTFNet;
 )]
 [JsonSerializable(typeof(GlTF))]
 // ReSharper disable once InconsistentNaming
-public partial class GlTFSerializerContext : JsonSerializerContext
-{
-}
+public partial class GlTFSerializerContext : JsonSerializerContext;

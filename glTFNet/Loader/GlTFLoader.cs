@@ -1,12 +1,14 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using glTFNet.Models;
+using JetBrains.Annotations;
 
 namespace glTFNet.Loader;
 
 /// <summary>
 /// A loader class for GlTF files and binaries.
 /// </summary>
+[PublicAPI]
 // ReSharper disable once InconsistentNaming
 public class GlTFLoader : IDisposable, IAsyncDisposable
 {
@@ -16,7 +18,7 @@ public class GlTFLoader : IDisposable, IAsyncDisposable
     public IResourceResolver? ResourceResolver { get; set; }
 
     /// <summary>
-    /// Stores all open buffers.
+    /// Stores all open buffers by uri. The embedded buffer of GBL files has an empty uri.
     /// </summary>
     private readonly Dictionary<string, GlTFBuffer> _buffers = new();
 
@@ -25,6 +27,7 @@ public class GlTFLoader : IDisposable, IAsyncDisposable
     /// This also sets the <see cref="ResourceResolver"/> to load files from the parent directory.
     /// </summary>
     /// <param name="path">The file path to open.</param>
+    [PublicAPI]
     public async Task<GlTFRef<GlTF>> Read(string path)
     {
         var directory = Path.GetDirectoryName(path);
@@ -62,9 +65,14 @@ public class GlTFLoader : IDisposable, IAsyncDisposable
         // GLB header
         if (magicNumber == 0x46546C67)
         {
-            var version = BitConverter.ToInt32(header[4..]);
-            var length = BitConverter.ToInt32(header[8..]);
+            var version = BitConverter.ToInt32(header.AsSpan()[4..]);
+            var length = BitConverter.ToInt32(header.AsSpan()[8..]);
 
+            if (version != 2)
+            {
+                throw new Exception($"Unsupported version of glTF: {version}");
+            }
+            
             // Read all chunks
             var chunkHeader = new byte[8];
             while (position < length)
@@ -73,7 +81,7 @@ public class GlTFLoader : IDisposable, IAsyncDisposable
                 position += chunkHeader.Length;
 
                 var chunkLength = BitConverter.ToInt32(chunkHeader);
-                var chunkType = BitConverter.ToInt32(chunkHeader[4..]);
+                var chunkType = BitConverter.ToInt32(chunkHeader.AsSpan()[4..]);
                 position += chunkLength;
 
                 // JSON
@@ -106,7 +114,7 @@ public class GlTFLoader : IDisposable, IAsyncDisposable
 
         if (gltf == null)
         {
-            throw new NullReferenceException();
+            throw new NullReferenceException("Unable to load the glTF model.");
         }
 
         return new GlTFRef<GlTF>(gltf, gltf, this);
