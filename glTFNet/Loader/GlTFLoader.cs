@@ -28,7 +28,7 @@ public class GlTFLoader : IDisposable, IAsyncDisposable
     /// </summary>
     /// <param name="path">The file path to open.</param>
     [PublicAPI]
-    public async Task<GlTFRef<GlTF>> Read(string path)
+    public async Task<GlTFRef<GlTF>> Open(string path)
     {
         var directory = Path.GetDirectoryName(path);
         if (ResourceResolver is null && directory is not null)
@@ -37,14 +37,14 @@ public class GlTFLoader : IDisposable, IAsyncDisposable
         }
 
         await using var stream = File.OpenRead(path);
-        return await Read(stream);
+        return await Open(stream);
     }
 
     /// <summary>
     /// Opens a GlTF file from the given stream.
     /// </summary>
     /// <param name="stream">The stream to read.</param>
-    public async Task<GlTFRef<GlTF>> Read(Stream stream)
+    public async Task<GlTFRef<GlTF>> Open(Stream stream)
     {
         // Ensures this stream is seekable
         if (!stream.CanSeek)
