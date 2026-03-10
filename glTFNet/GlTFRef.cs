@@ -1,11 +1,12 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using glTFNet.Loader;
 using glTFNet.Models;
 using JetBrains.Annotations;
 using Buffer = glTFNet.Models.Buffer;
 
-namespace glTFNet.Loader;
+namespace glTFNet;
 
 /// <summary>
 /// A wrapper to store the loader reference of a GlTF model.
