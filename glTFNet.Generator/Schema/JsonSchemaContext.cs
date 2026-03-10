@@ -1,6 +1,4 @@
-using glTFNet.Generator.Schema;
-
-namespace glTFNet.Generator.Analyser;
+namespace glTFNet.Generator.Schema;
 
 /// <summary>
 /// Allows to reference a <see cref="JsonSchema"/> with additional context, like class name of namespace.

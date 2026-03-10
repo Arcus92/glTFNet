@@ -4,12 +4,14 @@ using System.Text.Json.Nodes;
 using glTFNet.Generator.Schema;
 using glTFNet.Generator.Types;
 using glTFNet.Generator.Utils;
+using JetBrains.Annotations;
 
 namespace glTFNet.Generator.Analyser;
 
 /// <summary>
 /// An analyzer to extract class, properties and enums from multiple JSON schemas.
 /// </summary>
+[PublicAPI]
 public class SchemaAnalyser
 {
     /// <summary>

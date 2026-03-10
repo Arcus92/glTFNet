@@ -2,6 +2,9 @@ using System.Text;
 
 namespace glTFNet.Generator.Utils;
 
+/// <summary>
+/// A helper class to convert string casings.
+/// </summary>
 public static class StringHelper
 {
     private static readonly char[] Separators = [' ', '.', '_', '-', '/'];
