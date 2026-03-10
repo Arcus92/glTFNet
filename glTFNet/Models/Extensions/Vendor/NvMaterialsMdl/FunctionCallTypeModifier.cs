@@ -1,0 +1,10 @@
+namespace glTFNet.Models.Extensions.Vendor.NvMaterialsMdl;
+
+[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<FunctionCallTypeModifier>))]
+public enum FunctionCallTypeModifier
+{
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("varying")]
+    Varying,
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("uniform")]
+    Uniform
+}

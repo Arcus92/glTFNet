@@ -1,0 +1,23 @@
+namespace glTFNet.Models.Extensions.Archived.KhrTechniquesWebgl;
+
+/// <summary>
+/// A shader program, including its vertex and fragment shaders.
+/// </summary>
+[Serializable]
+public class Program : glTFNet.Models.GlTFChildOfRootProperty
+{
+    /// <summary>
+    /// The index of the fragment shader.
+    /// </summary>
+    public required int FragmentShader { get; set; }
+
+    /// <summary>
+    /// The index of the vertex shader.
+    /// </summary>
+    public required int VertexShader { get; set; }
+
+    /// <summary>
+    /// The names of required WebGL 1.0 extensions.
+    /// </summary>
+    public List<string>? GlExtensions { get; set; }
+}

@@ -1,0 +1,23 @@
+namespace glTFNet.Models.Extensions.Vendor.AgiArticulations;
+
+/// <summary>
+/// A model articulation definition.
+/// </summary>
+[Serializable]
+public class Articulation : glTFNet.Models.GlTFProperty
+{
+    /// <summary>
+    /// The name of this articulation.  The articulation name must be unique within this model.  Articulation names may not contain spaces.
+    /// </summary>
+    public required string Name { get; set; }
+
+    /// <summary>
+    /// An array of stages, each of which defines a degree of freedom of movement.
+    /// </summary>
+    public required List<ArticulationStage> Stages { get; set; }
+
+    /// <summary>
+    /// The local forward vector for the associated node, for the purpose of pointing at a target or other object.
+    /// </summary>
+    public System.Numerics.Vector3? PointingVector { get; set; }
+}

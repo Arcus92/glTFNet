@@ -1,0 +1,20 @@
+namespace glTFNet.Models.Extensions.Vendor.MpegAudioSpatial;
+
+[Serializable]
+public class MPEGAudioSpatialReverbProperty : glTFNet.Models.GlTFProperty
+{
+    /// <summary>
+    /// Frequency for the provided RT60 and DSR values.
+    /// </summary>
+    public required float Frequency { get; set; }
+
+    /// <summary>
+    /// Specifies RT60 value in `second` for the frequency provided in the `frequency` field
+    /// </summary>
+    public required float RT60 { get; set; }
+
+    /// <summary>
+    /// Specifies Diffuse-to-Source Ratio value in dB for the frequency provided in the `frequency` field. For details see ISO/IEC 23090-14:5.4.1.4.
+    /// </summary>
+    public required float DSR { get; set; }
+}

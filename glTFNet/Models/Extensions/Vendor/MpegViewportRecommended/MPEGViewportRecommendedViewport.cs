@@ -1,0 +1,37 @@
+namespace glTFNet.Models.Extensions.Vendor.MpegViewportRecommended;
+
+/// <summary>
+/// specifying a recommended viewport.
+/// </summary>
+[Serializable]
+public class MPEGViewportRecommendedViewport : glTFNet.Models.GlTFProperty
+{
+    /// <summary>
+    /// The user-defined name of this object.  This is not necessarily unique, e.g., an accessor and a buffer could have the same name, or two accessors could even have the same name.
+    /// </summary>
+    public string? Name { get; set; }
+
+    /// <summary>
+    /// Provides a reference to `accessor` where the timed data for the translation of camera object will be made available. The componentType of the referenced accessor shall be `FLOAT` and the type shall be `VEC3`, (x, y, z).
+    /// </summary>
+    public int? Translation { get; set; }
+
+    /// <summary>
+    /// Provides a reference to `accessor` where the timed data for  the rotation of camera object will be made available. The componentType of the referenced accessor shall be `FLOAT` and the type shall be `VEC4`, as a unit quaternion, (x, y, z, w).
+    /// </summary>
+    public int? Rotation { get; set; }
+
+    /// <summary>
+    /// provides the type of camera.
+    /// </summary>
+    public MPEGViewportRecommendedViewportType? Type { get; set; }
+
+    /// <inheritdoc cref="Type"/>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public MPEGViewportRecommendedViewportType TypeOrDefault => Type ?? MPEGViewportRecommendedViewportType.Perspective;
+
+    /// <summary>
+    /// Provides a reference to `accessor` where the timed data for the perspective or orthographic camera parameters will be made available. The componentType of the referenced accessor shall be `FLOAT` and the type shall be `VEC4`. When the type of the camera object which includes this extension is perspective, `FLOAT_VEC4` means (aspectRatio, yfov,  zfar, znear). When orthographic type, `FLOAT_VEC4` means (xmag, ymag, zfar, znear). The requirements on the camera parameters from ISO/IEC 12113:2021  shall apply.
+    /// </summary>
+    public int? Parameters { get; set; }
+}

@@ -1,0 +1,13 @@
+namespace glTFNet.Models.Extensions.Vendor.MpegMedia;
+
+/// <summary>
+/// Media used to create a texture, audio source or other objects in the scene.
+/// </summary>
+[Serializable]
+public class MPEGMedia : glTFNet.Models.GlTFChildOfRootProperty
+{
+    /// <summary>
+    /// An array of media. A media contains data referred by other object in a scene
+    /// </summary>
+    public required List<MPEGMediaMedia> Media { get; set; }
+}

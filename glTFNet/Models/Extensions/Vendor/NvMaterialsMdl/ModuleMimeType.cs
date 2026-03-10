@@ -1,0 +1,8 @@
+namespace glTFNet.Models.Extensions.Vendor.NvMaterialsMdl;
+
+[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<ModuleMimeType>))]
+public enum ModuleMimeType
+{
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("application/vnd.mdl")]
+    ApplicationVndMdl
+}

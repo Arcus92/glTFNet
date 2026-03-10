@@ -1,0 +1,28 @@
+namespace glTFNet.Models.Extensions.Vendor.NvMaterialsMdl;
+
+/// <summary>
+/// Named function call argument. Can be another function call or a constant value.
+/// </summary>
+[Serializable]
+public class FunctionCallArgument : glTFNet.Models.GlTFProperty
+{
+    /// <summary>
+    /// The name of the named argument.
+    /// </summary>
+    public string? Name { get; set; }
+
+    /// <summary>
+    /// The type of the value argument.  This field **MUST** be defined if `value` is defined and **MUST NOT** be defined if `functionCall` is defined.
+    /// </summary>
+    public FunctionCallType? Type { get; set; }
+
+    /// <summary>
+    /// The ID of a function call.  This field **MUST NOT** be defined if `value` is defined.
+    /// </summary>
+    public int? FunctionCall { get; set; }
+
+    /// <summary>
+    /// The literal value of the value argument.  This field **MUST NOT** be defined if `functionCall` is defined.
+    /// </summary>
+    public object? Value { get; set; }
+}

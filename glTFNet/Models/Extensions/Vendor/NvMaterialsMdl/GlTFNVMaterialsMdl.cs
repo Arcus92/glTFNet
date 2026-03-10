@@ -1,0 +1,23 @@
+namespace glTFNet.Models.Extensions.Vendor.NvMaterialsMdl;
+
+/// <summary>
+/// glTF extension that enables using MDL materials.
+/// </summary>
+[Serializable]
+public class GlTFNVMaterialsMdl : glTFNet.Models.GlTFProperty
+{
+    /// <summary>
+    /// The list of all MDL modules.
+    /// </summary>
+    public List<Module>? Modules { get; set; }
+
+    /// <summary>
+    /// The list of all function calls.
+    /// </summary>
+    public List<FunctionCall>? FunctionCalls { get; set; }
+
+    /// <summary>
+    /// The list of all BSDF measurements.
+    /// </summary>
+    public List<BsdfMeasurement>? BsdfMeasurements { get; set; }
+}

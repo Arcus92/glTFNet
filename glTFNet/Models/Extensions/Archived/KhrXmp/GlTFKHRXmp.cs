@@ -1,0 +1,14 @@
+namespace glTFNet.Models.Extensions.Archived.KhrXmp;
+
+/// <summary>
+/// Metadata about the glTF asset.
+/// </summary>
+[Serializable]
+public class GlTFKHRXmp : glTFNet.Models.GlTFProperty
+{
+    /// <summary>
+    /// Dictionary mapping XMP namespace names to the URI where they are defined
+    /// </summary>
+    public required Dictionary<string, object> @context { get; set; }
+    public required List<Dictionary<string, object>> Packets { get; set; }
+}

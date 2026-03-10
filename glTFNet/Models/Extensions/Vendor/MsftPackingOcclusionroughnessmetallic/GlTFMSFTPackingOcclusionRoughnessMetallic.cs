@@ -1,0 +1,23 @@
+namespace glTFNet.Models.Extensions.Vendor.MsftPackingOcclusionroughnessmetallic;
+
+/// <summary>
+/// glTF extension the specifies a packing of occlusion, roughness and metallic in a single texture and a two channel normal map.
+/// </summary>
+[Serializable]
+public class GlTFMSFTPackingOcclusionRoughnessMetallic : glTFNet.Models.GlTFProperty
+{
+    /// <summary>
+    /// A texture with packing Occlusion (R), Roughness (G), Metallic (B).
+    /// </summary>
+    public object? OcclusionRoughnessMetallicTexture { get; set; }
+
+    /// <summary>
+    /// A texture with packing Roughness (R), Metallic (G), Occlusion (B).
+    /// </summary>
+    public object? RoughnessMetallicOcclusionTexture { get; set; }
+
+    /// <summary>
+    /// A texture which contains two channel (RG) normal map.
+    /// </summary>
+    public object? NormalTexture { get; set; }
+}

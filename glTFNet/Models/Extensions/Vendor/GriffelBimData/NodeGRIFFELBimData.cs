@@ -1,0 +1,23 @@
+namespace glTFNet.Models.Extensions.Vendor.GriffelBimData;
+
+/// <summary>
+/// References type and instance properties of the node and/or buffer where those properties can be found by node ID.
+/// </summary>
+[Serializable]
+public class NodeGRIFFELBimData : glTFNet.Models.GlTFProperty
+{
+    /// <summary>
+    /// Index of the buffer view which points to the buffer with the data for this node.
+    /// </summary>
+    public int? BufferView { get; set; }
+
+    /// <summary>
+    /// Collection of indices which point to corresponding instance properties of the node. (Instance properties are unique to the node. They override the same type properties.)
+    /// </summary>
+    public List<int>? Properties { get; set; }
+
+    /// <summary>
+    /// Index of a type in the root level collection. (Type is a set of properties which are common for many nodes.)
+    /// </summary>
+    public int? Type { get; set; }
+}

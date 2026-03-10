@@ -1,0 +1,13 @@
+namespace glTFNet.Models.Extensions.Vendor.MsftPackingNormalroughnessmetallic;
+
+/// <summary>
+/// glTF extension the specifies a packing of normal, roughness and metallic in a single texture.
+/// </summary>
+[Serializable]
+public class GlTFMSFTPackingNormalRoughnessMetallic : glTFNet.Models.GlTFProperty
+{
+    /// <summary>
+    /// A texture with the packing Normal (RG), Roughness (B), Metallic (A).
+    /// </summary>
+    public object? NormalRoughnessMetallicTexture { get; set; }
+}

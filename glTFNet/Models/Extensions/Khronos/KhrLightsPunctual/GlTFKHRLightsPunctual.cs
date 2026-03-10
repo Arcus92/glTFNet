@@ -1,0 +1,7 @@
+namespace glTFNet.Models.Extensions.Khronos.KhrLightsPunctual;
+
+[Serializable]
+public class GlTFKHRLightsPunctual : glTFNet.Models.GlTFProperty
+{
+    public required List<Light> Lights { get; set; }
+}

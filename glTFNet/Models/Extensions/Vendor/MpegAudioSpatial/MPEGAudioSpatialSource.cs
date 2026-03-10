@@ -1,0 +1,62 @@
+namespace glTFNet.Models.Extensions.Vendor.MpegAudioSpatial;
+
+[Serializable]
+public class MPEGAudioSpatialSource : glTFNet.Models.GlTFProperty
+{
+    /// <summary>
+    /// A unique identifier of the audio source in the scene.
+    /// </summary>
+    public required int Id { get; set; }
+
+    /// <summary>
+    /// Indicates the type of the audio source. `type` value equal to `Object` indicates mono object. `type` value equal to `HOA` indicates HOA object
+    /// </summary>
+    public required string Type { get; set; }
+
+    /// <summary>
+    /// Provides a level-adjustment in dB for the signal associated with the source.
+    /// </summary>
+    public float? Pregain { get; set; }
+
+    /// <inheritdoc cref="Pregain"/>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public float PregainOrDefault => Pregain ?? 0F;
+
+    /// <summary>
+    /// Playback speed of the audio signal. A value of 1.0 corresponds to playback at normal speed. The value shall be between 0.5 and 2.0.
+    /// </summary>
+    public float? PlaybackSpeed { get; set; }
+
+    /// <inheritdoc cref="PlaybackSpeed"/>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public float PlaybackSpeedOrDefault => PlaybackSpeed ?? 1F;
+
+    /// <summary>
+    /// An array of parameters that are input to the attenuation function. The semantics of these parameters depend on the attenuation function itself and are defined in ISO/IEC 23090-14
+    /// </summary>
+    public List<float>? AttenuationParameters { get; set; }
+
+    /// <summary>
+    /// Provides the distance in meters for which the distance gain is implicitly included in the source signal after application of pregain. When type equals ‘HOA’ the element shall not be present.
+    /// </summary>
+    public float? ReferenceDistance { get; set; }
+
+    /// <inheritdoc cref="ReferenceDistance"/>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public float ReferenceDistanceOrDefault => ReferenceDistance ?? 1F;
+
+    /// <summary>
+    /// An array of accessor references, by specifying the accessors indices in accessors array, that describe the buffers where the decoded audio will be made available.
+    /// </summary>
+    public required List<int> Accessors { get; set; }
+
+    /// <summary>
+    /// Provides one or more pointers to reverb units, optionally extended by a floating point scaling factor. A reverb unit represents a reverberation audio processor that is configured by the metadata from a single reverb object. Typically, a reverb object represents reverberation properties of a single room.
+    /// </summary>
+    public List<int>? ReverbFeed { get; set; }
+
+    /// <summary>
+    /// Provides an array of gain [dB] values to be applied to the source’s signal(s) when feeding it to the corresponding reverbFeed. The array shall have the same  number of elements as the reverbFeed array field.
+    /// </summary>
+    public List<float>? ReverbFeedGain { get; set; }
+}

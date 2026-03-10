@@ -1,0 +1,23 @@
+namespace glTFNet.Models.Extensions.Vendor.ExtLightsIes;
+
+/// <summary>
+/// An IES light profile.
+/// </summary>
+[Serializable]
+public class LightProfile : glTFNet.Models.GlTFChildOfRootProperty
+{
+    /// <summary>
+    /// The URI (or IRI) of the light profile.  Relative paths are relative to the current glTF asset.  Instead of referencing an external file, this field **MAY** contain a `data:`-URI. This field **MUST NOT** be defined when `bufferView` is defined.
+    /// </summary>
+    public string? Uri { get; set; }
+
+    /// <summary>
+    /// The light profile's media type. This field **MUST** be defined when `bufferView` is defined.
+    /// </summary>
+    public LightProfileMimeType? MimeType { get; set; }
+
+    /// <summary>
+    /// The index of the bufferView that contains the IES light profile. This field **MUST NOT** be defined when `uri` is defined.
+    /// </summary>
+    public int? BufferView { get; set; }
+}

@@ -1,0 +1,28 @@
+namespace glTFNet.Models.Extensions.Vendor.MpegMeshLinking;
+
+/// <summary>
+/// glTF extension to specify a logical link between two meshes
+/// </summary>
+[Serializable]
+public class MPEGMeshLinking : glTFNet.Models.GlTFProperty
+{
+    /// <summary>
+    /// Provides a reference to the `accessor`, by specifying the accessor's index in accessors array, that describe the buffer where the correspondence values between the dependent mesh and its associated shadow mesh  will be made available. The componentType of the referenced accessor shall be as indicated in ISO/IEC 23090-14:7.4 and the type shall be `SCALAR`.
+    /// </summary>
+    public required int Correspondence { get; set; }
+
+    /// <summary>
+    /// Provides a reference to the shadow `mesh`, by specifying the mesh index in meshes array, associated to the dependent mesh for which the correspondence values are established.
+    /// </summary>
+    public required int Mesh { get; set; }
+
+    /// <summary>
+    /// Provides a reference to the `accessor`, by specifying the accessor's index in accessors array, that describe the buffer where the transformation of the nodes associated to the dependent mesh will be made available. The componentType of the referenced accessor shall be `FLOAT` and the type shall be `MAT4`.
+    /// </summary>
+    public required int Pose { get; set; }
+
+    /// <summary>
+    /// Provides a reference to the `accessor`, by specifying the accessor's index in accessors array, that describe the buffer where the “weights” to be applied to the morph targets of the shadow mesh associated to the dependent mesh will be made available. The componentType of the referenced accessor shall be `FLOAT` and the type shall be `SCALAR`.
+    /// </summary>
+    public int? Weights { get; set; }
+}

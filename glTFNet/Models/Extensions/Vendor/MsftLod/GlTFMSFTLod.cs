@@ -1,0 +1,13 @@
+namespace glTFNet.Models.Extensions.Vendor.MsftLod;
+
+/// <summary>
+/// glTF extension for specifying levels of detail (LOD).
+/// </summary>
+[Serializable]
+public class GlTFMSFTLod : glTFNet.Models.GlTFProperty
+{
+    /// <summary>
+    /// Array containing the indices of progressively lower LOD nodes.
+    /// </summary>
+    public List<int>? Ids { get; set; }
+}

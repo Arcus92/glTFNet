@@ -1,0 +1,13 @@
+namespace glTFNet.Models.Extensions.Vendor.ExtMeshPrimitiveRestart;
+
+/// <summary>
+/// glTF extension enabling the use of primitive restart values in index buffers
+/// </summary>
+[Serializable]
+public class EXTMeshPrimitiveRestart : glTFNet.Models.GlTFProperty
+{
+    /// <summary>
+    /// The list of groups of primitives that can be drawn using a single index buffer with primitive restart
+    /// </summary>
+    public required List<PrimitiveGroup> PrimitiveGroups { get; set; }
+}

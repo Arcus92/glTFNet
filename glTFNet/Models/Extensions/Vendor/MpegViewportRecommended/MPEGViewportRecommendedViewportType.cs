@@ -1,0 +1,10 @@
+namespace glTFNet.Models.Extensions.Vendor.MpegViewportRecommended;
+
+[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<MPEGViewportRecommendedViewportType>))]
+public enum MPEGViewportRecommendedViewportType
+{
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("perspective")]
+    Perspective,
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("orthographic")]
+    Orthographic
+}

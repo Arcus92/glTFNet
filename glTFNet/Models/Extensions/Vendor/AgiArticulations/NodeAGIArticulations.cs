@@ -1,0 +1,18 @@
+namespace glTFNet.Models.Extensions.Vendor.AgiArticulations;
+
+/// <summary>
+/// glTF Extension for an individual node in a glTF model, to associate it with the model's root AGI_articulations object.
+/// </summary>
+[Serializable]
+public class NodeAGIArticulations : glTFNet.Models.GlTFProperty
+{
+    /// <summary>
+    /// Set to true to indicate that this node's origin and orientation act as an attach point for external objects, analysis, or effects.
+    /// </summary>
+    public bool? IsAttachPoint { get; set; }
+
+    /// <summary>
+    /// The name of an Articulation that applies to this node.  Articulations are defined in the glTF root extension.  A single articulation may apply to more than one node, and its stage values set the transform for all assigned nodes simultaneously.
+    /// </summary>
+    public string? ArticulationName { get; set; }
+}

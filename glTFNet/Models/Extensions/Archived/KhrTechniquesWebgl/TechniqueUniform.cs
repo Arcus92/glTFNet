@@ -1,0 +1,33 @@
+namespace glTFNet.Models.Extensions.Archived.KhrTechniquesWebgl;
+
+/// <summary>
+/// A uniform input to a technique, and an optional semantic and value.
+/// </summary>
+[Serializable]
+public class TechniqueUniform : glTFNet.Models.GlTFProperty
+{
+    /// <summary>
+    /// When defined, the uniform is an array of `count` elements of the specified type.  Otherwise, the uniform is not an array.  When defined, `value`'s length must equal `count`, times the number of components in the `type`, e.g., `3` for `FLOAT_VEC3`.  A uniform array of scalar values is not the same as a uniform vector of the same size; for example, when count is 2 and type is `5126` (`FLOAT`), the uniform is an array of two floating-point values, not a `FLOAT_VEC2`. When a glTF-defined semantic is used, the semantic must be `JOINTMATRIX`; application-specific uniforms can be arrays and, therefore, define `count`.
+    /// </summary>
+    public int? Count { get; set; }
+
+    /// <summary>
+    /// The index of the node whose transform is used as the uniform's value.  When this is defined, `type` must be `35676` (`FLOAT_MAT4`), therefore, when the semantic is `"MODELINVERSETRANSPOSE"`, `"MODELVIEWINVERSETRANSPOSE"`, or `"VIEWPORT"`, the node property can't be defined.
+    /// </summary>
+    public int? Node { get; set; }
+
+    /// <summary>
+    /// The uniform type.  All valid values correspond to WebGL enums.
+    /// </summary>
+    public required int Type { get; set; }
+
+    /// <summary>
+    /// Identifies a uniform with a well-known meaning.  Uniform semantics include `"LOCAL"` (FLOAT_MAT4), `"MODEL"` (FLOAT_MAT4), `"VIEW"` (FLOAT_MAT4), `"PROJECTION"` (FLOAT_MAT4), `"MODELVIEW"` (FLOAT_MAT4), `"MODELVIEWPROJECTION"` (FLOAT_MAT4), `"MODELINVERSE"` (FLOAT_MAT4), `"VIEWINVERSE"` (FLOAT_MAT4), `"PROJECTIONINVERSE"` (FLOAT_MAT4), `"MODELVIEWINVERSE"` (FLOAT_MAT4), `"MODELVIEWPROJECTIONINVERSE"` (FLOAT_MAT4), `"MODELINVERSETRANSPOSE"` (FLOAT_MAT3), `"MODELVIEWINVERSETRANSPOSE"` (FLOAT_MAT3), `"VIEWPORT"` (FLOAT_VEC4), `"JOINTMATRIX"` (FLOAT_MAT4[]).  For forward-compatibility, application-specific semantics must start with an underscore, e.g., `"_SIMULATION_TIME"`.
+    /// </summary>
+    public string? Semantic { get; set; }
+
+    /// <summary>
+    /// The value of the uniform. The length is determined by the values of the `type` and `count` (if present) properties.  A material uniform value with the same name, when specified, overrides this value.
+    /// </summary>
+    public object? Value { get; set; }
+}

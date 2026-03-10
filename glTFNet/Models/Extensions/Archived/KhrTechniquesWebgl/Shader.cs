@@ -1,0 +1,23 @@
+namespace glTFNet.Models.Extensions.Archived.KhrTechniquesWebgl;
+
+/// <summary>
+/// A vertex or fragment shader. Exactly one of `uri` or `bufferView` must be provided for the GLSL source.
+/// </summary>
+[Serializable]
+public class Shader : glTFNet.Models.GlTFChildOfRootProperty
+{
+    /// <summary>
+    /// The uri of the GLSL source.  Relative paths are relative to the `.gltf` file.  Instead of referencing an external file, the uri can also be a data-uri.
+    /// </summary>
+    public string? Uri { get; set; }
+
+    /// <summary>
+    /// The shader stage.  All valid values correspond to WebGL enums.
+    /// </summary>
+    public required int Type { get; set; }
+
+    /// <summary>
+    /// The index of the bufferView that contains the GLSL shader source. Use this instead of the shader's uri property.
+    /// </summary>
+    public int? BufferView { get; set; }
+}

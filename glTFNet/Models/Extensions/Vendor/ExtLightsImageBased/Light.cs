@@ -1,0 +1,41 @@
+namespace glTFNet.Models.Extensions.Vendor.ExtLightsImageBased;
+
+/// <summary>
+/// An image-based lighting environment.
+/// </summary>
+[Serializable]
+public class Light : glTFNet.Models.GlTFChildOfRootProperty
+{
+    /// <summary>
+    /// Quaternion that represents the rotation of the IBL environment.
+    /// </summary>
+    public System.Numerics.Quaternion? Rotation { get; set; }
+
+    /// <inheritdoc cref="Rotation"/>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public System.Numerics.Quaternion RotationOrDefault => Rotation ?? new(0F, 0F, 0F, 1F);
+
+    /// <summary>
+    /// Brightness multiplier for environment.
+    /// </summary>
+    public float? Intensity { get; set; }
+
+    /// <inheritdoc cref="Intensity"/>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public float IntensityOrDefault => Intensity ?? 1F;
+
+    /// <summary>
+    /// Declares spherical harmonic coefficients for irradiance up to l=2. This is a 9x3 array.
+    /// </summary>
+    public required List<System.Numerics.Vector3> IrradianceCoefficients { get; set; }
+
+    /// <summary>
+    /// Declares an array of the first N mips of the prefiltered cubemap. Each mip is, in turn, defined with an array of 6 images, one for each cube face. i.e. this is an Nx6 array.
+    /// </summary>
+    public required List<List<int>> SpecularImages { get; set; }
+
+    /// <summary>
+    /// The dimension (in pixels) of the first specular mip. This is needed to determine, pre-load, the total number of mips needed.
+    /// </summary>
+    public required int SpecularImageSize { get; set; }
+}

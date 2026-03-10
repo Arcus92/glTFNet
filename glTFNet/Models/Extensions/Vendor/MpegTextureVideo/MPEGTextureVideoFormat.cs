@@ -1,0 +1,24 @@
+namespace glTFNet.Models.Extensions.Vendor.MpegTextureVideo;
+
+[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<MPEGTextureVideoFormat>))]
+public enum MPEGTextureVideoFormat
+{
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("RED")]
+    Red,
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("GREEN")]
+    Green,
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("BLUE")]
+    Blue,
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("RG")]
+    Rg,
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("RGB")]
+    Rgb,
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("RGBA")]
+    Rgba,
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("BGR")]
+    Bgr,
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("BGRA")]
+    Bgra,
+    [System.Text.Json.Serialization.JsonStringEnumMemberName("DEPTH_COMPONENT")]
+    DepthComponent
+}

@@ -1,0 +1,18 @@
+namespace glTFNet.Models.Extensions.Vendor.AgiStkMetadata;
+
+/// <summary>
+/// A solar panel group definition.
+/// </summary>
+[Serializable]
+public class SolarPanelGroup : glTFNet.Models.GlTFProperty
+{
+    /// <summary>
+    /// The name of this solar panel group.  The group name must be unique within this model, and may not contain spaces.
+    /// </summary>
+    public required string Name { get; set; }
+
+    /// <summary>
+    /// The percentage, from 0.0 to 100.0, of how efficiently the solar cells convert solar to electrical energy.
+    /// </summary>
+    public required float Efficiency { get; set; }
+}

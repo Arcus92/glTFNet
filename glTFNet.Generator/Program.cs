@@ -9,7 +9,9 @@ var outputNamespace = "glTFNet.Models";
 var analyser = new SchemaAnalyser();
 
 await AddSchemaDirectory(Path.Combine(inputDirectory, "specification/2.0/schema"), outputNamespace);
-await AddExtensionDirectory(Path.Combine(inputDirectory, "extensions/2.0/Khronos"), $"{outputNamespace}.Extensions");
+await AddExtensionDirectory(Path.Combine(inputDirectory, "extensions/2.0/Archived"), $"{outputNamespace}.Extensions.Archived");
+await AddExtensionDirectory(Path.Combine(inputDirectory, "extensions/2.0/Khronos"), $"{outputNamespace}.Extensions.Khronos");
+await AddExtensionDirectory(Path.Combine(inputDirectory, "extensions/2.0/Vendor"), $"{outputNamespace}.Extensions.Vendor");
 
 analyser.Analyse();
 

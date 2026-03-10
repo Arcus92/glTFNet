@@ -1,0 +1,31 @@
+namespace glTFNet.Models.Extensions.Vendor.MpegAccessorTimed;
+
+/// <summary>
+/// glTF extension to specify timed accessor format formats
+/// </summary>
+[Serializable]
+public class MPEGAccessorTimed : glTFNet.Models.GlTFProperty
+{
+    /// <summary>
+    /// This flag equal to false indicates the accessor information componentType, type, and normalized may change over time. The changing values of componentType, type and normalized are provided through accessor information header. This flag equal to true indicates the accessor information componentType, type, and normalized do not change over time and are not present in the accessor information header. Note that count, max, min, and byteOffset are expected to change and are always included as part of the timed accessor information header.
+    /// </summary>
+    public bool? Immutable { get; set; }
+
+    /// <inheritdoc cref="Immutable"/>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public bool ImmutableOrDefault => Immutable ?? true;
+
+    /// <summary>
+    /// This property provides the index in the bufferViews array to a bufferView element that points to the timed accessor information header as described in ISO/IEC 23090-14:Table 8. byteLength field of the bufferView element indicates the size of the timed accessor information header. The buffer properties in the bufferView element shall point to the same buffer as the bufferView in the containing accessor object. In the absence of the bufferView attribute, it shall be assumed that the buffer has no dynamic header. In that case, the immutable flag shall be present and shall be set to True.
+    /// </summary>
+    public int? BufferView { get; set; }
+
+    /// <summary>
+    /// The suggestedUpdateRate provides the frequency at which the renderer is recommended to poll the underlying buffer for new data. The rate is provided in number of changes per second.
+    /// </summary>
+    public float? SuggestedUpdateRate { get; set; }
+
+    /// <inheritdoc cref="SuggestedUpdateRate"/>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public float SuggestedUpdateRateOrDefault => SuggestedUpdateRate ?? 25F;
+}

@@ -1,0 +1,13 @@
+namespace glTFNet.Models.Extensions.Archived.KhrXmp;
+
+/// <summary>
+/// References an XMP packet listed in `KHR_xmp glTF extension`
+/// </summary>
+[Serializable]
+public class NodeKHRXmp : glTFNet.Models.GlTFProperty
+{
+    /// <summary>
+    /// The id of the XMP packet referenced by this node.
+    /// </summary>
+    public required int Packet { get; set; }
+}

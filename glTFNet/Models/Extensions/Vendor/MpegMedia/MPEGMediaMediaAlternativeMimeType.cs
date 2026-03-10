@@ -1,0 +1,6 @@
+namespace glTFNet.Models.Extensions.Vendor.MpegMedia;
+
+[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<MPEGMediaMediaAlternativeMimeType>))]
+public enum MPEGMediaMediaAlternativeMimeType
+{
+}

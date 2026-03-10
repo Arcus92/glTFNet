@@ -1,0 +1,10 @@
+namespace glTFNet.Models.Extensions.Khronos.KhrMaterialsVariants;
+
+[Serializable]
+public class MeshPrimitiveKHRMaterialsVariants : glTFNet.Models.GlTFProperty
+{
+    /// <summary>
+    /// An array of object values that associate an indexed material to a set of variants.
+    /// </summary>
+    public required List<glTFNet.Models.GlTFProperty> Mappings { get; set; }
+}

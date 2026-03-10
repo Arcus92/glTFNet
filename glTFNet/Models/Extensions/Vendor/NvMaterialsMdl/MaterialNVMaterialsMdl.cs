@@ -1,0 +1,13 @@
+namespace glTFNet.Models.Extensions.Vendor.NvMaterialsMdl;
+
+/// <summary>
+/// glTF extension that enables using MDL materials.
+/// </summary>
+[Serializable]
+public class MaterialNVMaterialsMdl : glTFNet.Models.GlTFProperty
+{
+    /// <summary>
+    /// The index of the MDL function call. The reference function call **MUST** represent the entry point to a function call graph and have the return type `material`.
+    /// </summary>
+    public required int FunctionCall { get; set; }
+}

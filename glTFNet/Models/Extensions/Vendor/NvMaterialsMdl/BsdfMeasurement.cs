@@ -1,0 +1,23 @@
+namespace glTFNet.Models.Extensions.Vendor.NvMaterialsMdl;
+
+/// <summary>
+/// A BSDF measurement (MBSDF) as defined in the MDL Language Specification.
+/// </summary>
+[Serializable]
+public class BsdfMeasurement : glTFNet.Models.GlTFChildOfRootProperty
+{
+    /// <summary>
+    /// The URI (or IRI) of the MBSDF.  Relative paths are relative to the current glTF asset.  Instead of referencing an external file, this field **MAY** contain a `data:`-URI. This field **MUST NOT** be defined when `bufferView` is defined.
+    /// </summary>
+    public string? Uri { get; set; }
+
+    /// <summary>
+    /// The ID of the bufferView containing the MBSDF.  This field **MUST NOT** be defined if `uri` is defined.
+    /// </summary>
+    public int? BufferView { get; set; }
+
+    /// <summary>
+    /// The BSDF measurement's media type.  This field **MUST** be defined when `bufferView` is defined.
+    /// </summary>
+    public BsdfMeasurementMimeType? MimeType { get; set; }
+}
