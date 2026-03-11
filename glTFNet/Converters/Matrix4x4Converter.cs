@@ -9,7 +9,7 @@ namespace glTFNet.Converters;
 public class Matrix4x4Converter : VectorConverter<Matrix4x4>
 {
     /// <inheritdoc />
-    protected override int Size => 4;
+    protected override int Size => 16;
     
     /// <inheritdoc />
     protected override float GetComponent(ref Matrix4x4 array, int index)
