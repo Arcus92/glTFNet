@@ -12,12 +12,11 @@ namespace glTFNet;
 /// A wrapper to store the loader reference of a GlTF data.
 /// </summary>
 /// <param name="data">The model data.</param>
-/// <param name="root">The GlTF root model.</param>
 /// <param name="loader">The loader this GlTF was loaded from.</param>
 /// <typeparam name="T">The model type.</typeparam>
 [PublicAPI]
 // ReSharper disable once InconsistentNaming
-public readonly struct GlTFRef<T>(T data, GlTF root, GlTFLoader loader)
+public readonly struct GlTFRef<T>(T data, GlTFLoader loader)
 {
     /// <summary>
     /// Gets the underlying glTF model.
@@ -30,9 +29,9 @@ public readonly struct GlTFRef<T>(T data, GlTF root, GlTFLoader loader)
     public int Index { get; init; } = -1;
     
     /// <summary>
-    /// Gets the glTF root.
+    /// Gets the glTF root from the loader.
     /// </summary>
-    internal GlTF Root { get; } = root;
+    internal GlTF Root => Loader.Data ?? throw new NullReferenceException("The glTF data is not loaded.");
     
     /// <summary>
     /// Gets the glTF loader.
@@ -47,7 +46,7 @@ public readonly struct GlTFRef<T>(T data, GlTF root, GlTFLoader loader)
     /// <returns>Returns the referenced glTF model.</returns>
     internal GlTFRef<TNew> Ref<TNew>(TNew instance)
     {
-        return new GlTFRef<TNew>(instance, Root, Loader);
+        return new GlTFRef<TNew>(instance, Loader);
     }
     
     /// <summary>
@@ -60,7 +59,7 @@ public readonly struct GlTFRef<T>(T data, GlTF root, GlTFLoader loader)
     internal GlTFRef<TNew> Ref<TNew>(IList<TNew> list, int index)
     {
         var instance = list[index];
-        return new GlTFRef<TNew>(instance, Root, Loader)
+        return new GlTFRef<TNew>(instance, Loader)
         {
             Index = index
         };

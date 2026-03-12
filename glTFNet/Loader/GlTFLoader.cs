@@ -13,6 +13,11 @@ namespace glTFNet.Loader;
 public class GlTFLoader : IDisposable, IAsyncDisposable
 {
     /// <summary>
+    /// Gets the loaded glTF data.
+    /// </summary>
+    public GlTF? Data { get; private set; }
+    
+    /// <summary>
     /// Gets and sets the current resource resolver.
     /// </summary>
     public IResourceResolver? ResourceResolver { get; set; }
@@ -46,6 +51,11 @@ public class GlTFLoader : IDisposable, IAsyncDisposable
     /// <param name="stream">The stream to read.</param>
     public async Task<GlTFRef<GlTF>> Open(Stream stream)
     {
+        if (Data is not null)
+        {
+            throw new InvalidOperationException("There is already an open glTF file opened.");
+        }
+        
         // Ensures this stream is seekable
         if (!stream.CanSeek)
         {
@@ -113,12 +123,8 @@ public class GlTFLoader : IDisposable, IAsyncDisposable
             gltf = await JsonSerializer.DeserializeAsync(stream, GlTFSerializerContext.Default.GlTF);
         }
 
-        if (gltf == null)
-        {
-            throw new NullReferenceException("Unable to load the glTF model.");
-        }
-
-        return new GlTFRef<GlTF>(gltf, gltf, this);
+        Data = gltf ?? throw new NullReferenceException("Unable to load the glTF model.");
+        return new GlTFRef<GlTF>(gltf, this);
     }
     
     /// <summary>
@@ -167,6 +173,7 @@ public class GlTFLoader : IDisposable, IAsyncDisposable
             buffer.Dispose();
         }
         _buffers.Clear();
+        Data = null;
     }
 
     /// <inheritdoc />
@@ -177,5 +184,6 @@ public class GlTFLoader : IDisposable, IAsyncDisposable
             await buffer.DisposeAsync();
         }
         _buffers.Clear();
+        Data = null;
     }
 }
