@@ -9,40 +9,61 @@ using Buffer = glTFNet.Models.Buffer;
 namespace glTFNet;
 
 /// <summary>
-/// A wrapper to store the loader reference of a GlTF model.
+/// A wrapper to store the loader reference of a GlTF data.
 /// </summary>
-/// <param name="model">The data model.</param>
+/// <param name="data">The model data.</param>
 /// <param name="root">The GlTF root model.</param>
 /// <param name="loader">The loader this GlTF was loaded from.</param>
 /// <typeparam name="T">The model type.</typeparam>
 [PublicAPI]
 // ReSharper disable once InconsistentNaming
-public readonly struct GlTFRef<T>(T model, GlTF root, GlTFLoader loader)
+public readonly struct GlTFRef<T>(T data, GlTF root, GlTFLoader loader)
 {
     /// <summary>
-    /// Gets the underlying model.
+    /// Gets the underlying glTF model.
     /// </summary>
-    public T Model { get; } = model;
-    
-    /// <summary>
-    /// Gets the GlTF root.
-    /// </summary>
-    public GlTF Root { get; } = root;
-    
-    /// <summary>
-    /// Gets the GlTF loader.
-    /// </summary>
-    public GlTFLoader Loader { get; } = loader;
+    public T Data { get; } = data;
 
     /// <summary>
-    /// Creates a new reference.
+    /// Gets the index of this reference in the array of the root glTF instance. This can be used as unique id.
     /// </summary>
-    /// <param name="instance"></param>
-    /// <typeparam name="TNew"></typeparam>
-    /// <returns></returns>
+    public int Index { get; init; } = -1;
+    
+    /// <summary>
+    /// Gets the glTF root.
+    /// </summary>
+    internal GlTF Root { get; } = root;
+    
+    /// <summary>
+    /// Gets the glTF loader.
+    /// </summary>
+    internal GlTFLoader Loader { get; } = loader;
+
+    /// <summary>
+    /// Creates a new glTF reference.
+    /// </summary>
+    /// <param name="instance">The glTF model to reference.</param>
+    /// <typeparam name="TNew">The instance type.</typeparam>
+    /// <returns>Returns the referenced glTF model.</returns>
     public GlTFRef<TNew> Ref<TNew>(TNew instance)
     {
         return new GlTFRef<TNew>(instance, Root, Loader);
+    }
+    
+    /// <summary>
+    /// Creates a new glTF reference to a root array entry.
+    /// </summary>
+    /// <param name="list">The root list to reference from.</param>
+    /// <param name="index">The list index to reference from.</param>
+    /// <typeparam name="TNew">The instance type</typeparam>
+    /// <returns>Returns the referenced glTF model.</returns>
+    public GlTFRef<TNew> Ref<TNew>(IList<TNew> list, int index)
+    {
+        var instance = list[index];
+        return new GlTFRef<TNew>(instance, Root, Loader)
+        {
+            Index = index
+        };
     }
     
     /// <summary>
@@ -50,7 +71,7 @@ public readonly struct GlTFRef<T>(T model, GlTF root, GlTFLoader loader)
     /// </summary>
     /// <param name="gltfRef">The reference struct.</param>
     /// <returns>Returns the model.</returns>
-    public static implicit operator T(GlTFRef<T> gltfRef) => gltfRef.Model;
+    public static implicit operator T(GlTFRef<T> gltfRef) => gltfRef.Data;
 }
 
 /// <summary>
@@ -71,12 +92,12 @@ public static class GlTFRef
         {
             get
             {
-                if (!instance.Model.Scene.HasValue || instance.Root.Scenes is null)
+                if (!instance.Data.Scene.HasValue || instance.Root.Scenes is null)
                 {
                     return null;
                 }
 
-                return instance.Ref(instance.Root.Scenes[instance.Model.Scene.Value]);
+                return instance.Ref(instance.Root.Scenes, instance.Data.Scene.Value);
             }
         }
     }
@@ -92,12 +113,12 @@ public static class GlTFRef
         {
             get
             {
-                if (instance.Model.Nodes is null || instance.Root.Nodes is null)
+                if (instance.Data.Nodes is null || instance.Root.Nodes is null)
                 {
                     return [];
                 }
 
-                return instance.Model.Nodes.Select(id => instance.Ref(instance.Root.Nodes[id]));
+                return instance.Data.Nodes.Select(id => instance.Ref(instance.Root.Nodes, id));
             }
         }
     }
@@ -113,12 +134,12 @@ public static class GlTFRef
         {
             get
             {
-                if (instance.Model.Children is null || instance.Root.Nodes is null)
+                if (instance.Data.Children is null || instance.Root.Nodes is null)
                 {
                     return [];
                 }
 
-                return instance.Model.Children.Select(id => instance.Ref(instance.Root.Nodes[id]));
+                return instance.Data.Children.Select(id => instance.Ref(instance.Root.Nodes, id));
             }
         }
 
@@ -130,12 +151,12 @@ public static class GlTFRef
         {
             get
             {
-                if (!instance.Model.Mesh.HasValue || instance.Root.Meshes is null)
+                if (!instance.Data.Mesh.HasValue || instance.Root.Meshes is null)
                 {
                     return null;
                 }
 
-                return instance.Ref(instance.Root.Meshes[instance.Model.Mesh.Value]);
+                return instance.Ref(instance.Root.Meshes, instance.Data.Mesh.Value);
             }
         }
 
@@ -147,12 +168,12 @@ public static class GlTFRef
         {
             get
             {
-                if (!instance.Model.Camera.HasValue || instance.Root.Cameras is null)
+                if (!instance.Data.Camera.HasValue || instance.Root.Cameras is null)
                 {
                     return null;
                 }
 
-                return instance.Ref(instance.Root.Cameras[instance.Model.Camera.Value]);
+                return instance.Ref(instance.Root.Cameras, instance.Data.Camera.Value);
             }
         }
     }
@@ -164,7 +185,7 @@ public static class GlTFRef
         /// Gets the primitives of this mesh.
         /// </summary>
         /// <value>Returns the primitives.</value>
-        public IEnumerable<GlTFRef<MeshPrimitive>> Primitives => instance.Model.Primitives.Select(instance.Ref);
+        public IEnumerable<GlTFRef<MeshPrimitive>> Primitives => instance.Data.Primitives.Select(instance.Ref);
     }
     
     /// <param name="instance">The GlTF mesh primitive reference.</param>
@@ -178,12 +199,12 @@ public static class GlTFRef
         {
             get
             {
-                if (!instance.Model.Indices.HasValue || instance.Root.Accessors is null)
+                if (!instance.Data.Indices.HasValue || instance.Root.Accessors is null)
                 {
                     return null;
                 }
 
-                return instance.Ref(instance.Root.Accessors[instance.Model.Indices.Value]);
+                return instance.Ref(instance.Root.Accessors, instance.Data.Indices.Value);
             }
         }
 
@@ -199,9 +220,9 @@ public static class GlTFRef
                     return [];
                 }
                 
-                return instance.Model.Attributes.Select(kvp => new KeyValuePair<string, GlTFRef<Accessor>>(
+                return instance.Data.Attributes.Select(kvp => new KeyValuePair<string, GlTFRef<Accessor>>(
                     kvp.Key, 
-                    instance.Ref(instance.Root.Accessors[kvp.Value])
+                    instance.Ref(instance.Root.Accessors, kvp.Value)
                     ));
             }
         }
@@ -220,12 +241,12 @@ public static class GlTFRef
                 return false;
             }
 
-            if (!instance.Model.Attributes.TryGetValue(name, out var index))
+            if (!instance.Data.Attributes.TryGetValue(name, out var index))
             {
                 return false;
             }
 
-            accessor = instance.Ref(instance.Root.Accessors[index]);
+            accessor = instance.Ref(instance.Root.Accessors, index);
             return true;
         }
 
@@ -237,12 +258,12 @@ public static class GlTFRef
         {
             get
             {
-                if (!instance.Model.Material.HasValue || instance.Root.Materials is null)
+                if (!instance.Data.Material.HasValue || instance.Root.Materials is null)
                 {
                     return null;
                 }
 
-                return instance.Ref(instance.Root.Materials[instance.Model.Material.Value]);
+                return instance.Ref(instance.Root.Materials, instance.Data.Material.Value);
             }
         }
     }
@@ -258,12 +279,12 @@ public static class GlTFRef
         {
             get
             {
-                if (!instance.Model.BufferView.HasValue || instance.Root.BufferViews is null)
+                if (!instance.Data.BufferView.HasValue || instance.Root.BufferViews is null)
                 {
                     return null;
                 }
 
-                return instance.Ref(instance.Root.BufferViews[instance.Model.BufferView.Value]);
+                return instance.Ref(instance.Root.BufferViews, instance.Data.BufferView.Value);
             }
         }
 
@@ -280,7 +301,7 @@ public static class GlTFRef
 
             // Loads the buffer view
             var bufferView = await instance.BufferView.Value.Load();
-            return bufferView?.Read(instance.Model);
+            return bufferView?.Read(instance.Data);
         }
         
         /// <summary>
@@ -296,7 +317,7 @@ public static class GlTFRef
 
             // Loads the buffer view
             var bufferView = await instance.BufferView.Value.Load();
-            return bufferView?.Read<T>(instance.Model);
+            return bufferView?.Read<T>(instance.Data);
         }
     }
     
@@ -316,7 +337,7 @@ public static class GlTFRef
                     return null;
                 }
 
-                return instance.Ref(instance.Root.Buffers[instance.Model.Buffer]);
+                return instance.Ref(instance.Root.Buffers, instance.Data.Buffer);
             }
         }
 
@@ -332,7 +353,7 @@ public static class GlTFRef
                 return null;
             }
 
-            return await buffer.OpenBufferView(instance.Model);
+            return await buffer.OpenBufferView(instance.Data);
         }
     }
 
@@ -345,9 +366,9 @@ public static class GlTFRef
         /// <returns>Returns the buffer.</returns>
         public GlTFBuffer Load()
         {
-            if (!instance.Loader.TryResolveBuffer(instance.Model.Uri, out var buffer))
+            if (!instance.Loader.TryResolveBuffer(instance.Data.Uri, out var buffer))
             {
-                throw new Exception($"Could not resolve buffer: {instance.Model.Uri ?? "(null)"}");
+                throw new Exception($"Could not resolve buffer: {instance.Data.Uri ?? "(null)"}");
             }
 
             return buffer;
@@ -366,12 +387,12 @@ public static class GlTFRef
         {
             get
             {
-                if (instance.Model.PbrMetallicRoughness is null)
+                if (instance.Data.PbrMetallicRoughness is null)
                 {
                     return null;
                 }
 
-                return instance.Ref(instance.Model.PbrMetallicRoughness);
+                return instance.Ref(instance.Data.PbrMetallicRoughness);
             }
         }
 
@@ -383,12 +404,12 @@ public static class GlTFRef
         {
             get
             {
-                if (instance.Model.NormalTexture is null)
+                if (instance.Data.NormalTexture is null)
                 {
                     return null;
                 }
 
-                return instance.Ref(instance.Model.NormalTexture);
+                return instance.Ref(instance.Data.NormalTexture);
             }
         }
 
@@ -400,12 +421,12 @@ public static class GlTFRef
         {
             get
             {
-                if (instance.Model.OcclusionTexture is null)
+                if (instance.Data.OcclusionTexture is null)
                 {
                     return null;
                 }
 
-                return instance.Ref(instance.Model.OcclusionTexture);
+                return instance.Ref(instance.Data.OcclusionTexture);
             }
         }
 
@@ -417,12 +438,12 @@ public static class GlTFRef
         {
             get
             {
-                if (instance.Model.EmissiveTexture is null)
+                if (instance.Data.EmissiveTexture is null)
                 {
                     return null;
                 }
 
-                return instance.Ref(instance.Model.EmissiveTexture);
+                return instance.Ref(instance.Data.EmissiveTexture);
             }
         }
     }
@@ -438,12 +459,12 @@ public static class GlTFRef
         {
             get
             {
-                if (instance.Model.BaseColorTexture is null)
+                if (instance.Data.BaseColorTexture is null)
                 {
                     return null;
                 }
 
-                return instance.Ref(instance.Model.BaseColorTexture);
+                return instance.Ref(instance.Data.BaseColorTexture);
             }
         }
 
@@ -455,12 +476,12 @@ public static class GlTFRef
         {
             get
             {
-                if (instance.Model.MetallicRoughnessTexture is null)
+                if (instance.Data.MetallicRoughnessTexture is null)
                 {
                     return null;
                 }
 
-                return instance.Ref(instance.Model.MetallicRoughnessTexture);
+                return instance.Ref(instance.Data.MetallicRoughnessTexture);
             }
         }
     }
@@ -481,7 +502,7 @@ public static class GlTFRef
                     return null;
                 }
 
-                return instance.Ref(instance.Root.Textures[instance.Model.Index]);
+                return instance.Ref(instance.Root.Textures, instance.Data.Index);
             }
         }
     }
@@ -497,12 +518,12 @@ public static class GlTFRef
         {
             get
             {
-                if (!instance.Model.Source.HasValue || instance.Root.Images is null)
+                if (!instance.Data.Source.HasValue || instance.Root.Images is null)
                 {
                     return null;
                 }
 
-                return instance.Ref(instance.Root.Images[instance.Model.Source.Value]);
+                return instance.Ref(instance.Root.Images, instance.Data.Source.Value);
             }
         }
         
@@ -514,12 +535,12 @@ public static class GlTFRef
         {
             get
             {
-                if (!instance.Model.Sampler.HasValue || instance.Root.Samplers is null)
+                if (!instance.Data.Sampler.HasValue || instance.Root.Samplers is null)
                 {
                     return null;
                 }
 
-                return instance.Ref(instance.Root.Samplers[instance.Model.Sampler.Value]);
+                return instance.Ref(instance.Root.Samplers, instance.Data.Sampler.Value);
             }
         }
     }
@@ -533,9 +554,9 @@ public static class GlTFRef
         /// <returns>Returns the image stream.</returns>
         public Stream Load()
         {
-            if (!instance.Loader.TryResolveStream(instance.Model.Uri, out var stream))
+            if (!instance.Loader.TryResolveStream(instance.Data.Uri, out var stream))
             {
-                throw new Exception($"Could not resolve image: {instance.Model.Uri ?? "(null)"}");
+                throw new Exception($"Could not resolve image: {instance.Data.Uri ?? "(null)"}");
             }
 
             return stream;
@@ -554,8 +575,8 @@ public static class GlTFRef
         /// <returns>Returns true, if the extension was found.</returns>
         public bool TryGetExtension<T>(string extensionName, [MaybeNullWhen(false)] out T extension)
         {
-            if (instance.Model.Extensions is null || 
-                instance.Model.Extensions.TryGetValue(extensionName, out var extensionObject))
+            if (instance.Data.Extensions is null || 
+                instance.Data.Extensions.TryGetValue(extensionName, out var extensionObject))
             {
                 extension = default;
                 return false;
@@ -595,15 +616,15 @@ public static class GlTFRef
         /// <typeparam name="T">The extension type.</typeparam>
         public void SetExtension<T>(string extensionName, T? extension)
         {
-            instance.Model.Extensions ??= new Extension();
+            instance.Data.Extensions ??= new Extension();
         
             if (extension is null)
             {
-                instance.Model.Extensions.Remove(extensionName);
+                instance.Data.Extensions.Remove(extensionName);
             }
             else
             {
-                instance.Model.Extensions[extensionName] = extension;
+                instance.Data.Extensions[extensionName] = extension;
             }
         }
     }
