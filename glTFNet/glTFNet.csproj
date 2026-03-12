@@ -1,10 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <Title>glTFNet</Title>
+        <Authors>David Schulte</Authors>
+        <Description>A fast and mordern glTF reader.</Description>
+        <PackageProjectUrl>https://github.com/Arcus92/glTFNet</PackageProjectUrl>
+        <PackageLicenseUrl>https://licenses.nuget.org/MIT</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/Arcus92/glTFNet</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>gltf, gbl</PackageTags>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Version>0.1.0-prerelease</Version>
+        <TargetFramework>net10.0</TargetFramework>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile>bin\Debug\net10.0\glTFNet.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>bin\Release\net10.0\glTFNet.xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
