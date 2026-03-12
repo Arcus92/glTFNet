@@ -45,7 +45,7 @@ public readonly struct GlTFRef<T>(T data, GlTF root, GlTFLoader loader)
     /// <param name="instance">The glTF model to reference.</param>
     /// <typeparam name="TNew">The instance type.</typeparam>
     /// <returns>Returns the referenced glTF model.</returns>
-    public GlTFRef<TNew> Ref<TNew>(TNew instance)
+    internal GlTFRef<TNew> Ref<TNew>(TNew instance)
     {
         return new GlTFRef<TNew>(instance, Root, Loader);
     }
@@ -57,7 +57,7 @@ public readonly struct GlTFRef<T>(T data, GlTF root, GlTFLoader loader)
     /// <param name="index">The list index to reference from.</param>
     /// <typeparam name="TNew">The instance type</typeparam>
     /// <returns>Returns the referenced glTF model.</returns>
-    public GlTFRef<TNew> Ref<TNew>(IList<TNew> list, int index)
+    internal GlTFRef<TNew> Ref<TNew>(IList<TNew> list, int index)
     {
         var instance = list[index];
         return new GlTFRef<TNew>(instance, Root, Loader)
