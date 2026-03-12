@@ -82,6 +82,30 @@ public readonly struct GlTFRef<T>(T data, GlTF root, GlTFLoader loader)
 public static class GlTFRef
 {
     /// <param name="instance">The GlTF reference.</param>
+    extension<T>(GlTFRef<T>? instance)
+    {
+        /// <inheritdoc cref="GlTFRef{T}.Data" />
+        public T? Data => instance.HasValue ? instance.Value.Data : default;
+        
+        /// <summary>
+        /// Tries to unwrap the nullable glTF reference.
+        /// </summary>
+        /// <param name="result">Returns the unwrapped reference.</param>
+        /// <returns>Returns true, if this nullable wrapper has a value.</returns>
+        public bool TryGet(out GlTFRef<T> result)
+        {
+            if (!instance.HasValue)
+            {
+                result = default;
+                return false;
+            }
+
+            result = instance.Value;
+            return true;
+        }
+    }
+
+    /// <param name="instance">The GlTF reference.</param>
     extension(GlTFRef<GlTF> instance)
     {
         /// <summary>
