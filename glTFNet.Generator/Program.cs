@@ -15,12 +15,15 @@ await AddExtensionDirectory(Path.Combine(inputDirectory, "extensions/2.0/Vendor"
 
 analyser.Analyse();
 
-// Generate the files
+// Generate the model classes and enums
 var codeGenerator = new SchemaCodeGenerator();
 foreach (var type in analyser.Types)
 {
-    await codeGenerator.Export(type, outputDirectory);
+    await codeGenerator.WriteModelType(type, outputDirectory);
 }
+
+// Generate the serializer context class
+await codeGenerator.WriteJsonSerializerContext(analyser.Types, outputDirectory,"GlTFSerializerContext", "glTFNet");
 
 return;
 
