@@ -24,6 +24,15 @@ public class GlTFBufferView(byte[] data, BufferView bufferView)
     public BufferView BufferView { get; } = bufferView;
 
     /// <summary>
+    /// Returns a new memory stream from this buffer.
+    /// </summary>
+    /// <returns>Returns the new memory stream.</returns>
+    public Stream AsStream()
+    {
+        return new MemoryStream(Data);
+    }
+    
+    /// <summary>
     /// Reads the values for the given accessor.
     /// </summary>
     /// <param name="accessor">The accessor to read.</param>

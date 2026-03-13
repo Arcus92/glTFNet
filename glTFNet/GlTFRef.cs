@@ -510,7 +510,7 @@ public static class GlTFRef
     }
 
     /// <param name="instance">The GlTF texture info reference.</param>
-    extension(GlTFRef<TextureInfo> instance)
+    extension<T>(GlTFRef<T> instance) where T : TextureInfo
     {
         /// <summary>
         /// Gets the texture.
@@ -572,14 +572,43 @@ public static class GlTFRef
     extension(GlTFRef<Image> instance)
     {
         /// <summary>
+        /// Gets the buffer view of this image.
+        /// </summary>
+        /// <value>Returns the buffer view.</value>
+        public GlTFRef<BufferView>? BufferView
+        {
+            get
+            {
+                if (!instance.Data.BufferView.HasValue || instance.Root.BufferViews is null)
+                {
+                    return null;
+                }
+
+                return instance.Ref(instance.Root.BufferViews, instance.Data.BufferView.Value);
+            }
+        }
+        
+        /// <summary>
         /// Opens the image.
         /// </summary>
         /// <returns>Returns the image stream.</returns>
-        public Stream Load()
+        public async Task<Stream> Load()
         {
+            // Load from buffer
+            if (instance.BufferView.TryGet(out var bufferView))
+            {
+                var loadedBufferView = await bufferView.Load();
+                if (loadedBufferView is null)
+                {
+                    throw new Exception($"Could not resolve image from buffer view: #{bufferView.Index}");
+                }
+                return loadedBufferView.AsStream();
+            }
+            
+            // Load from file
             if (!instance.Loader.TryResolveStream(instance.Data.Uri, out var stream))
             {
-                throw new Exception($"Could not resolve image: {instance.Data.Uri ?? "(null)"}");
+                throw new Exception($"Could not resolve image from uri: {instance.Data.Uri ?? "(null)"}");
             }
 
             return stream;
