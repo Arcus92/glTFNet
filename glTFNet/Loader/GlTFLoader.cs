@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using glTFNet.Models;
 using JetBrains.Annotations;
@@ -128,41 +127,44 @@ public class GlTFLoader : IDisposable, IAsyncDisposable
     }
     
     /// <summary>
-    /// Tries to resolve an external resource.
+    /// Tries to resolve an external resource as stream.
     /// </summary>
     /// <param name="uri">The uri to load.</param>
-    /// <param name="stream">Returns the stream.</param>
-    /// <returns>Returns true, if the resource could be loaded.</returns>
-    public bool TryResolveStream(string? uri, [MaybeNullWhen(false)] out Stream stream)
+    /// <returns>Returns the readable stream of the resource. Returns null, it the stream could not be resolved.</returns>
+    public async Task<Stream?> OpenUriAsStream(string? uri)
     {
-        stream = null;
-        return ResourceResolver is not null && ResourceResolver.TryResolve(uri, out stream);
+        if (ResourceResolver is null)
+        {
+            return null;
+        }
+        return await ResourceResolver.Resolve(uri);
     }
     
     /// <summary>
     /// Tries to resolve an external binary buffer.
     /// </summary>
     /// <param name="uri">The uri to load.</param>
-    /// <param name="buffer">Returns the buffer.</param>
-    /// <returns>Returns true, if the binary buffer could be loaded.</returns>
-    public bool TryResolveBuffer(string? uri, [MaybeNullWhen(false)] out GlTFBuffer buffer)
+    /// <returns>Returns the requested resource as binary buffer.</returns>
+    public async Task<GlTFBuffer?> OpenUriAsBuffer(string? uri)
     {
+        uri ??= "";
+        
         // Returns an open buffer.
-        if (_buffers.TryGetValue(uri ?? "", out buffer))
+        if (_buffers.TryGetValue(uri, out var buffer))
         {
-            return true;
+            return buffer;
         }
         
         // Resolves a new binary buffer
-        if (!TryResolveStream(uri, out var stream))
+        var stream = await OpenUriAsStream(uri);
+        if (stream is null)
         {
-            buffer = null;
-            return false;
+            return null;
         }
 
         buffer = new GlTFBuffer(stream);
-        _buffers.Add(uri ?? "", buffer);
-        return true;
+        _buffers.Add(uri, buffer);
+        return buffer;
     }
 
     /// <inheritdoc />

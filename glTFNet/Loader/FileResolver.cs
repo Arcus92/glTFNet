@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace glTFNet.Loader;
@@ -16,22 +15,19 @@ public class FileResolver(string root) : IResourceResolver
     public string Root { get; } = root;
 
     /// <inheritdoc />
-    public bool TryResolve(string? uri, [MaybeNullWhen(false)] out Stream stream)
+    public Task<Stream?> Resolve(string? uri)
     {
         if (uri is null)
         {
-            stream = null;
-            return false;
+            return Task.FromResult<Stream?>(null);
         }
         
         var path = Path.Combine(Root, uri);
         if (!File.Exists(path))
         {
-            stream = null;
-            return false;
+            return Task.FromResult<Stream?>(null);
         }
 
-        stream = File.OpenRead(path);
-        return true;
+        return Task.FromResult<Stream?>(File.OpenRead(path));
     }
 }

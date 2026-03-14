@@ -293,6 +293,11 @@ public static class GlTFRefExtensions
         /// <summary>
         /// Reads the data from the glTF accessor.
         /// </summary>
+        /// <remarks>
+        /// Only Scalar is fully supported! Vec2, Vec3, Vec4 and Mat4x4 only support float values. Mat2x2 and Mat3x3
+        /// are not supported.<br/>
+        /// You can use <see cref="Read{T}"/> to pass a custom struct with the given length to bypass this limitation.
+        /// </remarks>
         /// <returns>Returns the data.</returns>
         public async Task<Array?> Read()
         {
@@ -302,13 +307,17 @@ public static class GlTFRefExtensions
             }
 
             // Loads the buffer view
-            var bufferView = await instance.BufferView.Value.Load();
+            var bufferView = await instance.BufferView.Value.Open();
             return bufferView?.Read(instance.Data);
         }
         
         /// <summary>
-        /// Reads the data from the glTF accessor.
+        /// Reads the data from the glTF accessor as the given type.
         /// </summary>
+        /// <remarks>
+        /// The component type must match the component size in the accessor.
+        /// </remarks>
+        /// <typeparam name="T">The component type to read.</typeparam>
         /// <returns>Returns the data.</returns>
         public async Task<T[]?> Read<T>() where T : struct
         {
@@ -318,7 +327,7 @@ public static class GlTFRefExtensions
             }
 
             // Loads the buffer view
-            var bufferView = await instance.BufferView.Value.Load();
+            var bufferView = await instance.BufferView.Value.Open();
             return bufferView?.Read<T>(instance.Data);
         }
     }
@@ -347,14 +356,14 @@ public static class GlTFRefExtensions
         /// Opens the glTF buffer view.
         /// </summary>
         /// <returns>Returns the buffer view.</returns>
-        public async Task<GlTFBufferView?> Load()
+        public async Task<GlTFBufferView?> Open()
         {
-            var buffer = instance.Buffer?.Load();
-            if (buffer is null)
+            if (!instance.Buffer.HasValue)
             {
                 return null;
             }
 
+            var buffer = await instance.Buffer.Value.Open();
             return await buffer.OpenBufferView(instance.Data);
         }
     }
@@ -366,9 +375,10 @@ public static class GlTFRefExtensions
         /// Opens the buffer.
         /// </summary>
         /// <returns>Returns the buffer.</returns>
-        public GlTFBuffer Load()
+        public async Task<GlTFBuffer> Open()
         {
-            if (!instance.Loader.TryResolveBuffer(instance.Data.Uri, out var buffer))
+            var buffer = await instance.Loader.OpenUriAsBuffer(instance.Data.Uri);
+            if (buffer is null)
             {
                 throw new Exception($"Could not resolve buffer: {instance.Data.Uri ?? "(null)"}");
             }
@@ -571,12 +581,12 @@ public static class GlTFRefExtensions
         /// Opens the image.
         /// </summary>
         /// <returns>Returns the image stream.</returns>
-        public async Task<Stream> Load()
+        public async Task<Stream> Open()
         {
             // Load from buffer
             if (instance.BufferView.TryGet(out var bufferView))
             {
-                var loadedBufferView = await bufferView.Load();
+                var loadedBufferView = await bufferView.Open();
                 if (loadedBufferView is null)
                 {
                     throw new Exception($"Could not resolve image from buffer view: #{bufferView.Index}");
@@ -585,7 +595,8 @@ public static class GlTFRefExtensions
             }
             
             // Load from file
-            if (!instance.Loader.TryResolveStream(instance.Data.Uri, out var stream))
+            var stream = await instance.Loader.OpenUriAsStream(instance.Data.Uri);
+            if (stream is null)
             {
                 throw new Exception($"Could not resolve image from uri: {instance.Data.Uri ?? "(null)"}");
             }

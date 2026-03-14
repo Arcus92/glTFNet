@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace glTFNet.Loader;
@@ -13,7 +12,6 @@ public interface IResourceResolver
     /// Resolves the resource uri and opens the resource stream.
     /// </summary>
     /// <param name="uri">The resource uri to open.</param>
-    /// <param name="stream">Returns the readable stream of the resource.</param>
-    /// <returns>Returns true, if the resource was found and the stream was opened.</returns>
-    bool TryResolve(string? uri, [MaybeNullWhen(false)] out Stream stream);
+    /// <returns>Returns the readable stream of the resource. Returns null, it the stream could not be resolved.</returns>
+    Task<Stream?> Resolve(string? uri);
 }
