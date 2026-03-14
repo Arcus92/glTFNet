@@ -563,15 +563,23 @@ public static class GlTFRefExtensions
             return false;
         }
 
-        // Deserialize the anonymous object.
-        var typeInfo = GlTFSerializerContext.Default.GetTypeInfo(typeof(TExtension));
-        if (typeInfo is null || extensionJsonObject.Deserialize(typeInfo) is not TExtension deserializedType)
+        // Getting the JSON type info
+        var typeInfo = instance.Loader.GetTypeInfo<TExtension>();
+        if (typeInfo is null)
         {
             extension = default;
             return false;
         }
 
-        extension = deserializedType;
+        // Deserialize the extension
+        var deserializedExtension = extensionJsonObject.Deserialize(typeInfo);
+        if (deserializedExtension is null)
+        {
+            extension = default;
+            return false;
+        }
+        
+        extension = deserializedExtension;
         return true;
     }
 

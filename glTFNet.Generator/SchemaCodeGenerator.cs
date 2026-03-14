@@ -12,16 +12,12 @@ using Formatter = Microsoft.CodeAnalysis.Formatting.Formatter;
 
 namespace glTFNet.Generator;
 
-public class SchemaCodeGenerator(string jsonConverterNamespace)
+public class SchemaCodeGenerator(string rootPath, string rootNamespace, string jsonConverterNamespace, string[] jsonConverterNames)
 {
     // Class types
     private static readonly SchemaTypeNative TypeSerializableAttribute = new(typeof(SerializableAttribute));
     private static readonly SchemaTypeNative TypeJsonIgnoreAttribute = new(typeof(JsonIgnoreAttribute));
-
-    //private static readonly SchemaTypeNative TypeStringEnumMemberNameAttribute =
-    //    new(typeof(JsonStringEnumMemberNameAttribute));
     private static readonly SchemaTypeNative TypeEnumMember = new(typeof(EnumMemberAttribute));
-
     private static readonly SchemaTypeNative TypeJsonConverterAttribute = new(typeof(JsonConverterAttribute));
 
     // Serializer context types
@@ -35,22 +31,30 @@ public class SchemaCodeGenerator(string jsonConverterNamespace)
 
     private static readonly string[] DefaultUsings = ["System", "System.Collections.Generic"];
 
-    private static readonly string[] JsonConverterNames =
-        ["Vector2Converter", "Vector3Converter", "Vector4Converter", "QuaternionConverter", "Matrix4x4Converter"];
-
     /// <summary>
     /// The current type context.
     /// </summary>
     private SchemaTypeContext _context = SchemaTypeContext.Empty;
 
     /// <summary>
+    /// Exports all schema files to the given directory.
+    /// </summary>
+    /// <param name="types">The types to generate.</param>
+    public async Task WriteModelTypes(IEnumerable<ISchemaGeneratedType> types)
+    {
+        foreach (var type in types)
+        {
+            await WriteModelType(type);
+        }
+    }
+    
+    /// <summary>
     /// Exports a schema file to the given directory.
     /// </summary>
     /// <param name="type">The type to generate.</param>
-    /// <param name="rootPath">The output path.</param>
-    public async Task WriteModelType(ISchemaGeneratedType type, string rootPath)
+    public async Task WriteModelType(ISchemaGeneratedType type)
     {
-        var outputPath = Path.Combine(rootPath, type.Namespace.Replace('.', '/'));
+        var outputPath = GetNamespacePath(type.Namespace);
         Directory.CreateDirectory(outputPath);
 
         // Generate the code unit.
@@ -67,13 +71,12 @@ public class SchemaCodeGenerator(string jsonConverterNamespace)
     /// Exports a JSON serializer context containing all referenced types.
     /// </summary>
     /// <param name="types">The list of generated types added to the serializer.</param>
-    /// <param name="rootPath">The output path.</param>
     /// <param name="serializerClassName">The class name of the JSON serializer context.</param>
     /// <param name="serializerNamespace">The namespace of the JSON serializer context.</param>
-    public async Task WriteJsonSerializerContext(IReadOnlyList<ISchemaGeneratedType> types, string rootPath,
-        string serializerClassName, string serializerNamespace)
+    public async Task WriteJsonSerializerContext(IReadOnlyList<ISchemaGeneratedType> types, string serializerClassName, 
+        string serializerNamespace)
     {
-        var outputPath = Path.Combine(rootPath, serializerNamespace.Replace('.', '/'));
+        var outputPath = GetNamespacePath(serializerNamespace);
         Directory.CreateDirectory(outputPath);
 
         // Generate the code unit.
@@ -103,6 +106,24 @@ public class SchemaCodeGenerator(string jsonConverterNamespace)
             SchemaEnum schemaEnum => CreateCodeFromEnum(schemaEnum),
             _ => null
         };
+    }
+
+    /// <summary>
+    /// Returns the output path for the given namespace.
+    /// </summary>
+    /// <param name="ns">The namespace.</param>
+    /// <returns>Returns the output path to the namespace.</returns>
+    private string GetNamespacePath(string ns)
+    {
+        if (ns.StartsWith(rootNamespace))
+        {
+            ns = ns[rootNamespace.Length..];
+            if (ns.StartsWith('.'))
+            {
+                ns = ns[1..];
+            }
+        }
+        return Path.Combine(rootPath, ns.Replace('.', '/'));
     }
 
     #region Class
@@ -320,7 +341,7 @@ public class SchemaCodeGenerator(string jsonConverterNamespace)
             .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword),
                 SyntaxFactory.Token(SyntaxKind.PartialKeyword));
         
-        var jsonConverters = JsonConverterNames.Select(name => new SchemaTypeReference(name, jsonConverterNamespace));
+        var jsonConverters = jsonConverterNames.Select(name => new SchemaTypeReference(name, jsonConverterNamespace));
 
         // Adding [JsonSourceGenerationOptions]
         contextClass = contextClass.AddAttributeLists(

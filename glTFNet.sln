@@ -4,6 +4,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "glTFNet.Generator", "glTFNe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "glTFNet", "glTFNet\glTFNet.csproj", "{04E3F2AE-FC92-4056-B2B5-ACDC70572B07}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "glTFNet.Extensions.Khronos", "glTFNet.Extensions.Khronos\glTFNet.Extensions.Khronos.csproj", "{705DCECB-B672-4193-9ECE-8B2A9C2D36EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "glTFNet.Extensions.Vendor", "glTFNet.Extensions.Vendor\glTFNet.Extensions.Vendor.csproj", "{C0A29913-869C-4933-B19C-E9A0F3385580}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "glTFNet.Extensions.Archived", "glTFNet.Extensions.Archived\glTFNet.Extensions.Archived.csproj", "{1A7C01C4-1313-42BA-A0F9-2DEF449249F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +24,17 @@ Global
 		{04E3F2AE-FC92-4056-B2B5-ACDC70572B07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04E3F2AE-FC92-4056-B2B5-ACDC70572B07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04E3F2AE-FC92-4056-B2B5-ACDC70572B07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{705DCECB-B672-4193-9ECE-8B2A9C2D36EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{705DCECB-B672-4193-9ECE-8B2A9C2D36EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{705DCECB-B672-4193-9ECE-8B2A9C2D36EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{705DCECB-B672-4193-9ECE-8B2A9C2D36EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0A29913-869C-4933-B19C-E9A0F3385580}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0A29913-869C-4933-B19C-E9A0F3385580}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0A29913-869C-4933-B19C-E9A0F3385580}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0A29913-869C-4933-B19C-E9A0F3385580}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A7C01C4-1313-42BA-A0F9-2DEF449249F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A7C01C4-1313-42BA-A0F9-2DEF449249F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A7C01C4-1313-42BA-A0F9-2DEF449249F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A7C01C4-1313-42BA-A0F9-2DEF449249F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

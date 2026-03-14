@@ -28,6 +28,15 @@ public class SchemaAnalyser
     /// The list of input files.
     /// </summary>
     private readonly List<JsonSchemaContext> _schemas = [];
+
+    /// <summary>
+    /// Clears and resets the analyzer.
+    /// </summary>
+    public void Clear()
+    {
+        _types.Clear();
+        _schemas.Clear();
+    }
     
     /// <summary>
     /// Adds a schema to analyze.
