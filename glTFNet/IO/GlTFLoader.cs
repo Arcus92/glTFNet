@@ -11,7 +11,7 @@ namespace glTFNet.IO;
 /// </summary>
 [PublicAPI]
 // ReSharper disable once InconsistentNaming
-public class GlTFLoader : IDisposable, IAsyncDisposable
+public class GlTFLoader : IGlTFContext, IDisposable, IAsyncDisposable
 {
     /// <summary>
     /// Gets the loaded glTF data.
@@ -167,14 +167,21 @@ public class GlTFLoader : IDisposable, IAsyncDisposable
         }
 
         Data = gltf ?? throw new NullReferenceException("Unable to load the glTF model.");
-        return new GlTFRef<GlTF>(gltf, this);
+        return new GlTFRef<GlTF>(this, gltf);
     }
     
-    /// <summary>
-    /// Tries to resolve an external resource as stream.
-    /// </summary>
-    /// <param name="uri">The uri to load.</param>
-    /// <returns>Returns the readable stream of the resource. Returns null, it the stream could not be resolved.</returns>
+    /// <inheritdoc />
+    public T Parent<T>()
+    {
+        if (Data is T data)
+        {
+            return data;
+        }
+        
+        throw new InvalidOperationException($"The glTF model does not contain a parent of type {typeof(T)}.");
+    }
+    
+    /// <inheritdoc/>
     public async Task<Stream?> OpenUriAsStream(string? uri)
     {
         if (ResourceResolver is null)
@@ -184,11 +191,7 @@ public class GlTFLoader : IDisposable, IAsyncDisposable
         return await ResourceResolver.Resolve(uri);
     }
     
-    /// <summary>
-    /// Tries to resolve an external binary buffer.
-    /// </summary>
-    /// <param name="uri">The uri to load.</param>
-    /// <returns>Returns the requested resource as binary buffer.</returns>
+    /// <inheritdoc/>
     public async Task<GlTFBuffer?> OpenUriAsBuffer(string? uri)
     {
         uri ??= "";

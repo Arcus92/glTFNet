@@ -7,21 +7,24 @@ namespace glTFNet;
 /// <summary>
 /// A wrapper for a dictionary of glTF model instances by a key-to-index dictionary and a source list.
 /// </summary>
+/// <param name="context">The context this glTF was loaded from.</param>
 /// <param name="source">The glTF root list items.</param>
 /// <param name="dictionary">The dictionary of indexes referencing items from the <paramref name="source"/> list.</param>
-/// <param name="loader">The loader this GlTF was loaded from.</param>
 /// <typeparam name="TKey">The dictionary index type.</typeparam>
 /// <typeparam name="T">The glTF model type.</typeparam>
 [PublicAPI]
 // ReSharper disable once InconsistentNaming
-public readonly struct GlTFIndexedDictionaryRef<TKey, T>(IList<T> source, IDictionary<TKey, int> dictionary, GlTFLoader loader) : IReadOnlyDictionary<TKey, GlTFRef<T>> where TKey : notnull
+public readonly struct GlTFIndexedDictionaryRef<TKey, T>(
+    IGlTFContext context,
+    IList<T> source,
+    IDictionary<TKey, int> dictionary) : IReadOnlyDictionary<TKey, GlTFRef<T>> where TKey : notnull
 {
     /// <inheritdoc />
     public IEnumerator<KeyValuePair<TKey, GlTFRef<T>>> GetEnumerator()
     {
         var list1 = source;
-        var loader1 = loader;
-        return dictionary.Select(kvp => new KeyValuePair<TKey, GlTFRef<T>>(kvp.Key, new GlTFRef<T>(list1[kvp.Value], loader1) { Index = kvp.Value })).GetEnumerator();
+        var context1 = context;
+        return dictionary.Select(kvp => new KeyValuePair<TKey, GlTFRef<T>>(kvp.Key, new GlTFRef<T>(context1, list1[kvp.Value]) { Index = kvp.Value })).GetEnumerator();
     }
 
     /// <inheritdoc />
@@ -45,7 +48,7 @@ public readonly struct GlTFIndexedDictionaryRef<TKey, T>(IList<T> source, IDicti
             return false;
         }
 
-        value = new GlTFRef<T>(source[index], loader) { Index = index };
+        value = new GlTFRef<T>(context, source[index]) { Index = index };
         return true;
     }
 
@@ -55,7 +58,7 @@ public readonly struct GlTFIndexedDictionaryRef<TKey, T>(IList<T> source, IDicti
         get
         {
             var index = dictionary[key];
-            return new GlTFRef<T>(source[index], loader) { Index = index };
+            return new GlTFRef<T>(context, source[index]) { Index = index };
         }
     }
 
@@ -68,13 +71,13 @@ public readonly struct GlTFIndexedDictionaryRef<TKey, T>(IList<T> source, IDicti
         get
         {
             var list1 = source;
-            var loader1 = loader;
-            return dictionary.Values.Select(index => new GlTFRef<T>(list1[index], loader1) { Index = index });
+            var context1 = context;
+            return dictionary.Values.Select(index => new GlTFRef<T>(context1, list1[index]) { Index = index });
         }
     }
     
     /// <summary>
     /// Gets an empty dictionary reference.
     /// </summary>
-    public static GlTFIndexedDictionaryRef<TKey, T> Empty { get; } = new([], new Dictionary<TKey, int>(), null!);
+    public static GlTFIndexedDictionaryRef<TKey, T> Empty { get; } = new(null!, [], new Dictionary<TKey, int>());
 }

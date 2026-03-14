@@ -46,91 +46,144 @@ public static class GlTFRefExtensions
     /// <value>Returns the scene if found.</value>
     public static GlTFRef<Scene>? Scene(this GlTFRef<GlTF> instance)
     {
-        if (!instance.Data.Scene.HasValue || instance.Root.Scenes is null)
+        var root = instance.Context.Parent<GlTF>();
+        if (!instance.Data.Scene.HasValue || root.Scenes is null)
         {
             return null;
         }
 
-        return instance.Ref(instance.Root.Scenes, instance.Data.Scene.Value);
+        return instance.Ref(root.Scenes, instance.Data.Scene.Value);
     }
 
     /// <summary>
     /// Gets all scenes of the glTF root.
     /// </summary>
     /// <param name="instance">The glTF reference.</param>
-    public static GlTFListRef<Scene> Scenes(this GlTFRef<GlTF> instance) => instance.Root.Scenes is null ? GlTFListRef<Scene>.Empty : instance.RefList(instance.Root.Scenes);
+    public static GlTFListRef<Scene> Scenes(this GlTFRef<GlTF> instance)
+    {
+        var root = instance.Context.Parent<GlTF>();
+        return root.Scenes is null ? GlTFListRef<Scene>.Empty : instance.RefList(root.Scenes);
+    }
 
     /// <summary>
     /// Gets all nodes of the glTF root.
     /// </summary>
     /// <param name="instance">The glTF reference.</param>
-    public static GlTFListRef<Node> Nodes(this GlTFRef<GlTF> instance) => instance.Root.Nodes is null ? GlTFListRef<Node>.Empty : instance.RefList(instance.Root.Nodes);
+    public static GlTFListRef<Node> Nodes(this GlTFRef<GlTF> instance)
+    {
+        var root = instance.Context.Parent<GlTF>();
+        return root.Nodes is null ? GlTFListRef<Node>.Empty : instance.RefList(root.Nodes);
+    }
 
     /// <summary>
     /// Gets all cameras of the glTF root.
     /// </summary>
     /// <param name="instance">The glTF reference.</param>
-    public static GlTFListRef<Camera> Camera(this GlTFRef<GlTF> instance) => instance.Root.Cameras is null ? GlTFListRef<Camera>.Empty : instance.RefList(instance.Root.Cameras);
+    public static GlTFListRef<Camera> Camera(this GlTFRef<GlTF> instance)
+    {
+        var root = instance.Context.Parent<GlTF>();
+        return root.Cameras is null ? GlTFListRef<Camera>.Empty : instance.RefList(root.Cameras);
+    }
 
     /// <summary>
     /// Gets all materials of the glTF root.
     /// </summary>
     /// <param name="instance">The glTF reference.</param>
-    public static GlTFListRef<Material> Materials(this GlTFRef<GlTF> instance) => instance.Root.Materials is null ? GlTFListRef<Material>.Empty : instance.RefList(instance.Root.Materials);
+    public static GlTFListRef<Material> Materials(this GlTFRef<GlTF> instance)
+    {
+        var root = instance.Context.Parent<GlTF>();
+        return root.Materials is null ? GlTFListRef<Material>.Empty : instance.RefList(root.Materials);
+    }
 
     /// <summary>
     /// Gets all textures of the glTF root.
     /// </summary>
     /// <param name="instance">The glTF reference.</param>
-    public static GlTFListRef<Texture> Textures(this GlTFRef<GlTF> instance) => instance.Root.Textures is null ? GlTFListRef<Texture>.Empty : instance.RefList(instance.Root.Textures);
+    public static GlTFListRef<Texture> Textures(this GlTFRef<GlTF> instance)
+    {
+        var root = instance.Context.Parent<GlTF>();
+        return root.Textures is null ? GlTFListRef<Texture>.Empty : instance.RefList(root.Textures);
+    }
 
     /// <summary>
     /// Gets all samplers of the glTF root.
     /// </summary>
     /// <param name="instance">The glTF reference.</param>
-    public static GlTFListRef<Sampler> Samplers(this GlTFRef<GlTF> instance) => instance.Root.Samplers is null ? GlTFListRef<Sampler>.Empty : instance.RefList(instance.Root.Samplers);
+    public static GlTFListRef<Sampler> Samplers(this GlTFRef<GlTF> instance)
+    {
+        var root = instance.Context.Parent<GlTF>();
+        return root.Samplers is null ? GlTFListRef<Sampler>.Empty : instance.RefList(root.Samplers);
+    }
 
     /// <summary>
     /// Gets all images of the glTF root.
     /// </summary>
     /// <param name="instance">The glTF reference.</param>
-    public static GlTFListRef<Image> Images(this GlTFRef<GlTF> instance) => instance.Root.Images is null ? GlTFListRef<Image>.Empty : instance.RefList(instance.Root.Images);
+    public static GlTFListRef<Image> Images(this GlTFRef<GlTF> instance)
+    {
+        var root = instance.Context.Parent<GlTF>();
+        return root.Images is null ? GlTFListRef<Image>.Empty : instance.RefList(root.Images);
+    }
 
     /// <summary>
     /// Gets all buffers of the glTF root.
     /// </summary>
     /// <param name="instance">The glTF reference.</param>
-    public static GlTFListRef<Buffer> Buffers(this GlTFRef<GlTF> instance) => instance.Root.Buffers is null ? GlTFListRef<Buffer>.Empty : instance.RefList(instance.Root.Buffers);
+    public static GlTFListRef<Buffer> Buffers(this GlTFRef<GlTF> instance)
+    {
+        var root = instance.Context.Parent<GlTF>();
+        return root.Buffers is null ? GlTFListRef<Buffer>.Empty : instance.RefList(root.Buffers);
+    }
 
     /// <summary>
     /// Gets all buffer views of the glTF root.
     /// </summary>
     /// <param name="instance">The glTF reference.</param>
-    public static GlTFListRef<BufferView> BufferViews(this GlTFRef<GlTF> instance) => instance.Root.BufferViews is null ? GlTFListRef<BufferView>.Empty : instance.RefList(instance.Root.BufferViews);
+    public static GlTFListRef<BufferView> BufferViews(this GlTFRef<GlTF> instance)
+    {
+        var root = instance.Context.Parent<GlTF>();
+        return root.BufferViews is null ? GlTFListRef<BufferView>.Empty : instance.RefList(root.BufferViews);
+    }
 
     /// <summary>
     /// Gets all accessors of the glTF root.
     /// </summary>
     /// <param name="instance">The glTF reference.</param>
-    public static GlTFListRef<Accessor> Accessors(this GlTFRef<GlTF> instance) => instance.Root.Accessors is null ? GlTFListRef<Accessor>.Empty : instance.RefList(instance.Root.Accessors);
+    public static GlTFListRef<Accessor> Accessors(this GlTFRef<GlTF> instance)
+    {
+        var root = instance.Context.Parent<GlTF>();
+        return root.Accessors is null ? GlTFListRef<Accessor>.Empty : instance.RefList(root.Accessors);
+    }
 
     /// <summary>
     /// Gets all meshes of the glTF root.
     /// </summary>
     /// <param name="instance">The glTF reference.</param>
-    public static GlTFListRef<Mesh> Meshes(this GlTFRef<GlTF> instance) => instance.Root.Meshes is null ? GlTFListRef<Mesh>.Empty : instance.RefList(instance.Root.Meshes);
+    public static GlTFListRef<Mesh> Meshes(this GlTFRef<GlTF> instance)
+    {
+        var root = instance.Context.Parent<GlTF>();
+        return root.Meshes is null ? GlTFListRef<Mesh>.Empty : instance.RefList(root.Meshes);
+    }
 
     /// <summary>
     /// Gets all skins of the glTF root.
     /// </summary>
     /// <param name="instance">The glTF reference.</param>
-    public static GlTFListRef<Skin> Skins(this GlTFRef<GlTF> instance) => instance.Root.Skins is null ? GlTFListRef<Skin>.Empty : instance.RefList(instance.Root.Skins);
+    public static GlTFListRef<Skin> Skins(this GlTFRef<GlTF> instance)
+    {
+        var root = instance.Context.Parent<GlTF>();
+        return root.Skins is null ? GlTFListRef<Skin>.Empty : instance.RefList(root.Skins);
+    }
 
     /// <summary>
     /// Gets all animations of the glTF root.
     /// </summary>
     /// <param name="instance">The glTF reference.</param>
-    public static GlTFListRef<Animation> Animations(this GlTFRef<GlTF> instance) => instance.Root.Animations is null ? GlTFListRef<Animation>.Empty : instance.RefList(instance.Root.Animations);
+    public static GlTFListRef<Animation> Animations(this GlTFRef<GlTF> instance)
+    {
+        var root = instance.Context.Parent<GlTF>();
+        return root.Animations is null ? GlTFListRef<Animation>.Empty : instance.RefList(root.Animations);
+    }
 
     /// <summary>
     /// Gets the root scene of the glTF scene.
@@ -139,12 +192,13 @@ public static class GlTFRefExtensions
     /// <value>Returns the scene nodes.</value>
     public static GlTFIndexedListRef<Node> Nodes(this GlTFRef<Scene> instance)
     {
-        if (instance.Data.Nodes is null || instance.Root.Nodes is null)
+        var root = instance.Context.Parent<GlTF>();
+        if (instance.Data.Nodes is null || root.Nodes is null)
         {
             return GlTFIndexedListRef<Node>.Empty;
         }
 
-        return instance.RefIndexedList(instance.Root.Nodes, instance.Data.Nodes);
+        return instance.RefIndexedList(root.Nodes, instance.Data.Nodes);
     }
 
     /// <summary>
@@ -154,12 +208,13 @@ public static class GlTFRefExtensions
     /// <value>Returns the child nodes.</value>
     public static GlTFIndexedListRef<Node> Children(this GlTFRef<Node> instance)
     {
-        if (instance.Data.Children is null || instance.Root.Nodes is null)
+        var root = instance.Context.Parent<GlTF>();
+        if (instance.Data.Children is null || root.Nodes is null)
         {
             return GlTFIndexedListRef<Node>.Empty;
         }
 
-        return instance.RefIndexedList(instance.Root.Nodes, instance.Data.Children);
+        return instance.RefIndexedList(root.Nodes, instance.Data.Children);
     }
 
     /// <summary>
@@ -169,12 +224,13 @@ public static class GlTFRefExtensions
     /// <value>Returns the mesh.</value>
     public static GlTFRef<Mesh>? Mesh(this GlTFRef<Node> instance)
     {
-        if (!instance.Data.Mesh.HasValue || instance.Root.Meshes is null)
+        var root = instance.Context.Parent<GlTF>();
+        if (!instance.Data.Mesh.HasValue || root.Meshes is null)
         {
             return null;
         }
 
-        return instance.Ref(instance.Root.Meshes, instance.Data.Mesh.Value);
+        return instance.Ref(root.Meshes, instance.Data.Mesh.Value);
     
     }
 
@@ -185,12 +241,13 @@ public static class GlTFRefExtensions
     /// <value>Returns the camera.</value>
     public static GlTFRef<Camera>? Camera(this GlTFRef<Node> instance)
     {
-        if (!instance.Data.Camera.HasValue || instance.Root.Cameras is null)
+        var root = instance.Context.Parent<GlTF>();
+        if (!instance.Data.Camera.HasValue || root.Cameras is null)
         {
             return null;
         }
 
-        return instance.Ref(instance.Root.Cameras, instance.Data.Camera.Value);
+        return instance.Ref(root.Cameras, instance.Data.Camera.Value);
     }
 
     /// <summary>
@@ -207,12 +264,13 @@ public static class GlTFRefExtensions
     /// <value>Returns the indices accessor.</value>
     public static GlTFRef<Accessor>? Indices(this GlTFRef<MeshPrimitive> instance)
     {
-        if (!instance.Data.Indices.HasValue || instance.Root.Accessors is null)
+        var root = instance.Context.Parent<GlTF>();
+        if (!instance.Data.Indices.HasValue || root.Accessors is null)
         {
             return null;
         }
 
-        return instance.Ref(instance.Root.Accessors, instance.Data.Indices.Value);
+        return instance.Ref(root.Accessors, instance.Data.Indices.Value);
     }
 
     /// <summary>
@@ -221,12 +279,13 @@ public static class GlTFRefExtensions
     /// <param name="instance">The glTF mesh primitive reference.</param>
     public static GlTFIndexedDictionaryRef<string, Accessor> Attributes(this GlTFRef<MeshPrimitive> instance)
     {
-        if (instance.Root.Accessors is null)
+        var root = instance.Context.Parent<GlTF>();
+        if (root.Accessors is null)
         {
             return GlTFIndexedDictionaryRef<string, Accessor>.Empty;
         }
 
-        return instance.RefIndexedDictionary(instance.Root.Accessors, instance.Data.Attributes);
+        return instance.RefIndexedDictionary(root.Accessors, instance.Data.Attributes);
     }
 
     /// <summary>
@@ -236,12 +295,13 @@ public static class GlTFRefExtensions
     /// <value>Returns the material.</value>
     public static GlTFRef<Material>? Material(this GlTFRef<MeshPrimitive> instance)
     {
-        if (!instance.Data.Material.HasValue || instance.Root.Materials is null)
+        var root = instance.Context.Parent<GlTF>();
+        if (!instance.Data.Material.HasValue || root.Materials is null)
         {
             return null;
         }
 
-        return instance.Ref(instance.Root.Materials, instance.Data.Material.Value);
+        return instance.Ref(root.Materials, instance.Data.Material.Value);
     }
 
     /// <summary>
@@ -251,12 +311,13 @@ public static class GlTFRefExtensions
     /// <value>Returns the buffer view.</value>
     public static GlTFRef<BufferView>? BufferView(this GlTFRef<Accessor> instance)
     {
-        if (!instance.Data.BufferView.HasValue || instance.Root.BufferViews is null)
+        var root = instance.Context.Parent<GlTF>();
+        if (!instance.Data.BufferView.HasValue || root.BufferViews is null)
         {
             return null;
         }
 
-        return instance.Ref(instance.Root.BufferViews, instance.Data.BufferView.Value);
+        return instance.Ref(root.BufferViews, instance.Data.BufferView.Value);
     }
 
     /// <summary>
@@ -311,12 +372,13 @@ public static class GlTFRefExtensions
     /// <value>Returns the buffer.</value>
     public static GlTFRef<Buffer>? Buffer(this GlTFRef<BufferView> instance)
     {
-        if (instance.Root.Buffers is null)
+        var root = instance.Context.Parent<GlTF>();
+        if (root.Buffers is null)
         {
             return null;
         }
 
-        return instance.Ref(instance.Root.Buffers, instance.Data.Buffer);
+        return instance.Ref(root.Buffers, instance.Data.Buffer);
     }
 
     /// <summary>
@@ -343,7 +405,7 @@ public static class GlTFRefExtensions
     /// <returns>Returns the buffer.</returns>
     public static async Task<GlTFBuffer> Open(this GlTFRef<Buffer> instance)
     {
-        var buffer = await instance.Loader.OpenUriAsBuffer(instance.Data.Uri);
+        var buffer = await instance.Context.OpenUriAsBuffer(instance.Data.Uri);
         if (buffer is null)
         {
             throw new Exception($"Could not resolve buffer: {instance.Data.Uri ?? "(null)"}");
@@ -450,12 +512,13 @@ public static class GlTFRefExtensions
     /// <value>Returns the texture.</value>
     public static GlTFRef<Texture>? Texture<T>(this GlTFRef<T> instance) where T : TextureInfo
     {
-        if (instance.Root.Textures is null)
+        var root = instance.Context.Parent<GlTF>();
+        if (root.Textures is null)
         {
             return null;
         }
 
-        return instance.Ref(instance.Root.Textures, instance.Data.Index);
+        return instance.Ref(root.Textures, instance.Data.Index);
     }
 
     /// <summary>
@@ -465,12 +528,13 @@ public static class GlTFRefExtensions
     /// <value>Returns the source image.</value>
     public static GlTFRef<Image>? Source(this GlTFRef<Texture> instance)
     {
-        if (!instance.Data.Source.HasValue || instance.Root.Images is null)
+        var root = instance.Context.Parent<GlTF>();
+        if (!instance.Data.Source.HasValue || root.Images is null)
         {
             return null;
         }
 
-        return instance.Ref(instance.Root.Images, instance.Data.Source.Value);
+        return instance.Ref(root.Images, instance.Data.Source.Value);
     }
 
     /// <summary>
@@ -480,12 +544,13 @@ public static class GlTFRefExtensions
     /// <value>Returns the sampler.</value>
     public static GlTFRef<Sampler>? Sampler(this GlTFRef<Texture> instance)
     {
-        if (!instance.Data.Sampler.HasValue || instance.Root.Samplers is null)
+        var root = instance.Context.Parent<GlTF>();
+        if (!instance.Data.Sampler.HasValue || root.Samplers is null)
         {
             return null;
         }
 
-        return instance.Ref(instance.Root.Samplers, instance.Data.Sampler.Value);
+        return instance.Ref(root.Samplers, instance.Data.Sampler.Value);
     }
 
     /// <summary>
@@ -495,12 +560,13 @@ public static class GlTFRefExtensions
     /// <value>Returns the buffer view.</value>
     public static GlTFRef<BufferView>? BufferView(this GlTFRef<Image> instance)
     {
-        if (!instance.Data.BufferView.HasValue || instance.Root.BufferViews is null)
+        var root = instance.Context.Parent<GlTF>();
+        if (!instance.Data.BufferView.HasValue || root.BufferViews is null)
         {
             return null;
         }
 
-        return instance.Ref(instance.Root.BufferViews, instance.Data.BufferView.Value);
+        return instance.Ref(root.BufferViews, instance.Data.BufferView.Value);
     }
 
     /// <summary>
@@ -522,7 +588,7 @@ public static class GlTFRefExtensions
         }
             
         // Load from file
-        var stream = await instance.Loader.OpenUriAsStream(instance.Data.Uri);
+        var stream = await instance.Context.OpenUriAsStream(instance.Data.Uri);
         if (stream is null)
         {
             throw new Exception($"Could not resolve image from uri: {instance.Data.Uri ?? "(null)"}");
@@ -564,7 +630,7 @@ public static class GlTFRefExtensions
         }
 
         // Getting the JSON type info
-        var typeInfo = instance.Loader.GetTypeInfo<TExtension>();
+        var typeInfo = instance.Context.GetTypeInfo<TExtension>();
         if (typeInfo is null)
         {
             extension = default;

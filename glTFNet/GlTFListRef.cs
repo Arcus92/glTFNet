@@ -7,18 +7,18 @@ namespace glTFNet;
 /// <summary>
 /// A wrapper for a list of glTF model instances.
 /// </summary>
+/// <param name="context">The context this glTF was loaded from.</param>
 /// <param name="source">The glTF list items.</param>
-/// <param name="loader">The loader this GlTF was loaded from.</param>
 /// <typeparam name="T">The glTF model type.</typeparam>
 [PublicAPI]
 // ReSharper disable once InconsistentNaming
-public readonly struct GlTFListRef<T>(IList<T> source, GlTFLoader loader) : IReadOnlyList<GlTFRef<T>>
+public readonly struct GlTFListRef<T>(IGlTFContext context, IList<T> source) : IReadOnlyList<GlTFRef<T>>
 {
     /// <inheritdoc />
     public IEnumerator<GlTFRef<T>> GetEnumerator()
     {
-        var loader1 = loader;
-        return source.Select((item, i) => new GlTFRef<T>(item, loader1) { Index = i }).GetEnumerator();
+        var context1 = context;
+        return source.Select((item, i) => new GlTFRef<T>(context1, item) { Index = i }).GetEnumerator();
     }
 
     /// <inheritdoc />
@@ -31,10 +31,10 @@ public readonly struct GlTFListRef<T>(IList<T> source, GlTFLoader loader) : IRea
     public int Count => source.Count;
 
     /// <inheritdoc />
-    public GlTFRef<T> this[int index] => new(source[index], loader) { Index = index };
+    public GlTFRef<T> this[int index] => new(context, source[index]) { Index = index };
 
     /// <summary>
     /// Gets an empty list reference.
     /// </summary>
-    public static GlTFListRef<T> Empty { get; } = new([], null!);
+    public static GlTFListRef<T> Empty { get; } = new(null!, []);
 }
