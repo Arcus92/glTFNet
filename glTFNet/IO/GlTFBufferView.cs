@@ -9,6 +9,7 @@ namespace glTFNet.IO;
 /// Gets a loaded buffer view.
 /// </summary>
 /// <param name="data">The initial data.</param>
+/// <param name="bufferView">The parent buffer view.</param>
 [PublicAPI]
 // ReSharper disable once InconsistentNaming
 public class GlTFBufferView(byte[] data, BufferView bufferView)
