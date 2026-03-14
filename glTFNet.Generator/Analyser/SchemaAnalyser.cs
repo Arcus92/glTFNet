@@ -33,11 +33,31 @@ public class SchemaAnalyser
     /// Adds a schema to analyze.
     /// </summary>
     /// <param name="schema">The JSON schema.</param>
-    /// <param name="className">The schema class name.</param>
+    /// <param name="refName">The schema reference name.</param>
     /// <param name="ns">The destination namespace.</param>
-    public void Add(JsonSchema schema, string className, string ns)
+    public void Add(JsonSchema schema, string refName, string ns)
     {
-        _schemas.Add(JsonSchemaContext.From(schema).WithClassName(className).WithNamespace(ns));
+        var className = refName;
+        
+        // Check if the name is already used
+        if (_schemas.Any(t => t.ClassName == className))
+        {
+            // Assume this is an extension, and we can add the extension namespace to the class name to generate a unique id.
+            var index = ns.LastIndexOf('.');
+            if (index > 0)
+            {
+                var lastNamespacePath = ns[(index + 1)..];
+                className = $"{lastNamespacePath}{className}";
+            }
+        }
+
+        // Final check
+        if (_schemas.Any(t => t.ClassName == className))
+        {
+            throw new InvalidOperationException($"Cannot generate a unique class name for {ns}.{refName}");
+        }
+        
+        _schemas.Add(JsonSchemaContext.From(schema).WithRefName(refName).WithClassName(className).WithNamespace(ns));
     }
     
     /// <summary>
@@ -300,10 +320,10 @@ public class SchemaAnalyser
     /// <returns>Returns true, if the schema was found.</returns>
     private bool TryGetExternalSchema(string name, string? ns, out JsonSchemaContext result)
     {
-        result = _schemas.FirstOrDefault(x => x.ClassName == name && x.Namespace == ns);
+        result = _schemas.FirstOrDefault(x => x.RefName == name && x.Namespace == ns);
         if (result.Schema is not null) return true;
         
-        result = _schemas.FirstOrDefault(x => x.ClassName == name);
+        result = _schemas.FirstOrDefault(x => x.RefName == name);
         if (result.Schema is not null) return true;
         
         result = default;

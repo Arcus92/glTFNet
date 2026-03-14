@@ -16,6 +16,15 @@ public struct JsonSchemaContext
     public required JsonSchema? Root { get; set; }
 
     /// <summary>
+    /// Gets the original referenced name.
+    /// </summary>
+    /// <remarks>
+    /// The <see cref="ClassName"/> might change to avoid identical names since this isn't supported by the JSON
+    /// serializer. Even in different namespaces.
+    /// </remarks>
+    public string? RefName { get; private set; }
+
+    /// <summary>
     /// Gets the class name of this schema.
     /// </summary>
     public string? ClassName { get; private set; }
@@ -35,6 +44,18 @@ public struct JsonSchemaContext
     /// </summary>
     public string? ParentPropertyName { get; private set; }
 
+    /// <summary>
+    /// Returns a new context with the reference name added.
+    /// </summary>
+    /// <param name="refName">The reference name to set.</param>
+    /// <returns>Returns a new context.</returns>
+    public JsonSchemaContext WithRefName(string refName)
+    {
+        var context = this;
+        context.RefName = refName;
+        return context;
+    }
+    
     /// <summary>
     /// Returns a new context with the class name added.
     /// </summary>

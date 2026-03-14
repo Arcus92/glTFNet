@@ -105,7 +105,7 @@ Converters = [typeof(glTFNet.Converters.Vector2Converter), typeof(glTFNet.Conver
 [System.Text.Json.Serialization.JsonSerializable(typeof(glTFNet.Models.Extensions.Vendor.ExtLightsIes.LightProfile))]
 [System.Text.Json.Serialization.JsonSerializable(typeof(glTFNet.Models.Extensions.Vendor.ExtLightsIes.NodeEXTLightsIes))]
 [System.Text.Json.Serialization.JsonSerializable(typeof(glTFNet.Models.Extensions.Vendor.ExtLightsImageBased.GlTFEXTLightsImageBased))]
-[System.Text.Json.Serialization.JsonSerializable(typeof(glTFNet.Models.Extensions.Vendor.ExtLightsImageBased.Light))]
+[System.Text.Json.Serialization.JsonSerializable(typeof(glTFNet.Models.Extensions.Vendor.ExtLightsImageBased.ExtLightsImageBasedLight))]
 [System.Text.Json.Serialization.JsonSerializable(typeof(glTFNet.Models.Extensions.Vendor.ExtLightsImageBased.SceneEXTLightsImageBased))]
 [System.Text.Json.Serialization.JsonSerializable(typeof(glTFNet.Models.Extensions.Vendor.ExtMeshGpuInstancing.GlTFEXTMeshGpuInstancing))]
 [System.Text.Json.Serialization.JsonSerializable(typeof(glTFNet.Models.Extensions.Vendor.ExtMeshManifold.MeshEXTMeshManifold))]
