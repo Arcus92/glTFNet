@@ -1,5 +1,5 @@
 using System.Collections;
-using glTFNet.Loader;
+using glTFNet.IO;
 using JetBrains.Annotations;
 
 namespace glTFNet;

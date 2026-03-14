@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using glTFNet.Loader;
+using glTFNet.IO;
 using glTFNet.Models;
 using JetBrains.Annotations;
 using Buffer = glTFNet.Models.Buffer;

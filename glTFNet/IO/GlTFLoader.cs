@@ -2,7 +2,7 @@ using System.Text.Json;
 using glTFNet.Models;
 using JetBrains.Annotations;
 
-namespace glTFNet.Loader;
+namespace glTFNet.IO;
 
 /// <summary>
 /// A loader class for GlTF files and binaries.

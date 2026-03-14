@@ -1,4 +1,4 @@
-using glTFNet.Loader;
+using glTFNet.IO;
 using glTFNet.Models;
 using JetBrains.Annotations;
 

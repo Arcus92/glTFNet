@@ -1,7 +1,7 @@
 using glTFNet.Models;
 using JetBrains.Annotations;
 
-namespace glTFNet.Loader;
+namespace glTFNet.IO;
 
 /// <summary>
 /// An open buffer from a <see cref="GlTFLoader"/>.

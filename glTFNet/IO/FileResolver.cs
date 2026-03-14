@@ -1,6 +1,6 @@
 using JetBrains.Annotations;
 
-namespace glTFNet.Loader;
+namespace glTFNet.IO;
 
 /// <summary>
 /// A <see cref="IResourceResolver"/> looking for resources relative to a directory.

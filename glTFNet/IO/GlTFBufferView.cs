@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using glTFNet.Models;
 using JetBrains.Annotations;
 
-namespace glTFNet.Loader;
+namespace glTFNet.IO;
 
 /// <summary>
 /// Gets a loaded buffer view.
