@@ -14,7 +14,7 @@
         <PackageTags>gltf, gbl</PackageTags>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Version>0.1.0-prerelease</Version>
-        <TargetFramework>net10.0</TargetFramework>
+        <TargetFrameworks>net10.0;net9.0;net8.0</TargetFrameworks>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

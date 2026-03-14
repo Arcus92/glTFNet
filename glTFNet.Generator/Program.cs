@@ -4,6 +4,7 @@ using glTFNet.Generator.Analyser;
 var inputDirectory = Path.Combine("../../../../glTF/");
 var outputDirectory = Path.Combine("../../../../");
 var outputNamespace = "glTFNet.Models";
+var converterNamespace = "glTFNet.Converters";
 
 // Load all schema files
 var analyser = new SchemaAnalyser();
@@ -16,7 +17,7 @@ await AddExtensionDirectory(Path.Combine(inputDirectory, "extensions/2.0/Vendor"
 analyser.Analyse();
 
 // Generate the model classes and enums
-var codeGenerator = new SchemaCodeGenerator();
+var codeGenerator = new SchemaCodeGenerator(converterNamespace);
 foreach (var type in analyser.Types)
 {
     await codeGenerator.WriteModelType(type, outputDirectory);

@@ -2,7 +2,7 @@
 #nullable enable
 namespace glTFNet.Models.Extensions.Vendor.MpegMedia;
 
-[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<MPEGMediaMediaAlternativeMimeType>))]
+[System.Text.Json.Serialization.JsonConverter(typeof(glTFNet.Converters.JsonStringEnumMemberConverter<MPEGMediaMediaAlternativeMimeType>))]
 public enum MPEGMediaMediaAlternativeMimeType
 {
 }

@@ -2,15 +2,15 @@
 #nullable enable
 namespace glTFNet.Models;
 
-[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<AnimationChannelTargetPath>))]
+[System.Text.Json.Serialization.JsonConverter(typeof(glTFNet.Converters.JsonStringEnumMemberConverter<AnimationChannelTargetPath>))]
 public enum AnimationChannelTargetPath
 {
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("translation")]
+    [System.Runtime.Serialization.EnumMember(Value = "translation")]
     Translation,
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("rotation")]
+    [System.Runtime.Serialization.EnumMember(Value = "rotation")]
     Rotation,
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("scale")]
+    [System.Runtime.Serialization.EnumMember(Value = "scale")]
     Scale,
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("weights")]
+    [System.Runtime.Serialization.EnumMember(Value = "weights")]
     Weights
 }

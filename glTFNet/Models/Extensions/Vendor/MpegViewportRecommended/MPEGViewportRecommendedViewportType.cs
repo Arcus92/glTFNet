@@ -2,11 +2,11 @@
 #nullable enable
 namespace glTFNet.Models.Extensions.Vendor.MpegViewportRecommended;
 
-[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<MPEGViewportRecommendedViewportType>))]
+[System.Text.Json.Serialization.JsonConverter(typeof(glTFNet.Converters.JsonStringEnumMemberConverter<MPEGViewportRecommendedViewportType>))]
 public enum MPEGViewportRecommendedViewportType
 {
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("perspective")]
+    [System.Runtime.Serialization.EnumMember(Value = "perspective")]
     Perspective,
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("orthographic")]
+    [System.Runtime.Serialization.EnumMember(Value = "orthographic")]
     Orthographic
 }

@@ -2,11 +2,11 @@
 #nullable enable
 namespace glTFNet.Models.Extensions.Vendor.NvMaterialsMdl;
 
-[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<FunctionCallTypeModifier>))]
+[System.Text.Json.Serialization.JsonConverter(typeof(glTFNet.Converters.JsonStringEnumMemberConverter<FunctionCallTypeModifier>))]
 public enum FunctionCallTypeModifier
 {
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("varying")]
+    [System.Runtime.Serialization.EnumMember(Value = "varying")]
     Varying,
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("uniform")]
+    [System.Runtime.Serialization.EnumMember(Value = "uniform")]
     Uniform
 }

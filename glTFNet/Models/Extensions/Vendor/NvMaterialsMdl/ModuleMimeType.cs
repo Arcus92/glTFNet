@@ -2,9 +2,9 @@
 #nullable enable
 namespace glTFNet.Models.Extensions.Vendor.NvMaterialsMdl;
 
-[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<ModuleMimeType>))]
+[System.Text.Json.Serialization.JsonConverter(typeof(glTFNet.Converters.JsonStringEnumMemberConverter<ModuleMimeType>))]
 public enum ModuleMimeType
 {
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("application/vnd.mdl")]
+    [System.Runtime.Serialization.EnumMember(Value = "application/vnd.mdl")]
     ApplicationVndMdl
 }

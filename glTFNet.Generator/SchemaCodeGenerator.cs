@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Runtime.Serialization;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
@@ -6,22 +7,22 @@ using glTFNet.Generator.Types;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Formatting;
 using Microsoft.CodeAnalysis.Text;
+using Formatter = Microsoft.CodeAnalysis.Formatting.Formatter;
 
 namespace glTFNet.Generator;
 
-public class SchemaCodeGenerator
+public class SchemaCodeGenerator(string jsonConverterNamespace)
 {
     // Class types
     private static readonly SchemaTypeNative TypeSerializableAttribute = new(typeof(SerializableAttribute));
     private static readonly SchemaTypeNative TypeJsonIgnoreAttribute = new(typeof(JsonIgnoreAttribute));
 
-    private static readonly SchemaTypeNative TypeStringEnumMemberNameAttribute =
-        new(typeof(JsonStringEnumMemberNameAttribute));
+    //private static readonly SchemaTypeNative TypeStringEnumMemberNameAttribute =
+    //    new(typeof(JsonStringEnumMemberNameAttribute));
+    private static readonly SchemaTypeNative TypeEnumMember = new(typeof(EnumMemberAttribute));
 
     private static readonly SchemaTypeNative TypeJsonConverterAttribute = new(typeof(JsonConverterAttribute));
-    private static readonly SchemaTypeNative TypeJsonStringEnumConverter = new(typeof(JsonStringEnumConverter<>));
 
     // Serializer context types
     private static readonly SchemaTypeNative TypeJsonSerializerContext = new(typeof(JsonSerializerContext));
@@ -234,7 +235,9 @@ public class SchemaCodeGenerator
         
         var schemaEnum = SyntaxFactory.EnumDeclaration(type.Name)
             .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
-
+        
+        var typeJsonStringEnumMemberConverter = new SchemaTypeReference("JsonStringEnumMemberConverter", jsonConverterNamespace);
+        
         // Adding the string enum converter
         if (type.Type.Is<string>())
         {
@@ -244,7 +247,7 @@ public class SchemaCodeGenerator
                         .WithArgumentList(SyntaxFactory.AttributeArgumentList()
                             .AddArguments(SyntaxFactory.AttributeArgument(
                                 SyntaxFactory.TypeOfExpression(
-                                    TypeJsonStringEnumConverter.MakeGenericType(type).AsTypeSyntax(_context))
+                                    typeJsonStringEnumMemberConverter.MakeGenericType(type).AsTypeSyntax(_context))
                             ))))));
         }
 
@@ -267,10 +270,11 @@ public class SchemaCodeGenerator
             {
                 schemaEnumMember = schemaEnumMember.AddAttributeLists(
                     SyntaxFactory.AttributeList(
-                        SyntaxFactory.SingletonSeparatedList(TypeStringEnumMemberNameAttribute
+                        SyntaxFactory.SingletonSeparatedList(TypeEnumMember
                             .AsAttributeSyntax(_context)
                             .WithArgumentList(SyntaxFactory.AttributeArgumentList()
                                 .AddArguments(SyntaxFactory.AttributeArgument(
+                                    SyntaxFactory.NameEquals(nameof(EnumMemberAttribute.Value)), null,
                                     SyntaxFactory.LiteralExpression(SyntaxKind.StringLiteralExpression,
                                         SyntaxFactory.Literal(value.StringValue))))))));
             }
@@ -315,9 +319,8 @@ public class SchemaCodeGenerator
         var contextClass = SyntaxFactory.ClassDeclaration(className)
             .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword),
                 SyntaxFactory.Token(SyntaxKind.PartialKeyword));
-
-        var jsonConverterNs = $"{ns}.Converters";
-        var jsonConverters = JsonConverterNames.Select(name => new SchemaTypeReference(name, jsonConverterNs));
+        
+        var jsonConverters = JsonConverterNames.Select(name => new SchemaTypeReference(name, jsonConverterNamespace));
 
         // Adding [JsonSourceGenerationOptions]
         contextClass = contextClass.AddAttributeLists(

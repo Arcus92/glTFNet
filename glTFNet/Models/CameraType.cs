@@ -2,11 +2,11 @@
 #nullable enable
 namespace glTFNet.Models;
 
-[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<CameraType>))]
+[System.Text.Json.Serialization.JsonConverter(typeof(glTFNet.Converters.JsonStringEnumMemberConverter<CameraType>))]
 public enum CameraType
 {
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("perspective")]
+    [System.Runtime.Serialization.EnumMember(Value = "perspective")]
     Perspective,
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("orthographic")]
+    [System.Runtime.Serialization.EnumMember(Value = "orthographic")]
     Orthographic
 }

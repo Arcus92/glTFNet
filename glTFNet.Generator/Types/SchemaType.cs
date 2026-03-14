@@ -22,75 +22,77 @@ public interface ISchemaType
 /// </summary>
 public static class SchemaType
 {
+    /// <summary>
+    /// Creates an array type information of this type.
+    /// </summary>
     /// <param name="schemaType">The schema type.</param>
-    extension(ISchemaType schemaType)
+    /// <returns>Returns the new array type.</returns>
+    public static ISchemaType AsArray(this ISchemaType schemaType)
     {
-        /// <summary>
-        /// Creates an array type information of this type.
-        /// </summary>
-        /// <returns>Returns the new array type.</returns>
-        public ISchemaType AsArray()
-        {
-            return new SchemaTypeArray(schemaType);
-        }
+        return new SchemaTypeArray(schemaType);
+    }
 
-        /// <summary>
-        /// Creates a nullable type information of this type.
-        /// </summary>
-        /// <returns>Returns the new nullable type.</returns>
-        public ISchemaType AsNullable()
-        {
-            return new SchemaTypeNullable(schemaType);
-        }
+    /// <summary>
+    /// Creates a nullable type information of this type.
+    /// </summary>
+    /// <param name="schemaType">The schema type.</param>
+    /// <returns>Returns the new nullable type.</returns>
+    public static ISchemaType AsNullable(this ISchemaType schemaType)
+    {
+        return new SchemaTypeNullable(schemaType);
+    }
 
-        /// <summary>
-        /// Returns the type syntax.
-        /// </summary>
-        /// <param name="context">The current type context.</param>
-        /// <returns>Returns the type syntax.</returns>
-        public TypeSyntax AsTypeSyntax(SchemaTypeContext context)
-        {
-            return SyntaxFactory.ParseTypeName(schemaType.GetName(context));
-        }
+    /// <summary>
+    /// Returns the type syntax.
+    /// </summary>
+    /// <param name="context">The current type context.</param>
+    /// <param name="schemaType">The schema type.</param>
+    /// <returns>Returns the type syntax.</returns>
+    public static TypeSyntax AsTypeSyntax(this ISchemaType schemaType, SchemaTypeContext context)
+    {
+        return SyntaxFactory.ParseTypeName(schemaType.GetName(context));
+    }
 
-        /// <summary>
-        /// Returns the attribute syntax name.
-        /// </summary>
-        /// <param name="context">The current type context.</param>
-        /// <returns>Returns the attribute syntax.</returns>
-        public AttributeSyntax AsAttributeSyntax(SchemaTypeContext context)
+    /// <summary>
+    /// Returns the attribute syntax name.
+    /// </summary>
+    /// <param name="context">The current type context.</param>
+    /// <param name="schemaType">The schema type.</param>
+    /// <returns>Returns the attribute syntax.</returns>
+    public static AttributeSyntax AsAttributeSyntax(this ISchemaType schemaType, SchemaTypeContext context)
+    {
+        var name = schemaType.GetName(context);
+        if (name.EndsWith("Attribute"))
         {
-            var name = schemaType.GetName(context);
-            if (name.EndsWith("Attribute"))
-            {
-                name = name[..^9];
-            }
-            return SyntaxFactory.Attribute(SyntaxFactory.ParseName(name));
+            name = name[..^9];
         }
+        return SyntaxFactory.Attribute(SyntaxFactory.ParseName(name));
+    }
 
-        /// <summary>
-        /// Returns a generic type reference from this type.
-        /// </summary>
-        /// <param name="types">The list of generic types.</param>
-        /// <returns>Returns a new type reference.</returns>
-        public SchemaTypeNativeGeneric MakeGenericType(params ISchemaType[] types)
-        {
-            return new SchemaTypeNativeGeneric(schemaType, types);
-        }
+    /// <summary>
+    /// Returns a generic type reference from this type.
+    /// </summary>
+    /// <param name="types">The list of generic types.</param>
+    /// <param name="schemaType">The schema type.</param>
+    /// <returns>Returns a new type reference.</returns>
+    public static SchemaTypeNativeGeneric MakeGenericType(this ISchemaType schemaType, params ISchemaType[] types)
+    {
+        return new SchemaTypeNativeGeneric(schemaType, types);
+    }
 
-        /// <summary>
-        /// Returns if this type matches the type information.
-        /// </summary>
-        /// <typeparam name="T">The type to check.</typeparam>
-        /// <returns>Returns true, if the type matches.</returns>
-        public bool Is<T>()
+    /// <summary>
+    /// Returns if this type matches the type information.
+    /// </summary>
+    /// <param name="schemaType">The schema type.</param>
+    /// <typeparam name="T">The type to check.</typeparam>
+    /// <returns>Returns true, if the type matches.</returns>
+    public static bool Is<T>(this ISchemaType schemaType)
+    {
+        if (schemaType is SchemaTypeNative schemaTypeNative)
         {
-            if (schemaType is SchemaTypeNative schemaTypeNative)
-            {
-                return schemaTypeNative.Type == typeof(T);
-            }
-            return false;
+            return schemaTypeNative.Type == typeof(T);
         }
+        return false;
     }
 
     /// <summary>

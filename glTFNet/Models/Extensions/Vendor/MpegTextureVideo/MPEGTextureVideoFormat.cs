@@ -2,25 +2,25 @@
 #nullable enable
 namespace glTFNet.Models.Extensions.Vendor.MpegTextureVideo;
 
-[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<MPEGTextureVideoFormat>))]
+[System.Text.Json.Serialization.JsonConverter(typeof(glTFNet.Converters.JsonStringEnumMemberConverter<MPEGTextureVideoFormat>))]
 public enum MPEGTextureVideoFormat
 {
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("RED")]
+    [System.Runtime.Serialization.EnumMember(Value = "RED")]
     Red,
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("GREEN")]
+    [System.Runtime.Serialization.EnumMember(Value = "GREEN")]
     Green,
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("BLUE")]
+    [System.Runtime.Serialization.EnumMember(Value = "BLUE")]
     Blue,
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("RG")]
+    [System.Runtime.Serialization.EnumMember(Value = "RG")]
     Rg,
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("RGB")]
+    [System.Runtime.Serialization.EnumMember(Value = "RGB")]
     Rgb,
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("RGBA")]
+    [System.Runtime.Serialization.EnumMember(Value = "RGBA")]
     Rgba,
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("BGR")]
+    [System.Runtime.Serialization.EnumMember(Value = "BGR")]
     Bgr,
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("BGRA")]
+    [System.Runtime.Serialization.EnumMember(Value = "BGRA")]
     Bgra,
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("DEPTH_COMPONENT")]
+    [System.Runtime.Serialization.EnumMember(Value = "DEPTH_COMPONENT")]
     DepthComponent
 }

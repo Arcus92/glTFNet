@@ -2,11 +2,11 @@
 #nullable enable
 namespace glTFNet.Models;
 
-[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter<ImageMimeType>))]
+[System.Text.Json.Serialization.JsonConverter(typeof(glTFNet.Converters.JsonStringEnumMemberConverter<ImageMimeType>))]
 public enum ImageMimeType
 {
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("image/jpeg")]
+    [System.Runtime.Serialization.EnumMember(Value = "image/jpeg")]
     ImageJpeg,
-    [System.Text.Json.Serialization.JsonStringEnumMemberName("image/png")]
+    [System.Runtime.Serialization.EnumMember(Value = "image/png")]
     ImagePng
 }
