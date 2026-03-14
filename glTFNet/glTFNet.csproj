@@ -7,14 +7,16 @@
         <Title>glTFNet</Title>
         <Authors>David Schulte</Authors>
         <Description>A fast and mordern glTF reader.</Description>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageProjectUrl>https://github.com/Arcus92/glTFNet</PackageProjectUrl>
-        <PackageLicenseUrl>https://licenses.nuget.org/MIT</PackageLicenseUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/Arcus92/glTFNet</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>gltf, gbl</PackageTags>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Version>0.1.0-prerelease</Version>
         <TargetFrameworks>net10.0;net9.0;net8.0</TargetFrameworks>
+        <Copyright>Copyright (c) David Schulte 2026</Copyright>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -25,6 +27,11 @@
       <DocumentationFile>bin\Release\net10.0\glTFNet.xml</DocumentationFile>
     </PropertyGroup>
 
+    <ItemGroup>
+        <None Include="..\README.md" Pack="true" PackagePath="\"/>
+        <None Include="..\LICENSE" Pack="true" PackagePath="\"/>
+    </ItemGroup>
+    
     <ItemGroup>
       <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
     </ItemGroup>
