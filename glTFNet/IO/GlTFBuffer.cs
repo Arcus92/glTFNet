@@ -1,4 +1,4 @@
-using glTFNet.Models;
+using glTFNet.Specifications.Models;
 using JetBrains.Annotations;
 
 namespace glTFNet.IO;

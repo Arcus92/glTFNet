@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.MsftTextureDds;
 /// glTF extension to specify textures using the DirectDraw Surface file format (DDS).
 /// </summary>
 [Serializable]
-public class GlTFMSFTTextureDds : glTFNet.Models.GlTFProperty
+public class GlTFMSFTTextureDds : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// The index of the images node which points to a DDS texture file.

@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Archived.Models.KhrTechniquesWebgl;
 /// Instances of shading techniques with external shader programs along with their parameterized values.  Shading techniques describe data types and semantics for GLSL vertex and fragment shader programs.
 /// </summary>
 [Serializable]
-public class GlTFKHRTechniquesWebgl : glTFNet.Models.GlTFProperty
+public class GlTFKHRTechniquesWebgl : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// An array of `Program` objects.

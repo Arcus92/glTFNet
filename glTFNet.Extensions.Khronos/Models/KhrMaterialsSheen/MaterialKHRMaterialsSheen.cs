@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrMaterialsSheen;
 /// glTF extension that defines the sheen material model.
 /// </summary>
 [Serializable]
-public class MaterialKHRMaterialsSheen : glTFNet.Models.GlTFProperty
+public class MaterialKHRMaterialsSheen : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// Color of the sheen layer (in linear space).
@@ -21,7 +21,7 @@ public class MaterialKHRMaterialsSheen : glTFNet.Models.GlTFProperty
     /// <summary>
     /// The sheen color (RGB) texture. Stored in channel RGB, the sheen color is in sRGB transfer function.
     /// </summary>
-    public glTFNet.Models.TextureInfo? SheenColorTexture { get; set; }
+    public glTFNet.Specifications.Models.TextureInfo? SheenColorTexture { get; set; }
 
     /// <summary>
     /// The sheen layer roughness of the material.
@@ -35,5 +35,5 @@ public class MaterialKHRMaterialsSheen : glTFNet.Models.GlTFProperty
     /// <summary>
     /// The sheen roughness (Alpha) texture. Stored in alpha channel, the roughness value is in linear space.
     /// </summary>
-    public glTFNet.Models.TextureInfo? SheenRoughnessTexture { get; set; }
+    public glTFNet.Specifications.Models.TextureInfo? SheenRoughnessTexture { get; set; }
 }

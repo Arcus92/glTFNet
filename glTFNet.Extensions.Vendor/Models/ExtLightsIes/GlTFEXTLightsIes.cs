@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.ExtLightsIes;
 /// glTF extension that enables the use of IES light profiles.
 /// </summary>
 [Serializable]
-public class GlTFEXTLightsIes : glTFNet.Models.GlTFProperty
+public class GlTFEXTLightsIes : glTFNet.Specifications.Models.GlTFProperty
 {
     public required List<LightProfile> Lights { get; set; }
 }

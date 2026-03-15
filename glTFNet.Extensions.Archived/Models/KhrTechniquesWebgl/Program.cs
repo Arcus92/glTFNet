@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Archived.Models.KhrTechniquesWebgl;
 /// A shader program, including its vertex and fragment shaders.
 /// </summary>
 [Serializable]
-public class Program : glTFNet.Models.GlTFChildOfRootProperty
+public class Program : glTFNet.Specifications.Models.GlTFChildOfRootProperty
 {
     /// <summary>
     /// The index of the fragment shader.

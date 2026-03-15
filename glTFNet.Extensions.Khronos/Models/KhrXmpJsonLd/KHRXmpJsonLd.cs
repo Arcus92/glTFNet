@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrXmpJsonLd;
 /// References an XMP packet listed in `KHR_xmp_json_ld glTF extension`
 /// </summary>
 [Serializable]
-public class KHRXmpJsonLd : glTFNet.Models.GlTFProperty
+public class KHRXmpJsonLd : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// The id of the XMP packet referenced.

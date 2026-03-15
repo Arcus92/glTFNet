@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrMaterialsVolume;
 /// glTF extension that defines the parameters for the volume of a material.
 /// </summary>
 [Serializable]
-public class MaterialKHRMaterialsVolume : glTFNet.Models.GlTFProperty
+public class MaterialKHRMaterialsVolume : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// The thickness of the volume beneath the surface. The value is given in the coordinate space of the mesh. A value greater than 0 turns the mesh into a volume with a homogeneous medium, enabling refraction, absorption and subsurface scattering. The actual value may be ignored by renderers that are able to derive the thickness from the mesh (ray tracer).
@@ -21,7 +21,7 @@ public class MaterialKHRMaterialsVolume : glTFNet.Models.GlTFProperty
     /// <summary>
     /// A texture that defines the thickness of the volume, stored in the G channel. Will be multiplied by thicknessFactor.
     /// </summary>
-    public glTFNet.Models.TextureInfo? ThicknessTexture { get; set; }
+    public glTFNet.Specifications.Models.TextureInfo? ThicknessTexture { get; set; }
 
     /// <summary>
     /// Density of the medium given as the average distance that light travels in the medium before interacting with a particle. The value is given in world space. When undefined, the value is assumed to be infinite.

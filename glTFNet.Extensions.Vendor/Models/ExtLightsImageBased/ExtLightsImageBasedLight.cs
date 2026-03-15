@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.ExtLightsImageBased;
 /// An image-based lighting environment.
 /// </summary>
 [Serializable]
-public class ExtLightsImageBasedLight : glTFNet.Models.GlTFChildOfRootProperty
+public class ExtLightsImageBasedLight : glTFNet.Specifications.Models.GlTFChildOfRootProperty
 {
     /// <summary>
     /// Quaternion that represents the rotation of the IBL environment.

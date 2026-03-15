@@ -4,7 +4,7 @@
 namespace glTFNet.Extensions.Vendor.Models.FbGeometryMetadata;
 
 [Serializable]
-public class SceneFBGeometryMetadata : glTFNet.Models.GlTFProperty
+public class SceneFBGeometryMetadata : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// The number of distinct vertices recursively contained in this scene.

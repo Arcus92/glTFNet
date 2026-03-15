@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.NvMaterialsMdl;
 /// Function call with its list of arguments. Can represent the entry point into a function call graph or be a node in such a graph.
 /// </summary>
 [Serializable]
-public class FunctionCall : glTFNet.Models.GlTFChildOfRootProperty
+public class FunctionCall : glTFNet.Specifications.Models.GlTFChildOfRootProperty
 {
     /// <summary>
     /// The ID of the containing module.  This field **MUST NOT** be defined if a built-in function is specified.

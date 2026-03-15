@@ -4,7 +4,7 @@
 namespace glTFNet.Extensions.Khronos.Models.KhrLightsPunctual;
 
 [Serializable]
-public class LightSpot : glTFNet.Models.GlTFProperty
+public class LightSpot : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// Angle in radians from centre of spotlight where falloff begins.

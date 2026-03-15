@@ -1,7 +1,8 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
-using glTFNet.Models;
+using glTFNet.Specifications;
+using glTFNet.Specifications.Models;
 using JetBrains.Annotations;
 
 namespace glTFNet.IO;

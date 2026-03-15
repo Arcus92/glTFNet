@@ -4,7 +4,7 @@
 namespace glTFNet.Extensions.Khronos.Models.KhrLightsPunctual;
 
 [Serializable]
-public class NodeKHRLightsPunctual : glTFNet.Models.GlTFProperty
+public class NodeKHRLightsPunctual : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// The id of the light referenced by this node.

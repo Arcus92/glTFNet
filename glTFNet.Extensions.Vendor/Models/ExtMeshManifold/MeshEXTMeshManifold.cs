@@ -7,9 +7,9 @@ namespace glTFNet.Extensions.Vendor.Models.ExtMeshManifold;
 /// glTF extension defines manifoldness for a mesh.
 /// </summary>
 [Serializable]
-public class MeshEXTMeshManifold : glTFNet.Models.GlTFProperty
+public class MeshEXTMeshManifold : glTFNet.Specifications.Models.GlTFProperty
 {
-    public required glTFNet.Models.MeshPrimitive ManifoldPrimitive { get; set; }
+    public required glTFNet.Specifications.Models.MeshPrimitive ManifoldPrimitive { get; set; }
 
     /// <summary>
     /// The index of the accessor that contains the vertex sparse indices for merging into a manifold.

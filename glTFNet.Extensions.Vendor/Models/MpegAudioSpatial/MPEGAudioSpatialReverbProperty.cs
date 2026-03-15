@@ -4,7 +4,7 @@
 namespace glTFNet.Extensions.Vendor.Models.MpegAudioSpatial;
 
 [Serializable]
-public class MPEGAudioSpatialReverbProperty : glTFNet.Models.GlTFProperty
+public class MPEGAudioSpatialReverbProperty : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// Frequency for the provided RT60 and DSR values.

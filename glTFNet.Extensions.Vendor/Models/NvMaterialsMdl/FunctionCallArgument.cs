@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.NvMaterialsMdl;
 /// Named function call argument. Can be another function call or a constant value.
 /// </summary>
 [Serializable]
-public class FunctionCallArgument : glTFNet.Models.GlTFProperty
+public class FunctionCallArgument : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// The name of the named argument.

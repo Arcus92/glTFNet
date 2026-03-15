@@ -4,7 +4,7 @@
 namespace glTFNet.Extensions.Vendor.Models.ExtLightsImageBased;
 
 [Serializable]
-public class GlTFEXTLightsImageBased : glTFNet.Models.GlTFProperty
+public class GlTFEXTLightsImageBased : glTFNet.Specifications.Models.GlTFProperty
 {
     public required List<ExtLightsImageBasedLight> Lights { get; set; }
 }

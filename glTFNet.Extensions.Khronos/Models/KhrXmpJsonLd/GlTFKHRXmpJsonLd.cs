@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrXmpJsonLd;
 /// Metadata about the glTF asset.
 /// </summary>
 [Serializable]
-public class GlTFKHRXmpJsonLd : glTFNet.Models.GlTFProperty
+public class GlTFKHRXmpJsonLd : glTFNet.Specifications.Models.GlTFProperty
 {
     public required List<Dictionary<string, object>> Packets { get; set; }
 }

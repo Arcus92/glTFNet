@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrMaterialsSpecular;
 /// glTF extension that defines the strength of the specular reflection.
 /// </summary>
 [Serializable]
-public class MaterialKHRMaterialsSpecular : glTFNet.Models.GlTFProperty
+public class MaterialKHRMaterialsSpecular : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// This parameter scales the amount of specular reflection on non-metallic surfaces. It has no effect on metals.
@@ -21,7 +21,7 @@ public class MaterialKHRMaterialsSpecular : glTFNet.Models.GlTFProperty
     /// <summary>
     /// A texture that defines the specular factor in the alpha channel. This will be multiplied by specularFactor.
     /// </summary>
-    public glTFNet.Models.TextureInfo? SpecularTexture { get; set; }
+    public glTFNet.Specifications.Models.TextureInfo? SpecularTexture { get; set; }
 
     /// <summary>
     /// This is an additional RGB color parameter that tints the specular reflection of non-metallic surfaces. At grazing angles, the reflection still blends to white, and the parameter has not effect on metals. The value is linear.
@@ -35,5 +35,5 @@ public class MaterialKHRMaterialsSpecular : glTFNet.Models.GlTFProperty
     /// <summary>
     /// A texture that defines the specular color in the RGB channels (encoded in sRGB). This will be multiplied by specularColorFactor.
     /// </summary>
-    public glTFNet.Models.TextureInfo? SpecularColorTexture { get; set; }
+    public glTFNet.Specifications.Models.TextureInfo? SpecularColorTexture { get; set; }
 }

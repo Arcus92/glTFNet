@@ -3,7 +3,7 @@
 #pragma warning disable CS1591
 namespace glTFNet.Extensions.Vendor.Models.ExtLightsIes;
 
-[System.Text.Json.Serialization.JsonConverter(typeof(glTFNet.Converters.JsonStringEnumMemberConverter<LightProfileMimeType>))]
+[System.Text.Json.Serialization.JsonConverter(typeof(glTFNet.Specifications.Converters.JsonStringEnumMemberConverter<LightProfileMimeType>))]
 public enum LightProfileMimeType
 {
     [System.Runtime.Serialization.EnumMember(Value = "application/x-ies-lm-63")]

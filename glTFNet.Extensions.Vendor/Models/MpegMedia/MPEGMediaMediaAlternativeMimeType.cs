@@ -3,7 +3,7 @@
 #pragma warning disable CS1591
 namespace glTFNet.Extensions.Vendor.Models.MpegMedia;
 
-[System.Text.Json.Serialization.JsonConverter(typeof(glTFNet.Converters.JsonStringEnumMemberConverter<MPEGMediaMediaAlternativeMimeType>))]
+[System.Text.Json.Serialization.JsonConverter(typeof(glTFNet.Specifications.Converters.JsonStringEnumMemberConverter<MPEGMediaMediaAlternativeMimeType>))]
 public enum MPEGMediaMediaAlternativeMimeType
 {
 }

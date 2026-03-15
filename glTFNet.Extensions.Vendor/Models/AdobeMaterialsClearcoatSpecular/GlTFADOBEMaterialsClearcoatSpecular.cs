@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.AdobeMaterialsClearcoatSpecular;
 /// glTF extension that defines the colour tint of the clearcoat.
 /// </summary>
 [Serializable]
-public class GlTFADOBEMaterialsClearcoatSpecular : glTFNet.Models.GlTFProperty
+public class GlTFADOBEMaterialsClearcoatSpecular : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// The clearcoat layer's index of refraction.
@@ -30,5 +30,5 @@ public class GlTFADOBEMaterialsClearcoatSpecular : glTFNet.Models.GlTFProperty
     /// <summary>
     /// The clearcoat layer's specular intensity texture. These values are sampled from the B channel.
     /// </summary>
-    public glTFNet.Models.TextureInfo? ClearcoatSpecularTexture { get; set; }
+    public glTFNet.Specifications.Models.TextureInfo? ClearcoatSpecularTexture { get; set; }
 }

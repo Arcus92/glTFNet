@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.AdobeMaterialsThinTransparency;
 /// glTF extension that defines properties to model physically plausible optical transparency.
 /// </summary>
 [Serializable]
-public class GlTFADOBEMaterialsThinTransparency : glTFNet.Models.GlTFProperty
+public class GlTFADOBEMaterialsThinTransparency : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// The base percentage of non-specularly reflected light that is transmitted through the surface. i.e. of the light that penetrates a surface (isn't specularly reflected), what percentage is transmitted and not diffusely re-emitted from the surface?
@@ -21,7 +21,7 @@ public class GlTFADOBEMaterialsThinTransparency : glTFNet.Models.GlTFProperty
     /// <summary>
     /// The percentage of non-specularly reflected light that is transmitted through the surface. i.e. of the light that penetrates a surface (isn't specularly reflected), what percentage is transmitted and not diffusely re-emitted from the surface? This will be multiplied by the transmissionFactor.
     /// </summary>
-    public glTFNet.Models.TextureInfo? TransmissionTexture { get; set; }
+    public glTFNet.Specifications.Models.TextureInfo? TransmissionTexture { get; set; }
 
     /// <summary>
     /// The average index of refraction of the material, ignoring differences between frequencies of light. Default of 1.33 is for liquid water.

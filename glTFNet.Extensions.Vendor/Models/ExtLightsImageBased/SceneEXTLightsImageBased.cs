@@ -4,7 +4,7 @@
 namespace glTFNet.Extensions.Vendor.Models.ExtLightsImageBased;
 
 [Serializable]
-public class SceneEXTLightsImageBased : glTFNet.Models.GlTFProperty
+public class SceneEXTLightsImageBased : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// The id of the light referenced by this scene.

@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.ExtTextureWebp;
 /// glTF extension to specify textures using the WebP image format.
 /// </summary>
 [Serializable]
-public class GlTFEXTTextureWebp : glTFNet.Models.GlTFProperty
+public class GlTFEXTTextureWebp : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// The index of the WebP image.

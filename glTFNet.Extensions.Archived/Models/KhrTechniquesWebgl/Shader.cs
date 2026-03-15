@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Archived.Models.KhrTechniquesWebgl;
 /// A vertex or fragment shader. Exactly one of `uri` or `bufferView` must be provided for the GLSL source.
 /// </summary>
 [Serializable]
-public class Shader : glTFNet.Models.GlTFChildOfRootProperty
+public class Shader : glTFNet.Specifications.Models.GlTFChildOfRootProperty
 {
     /// <summary>
     /// The uri of the GLSL source.  Relative paths are relative to the `.gltf` file.  Instead of referencing an external file, the uri can also be a data-uri.

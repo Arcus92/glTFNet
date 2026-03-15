@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Archived.Models.KhrXmp;
 /// Metadata about the glTF asset.
 /// </summary>
 [Serializable]
-public class GlTFKHRXmp : glTFNet.Models.GlTFProperty
+public class GlTFKHRXmp : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// Dictionary mapping XMP namespace names to the URI where they are defined

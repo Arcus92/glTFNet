@@ -2,9 +2,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using glTFNet.IO;
-using glTFNet.Models;
+using glTFNet.Specifications.Models;
 using JetBrains.Annotations;
-using Buffer = glTFNet.Models.Buffer;
+using Buffer = glTFNet.Specifications.Models.Buffer;
 
 namespace glTFNet;
 

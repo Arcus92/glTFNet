@@ -3,7 +3,7 @@
 #pragma warning disable CS1591
 namespace glTFNet.Extensions.Vendor.Models.NvMaterialsMdl;
 
-[System.Text.Json.Serialization.JsonConverter(typeof(glTFNet.Converters.JsonStringEnumMemberConverter<ModuleMimeType>))]
+[System.Text.Json.Serialization.JsonConverter(typeof(glTFNet.Specifications.Converters.JsonStringEnumMemberConverter<ModuleMimeType>))]
 public enum ModuleMimeType
 {
     [System.Runtime.Serialization.EnumMember(Value = "application/vnd.mdl")]

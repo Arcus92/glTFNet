@@ -3,7 +3,7 @@
 #pragma warning disable CS1591
 namespace glTFNet.Extensions.Vendor.Models.MpegViewportRecommended;
 
-[System.Text.Json.Serialization.JsonConverter(typeof(glTFNet.Converters.JsonStringEnumMemberConverter<MPEGViewportRecommendedViewportType>))]
+[System.Text.Json.Serialization.JsonConverter(typeof(glTFNet.Specifications.Converters.JsonStringEnumMemberConverter<MPEGViewportRecommendedViewportType>))]
 public enum MPEGViewportRecommendedViewportType
 {
     [System.Runtime.Serialization.EnumMember(Value = "perspective")]

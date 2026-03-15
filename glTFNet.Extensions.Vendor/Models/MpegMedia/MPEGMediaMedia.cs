@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.MpegMedia;
 /// Media used to create a texture, audio source, or any other media type.
 /// </summary>
 [Serializable]
-public class MPEGMediaMedia : glTFNet.Models.GlTFProperty
+public class MPEGMediaMedia : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// User-defined name of the media.

@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrMaterialsIor;
 /// glTF extension that defines the index of refraction of a material.
 /// </summary>
 [Serializable]
-public class MaterialKHRMaterialsIor : glTFNet.Models.GlTFProperty
+public class MaterialKHRMaterialsIor : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// The index of refraction (IOR) is a measured physical number usually in the range between 1 and 2 that determines how much the path of light is bent, or refracted, when entering a material. It also influences the ratio between reflected and transmitted light, calculated from the Fresnel equations.

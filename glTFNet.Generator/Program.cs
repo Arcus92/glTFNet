@@ -8,20 +8,20 @@ var outputDirectory = Path.Combine("../../../../");
 const string jsonSerializerContextClassName = "GlTFSerializerContext";
 
 // Defines JSON converters added to the serializer contexts
-const string converterNamespace = "glTFNet.Converters";
+const string converterNamespace = "glTFNet.Specifications.Converters";
 string[] jsonConverterNames = ["Vector2Converter", "Vector3Converter", "Vector4Converter", "QuaternionConverter", "Matrix4x4Converter"];
 
 // Load all schema files
 var analyser = new SchemaAnalyser();
 
-await AnalyseSchemaDirectory(Path.Combine(inputDirectory, "specification/2.0/schema"), "glTFNet.Models");
+await AnalyseSchemaDirectory(Path.Combine(inputDirectory, "specification/2.0/schema"), "glTFNet.Specifications.Models");
 await AnalyseExtensionDirectory(Path.Combine(inputDirectory, "extensions/2.0/Archived"), "glTFNet.Extensions.Archived.Models");
 await AnalyseExtensionDirectory(Path.Combine(inputDirectory, "extensions/2.0/Khronos"), "glTFNet.Extensions.Khronos.Models");
 await AnalyseExtensionDirectory(Path.Combine(inputDirectory, "extensions/2.0/Vendor"), "glTFNet.Extensions.Vendor.Models");
 analyser.Analyse();
 
 // Generate the code
-await GenerateModelsAndSerializerContext("glTFNet");
+await GenerateModelsAndSerializerContext("glTFNet.Specifications");
 await GenerateModelsAndSerializerContext("glTFNet.Extensions.Archived");
 await GenerateModelsAndSerializerContext("glTFNet.Extensions.Khronos");
 await GenerateModelsAndSerializerContext("glTFNet.Extensions.Vendor");

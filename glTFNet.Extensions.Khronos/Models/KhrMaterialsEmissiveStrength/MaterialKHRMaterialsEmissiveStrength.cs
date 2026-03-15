@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrMaterialsEmissiveStrength;
 /// glTF extension that adjusts the strength of emissive material properties.
 /// </summary>
 [Serializable]
-public class MaterialKHRMaterialsEmissiveStrength : glTFNet.Models.GlTFProperty
+public class MaterialKHRMaterialsEmissiveStrength : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// The strength adjustment to be multiplied with the material's emissive value.

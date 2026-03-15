@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrMaterialsDiffuseTransmission;
 /// glTF extension that defines the diffuse transmission of the material.
 /// </summary>
 [Serializable]
-public class MaterialKHRMaterialsDiffuseTransmission : glTFNet.Models.GlTFProperty
+public class MaterialKHRMaterialsDiffuseTransmission : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// The percentage of non-specularly reflected light that is transmitted through the surface via a Lambertian diffuse transmission.
@@ -21,7 +21,7 @@ public class MaterialKHRMaterialsDiffuseTransmission : glTFNet.Models.GlTFProper
     /// <summary>
     /// A texture that defines the strength of the diffuse transmission effect, stored in the alpha (A) channel. Will be multiplied by the `diffuseTransmissionFactor` value.
     /// </summary>
-    public glTFNet.Models.TextureInfo? DiffuseTransmissionTexture { get; set; }
+    public glTFNet.Specifications.Models.TextureInfo? DiffuseTransmissionTexture { get; set; }
 
     /// <summary>
     /// The color of the transmitted light.
@@ -35,5 +35,5 @@ public class MaterialKHRMaterialsDiffuseTransmission : glTFNet.Models.GlTFProper
     /// <summary>
     /// A texture that defines the color of the transmitted light, stored in the RGB channels and encoded in sRGB. This texture will be multiplied by the `diffuseTransmissionColorFactor` value.
     /// </summary>
-    public glTFNet.Models.TextureInfo? DiffuseTransmissionColorTexture { get; set; }
+    public glTFNet.Specifications.Models.TextureInfo? DiffuseTransmissionColorTexture { get; set; }
 }

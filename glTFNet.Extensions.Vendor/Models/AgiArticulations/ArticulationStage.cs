@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.AgiArticulations;
 /// One stage of a model articulation definition.
 /// </summary>
 [Serializable]
-public class ArticulationStage : glTFNet.Models.GlTFProperty
+public class ArticulationStage : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// The name of this articulation stage.  The articulation stage name must be unique only within the containing articulation.  Articulation Stage names may not contain spaces.

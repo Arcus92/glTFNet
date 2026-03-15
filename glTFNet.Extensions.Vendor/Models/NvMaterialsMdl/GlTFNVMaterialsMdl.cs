@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.NvMaterialsMdl;
 /// glTF extension that enables using MDL materials.
 /// </summary>
 [Serializable]
-public class GlTFNVMaterialsMdl : glTFNet.Models.GlTFProperty
+public class GlTFNVMaterialsMdl : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// The list of all MDL modules.

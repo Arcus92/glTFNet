@@ -24,6 +24,7 @@
     </ItemGroup>
     
     <ItemGroup>
+      <ProjectReference Include="..\glTFNet.Specifications\glTFNet.Specifications.csproj" />
       <ProjectReference Include="..\glTFNet\glTFNet.csproj" />
     </ItemGroup>
 

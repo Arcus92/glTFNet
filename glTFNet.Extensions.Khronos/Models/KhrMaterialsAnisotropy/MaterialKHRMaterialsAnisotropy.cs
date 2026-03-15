@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrMaterialsAnisotropy;
 /// glTF extension that defines anisotropy.
 /// </summary>
 [Serializable]
-public class MaterialKHRMaterialsAnisotropy : glTFNet.Models.GlTFProperty
+public class MaterialKHRMaterialsAnisotropy : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// The anisotropy strength. When the anisotropy texture is present, this value is multiplied by the texture's blue channel.
@@ -30,5 +30,5 @@ public class MaterialKHRMaterialsAnisotropy : glTFNet.Models.GlTFProperty
     /// <summary>
     /// The anisotropy texture. Red and green channels represent the anisotropy direction in $[-1, 1]$ tangent, bitangent space, to be rotated by the anisotropy rotation. The blue channel contains strength as $[0, 1]$ to be multiplied by the anisotropy strength.
     /// </summary>
-    public glTFNet.Models.TextureInfo? AnisotropyTexture { get; set; }
+    public glTFNet.Specifications.Models.TextureInfo? AnisotropyTexture { get; set; }
 }

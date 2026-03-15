@@ -5,7 +5,7 @@ namespace glTFNet.Extensions.Khronos;
 
 [System.Text.Json.Serialization.JsonSourceGenerationOptions(
 PropertyNamingPolicy = System.Text.Json.Serialization.JsonKnownNamingPolicy.CamelCase,
-Converters = [typeof(glTFNet.Converters.Vector2Converter), typeof(glTFNet.Converters.Vector3Converter), typeof(glTFNet.Converters.Vector4Converter), typeof(glTFNet.Converters.QuaternionConverter), typeof(glTFNet.Converters.Matrix4x4Converter)])]
+Converters = [typeof(glTFNet.Specifications.Converters.Vector2Converter), typeof(glTFNet.Specifications.Converters.Vector3Converter), typeof(glTFNet.Specifications.Converters.Vector4Converter), typeof(glTFNet.Specifications.Converters.QuaternionConverter), typeof(glTFNet.Specifications.Converters.Matrix4x4Converter)])]
 [System.Text.Json.Serialization.JsonSerializable(typeof(glTFNet.Extensions.Khronos.Models.KhrAnimationPointer.AnimationChannelTargetKHRAnimationPointer))]
 [System.Text.Json.Serialization.JsonSerializable(typeof(glTFNet.Extensions.Khronos.Models.KhrDracoMeshCompression.MeshPrimitiveKHRDracoMeshCompression))]
 [System.Text.Json.Serialization.JsonSerializable(typeof(glTFNet.Extensions.Khronos.Models.KhrGaussianSplatting.MeshPrimitiveKHRGaussianSplatting))]

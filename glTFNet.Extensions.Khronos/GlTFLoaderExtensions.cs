@@ -1,6 +1,6 @@
 using glTFNet.IO;
 
-namespace glTFNet.Extensions.Vendor;
+namespace glTFNet.Extensions.Khronos;
 
 /// <summary>
 /// Extension methods for <see cref="GlTFLoader"/>.

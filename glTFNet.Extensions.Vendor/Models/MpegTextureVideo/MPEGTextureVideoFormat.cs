@@ -3,7 +3,7 @@
 #pragma warning disable CS1591
 namespace glTFNet.Extensions.Vendor.Models.MpegTextureVideo;
 
-[System.Text.Json.Serialization.JsonConverter(typeof(glTFNet.Converters.JsonStringEnumMemberConverter<MPEGTextureVideoFormat>))]
+[System.Text.Json.Serialization.JsonConverter(typeof(glTFNet.Specifications.Converters.JsonStringEnumMemberConverter<MPEGTextureVideoFormat>))]
 public enum MPEGTextureVideoFormat
 {
     [System.Runtime.Serialization.EnumMember(Value = "RED")]

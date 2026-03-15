@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrMaterialsClearcoat;
 /// glTF extension that defines the clearcoat material layer.
 /// </summary>
 [Serializable]
-public class MaterialKHRMaterialsClearcoat : glTFNet.Models.GlTFProperty
+public class MaterialKHRMaterialsClearcoat : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// The clearcoat layer intensity (aka opacity) of the material. A value of 0.0 means the material has no clearcoat layer enabled.
@@ -21,7 +21,7 @@ public class MaterialKHRMaterialsClearcoat : glTFNet.Models.GlTFProperty
     /// <summary>
     /// The clearcoat layer intensity texture. These values are sampled from the R channel.  The values are linear.  Use value 1.0 if no texture is supplied.
     /// </summary>
-    public glTFNet.Models.TextureInfo? ClearcoatTexture { get; set; }
+    public glTFNet.Specifications.Models.TextureInfo? ClearcoatTexture { get; set; }
 
     /// <summary>
     /// The clearcoat layer roughness of the material.
@@ -35,10 +35,10 @@ public class MaterialKHRMaterialsClearcoat : glTFNet.Models.GlTFProperty
     /// <summary>
     /// The clearcoat layer roughness texture. These values are sampled from the G channel.  The values are linear.  Use value 1.0 if no texture is supplied.
     /// </summary>
-    public glTFNet.Models.TextureInfo? ClearcoatRoughnessTexture { get; set; }
+    public glTFNet.Specifications.Models.TextureInfo? ClearcoatRoughnessTexture { get; set; }
 
     /// <summary>
     /// A tangent space normal map for the clearcoat layer.  If desired, this may be a reference to the same normal map used by the base material.  If not supplied, no normal mapping is applied to the clear coat layer.
     /// </summary>
-    public glTFNet.Models.MaterialNormalTextureInfo? ClearcoatNormalTexture { get; set; }
+    public glTFNet.Specifications.Models.MaterialNormalTextureInfo? ClearcoatNormalTexture { get; set; }
 }

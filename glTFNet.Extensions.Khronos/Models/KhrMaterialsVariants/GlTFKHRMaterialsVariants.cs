@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrMaterialsVariants;
 /// glTF extension that defines a material variations for mesh primitives
 /// </summary>
 [Serializable]
-public class GlTFKHRMaterialsVariants : glTFNet.Models.GlTFProperty
+public class GlTFKHRMaterialsVariants : glTFNet.Specifications.Models.GlTFProperty
 {
-    public required List<glTFNet.Models.GlTFChildOfRootProperty> Variants { get; set; }
+    public required List<glTFNet.Specifications.Models.GlTFChildOfRootProperty> Variants { get; set; }
 }

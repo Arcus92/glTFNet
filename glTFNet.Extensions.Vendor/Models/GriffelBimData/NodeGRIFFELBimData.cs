@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.GriffelBimData;
 /// References type and instance properties of the node and/or buffer where those properties can be found by node ID.
 /// </summary>
 [Serializable]
-public class NodeGRIFFELBimData : glTFNet.Models.GlTFProperty
+public class NodeGRIFFELBimData : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// Index of the buffer view which points to the buffer with the data for this node.

@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.CesiumPrimitiveOutline;
 /// glTF extension for indicating that some edges of a primitive's triangles should be outlined.
 /// </summary>
 [Serializable]
-public class PrimitiveCESIUMPrimitiveOutline : glTFNet.Models.GlTFProperty
+public class PrimitiveCESIUMPrimitiveOutline : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// The index of the accessor providing the list of highlighted lines at the edge of this primitive's triangles.

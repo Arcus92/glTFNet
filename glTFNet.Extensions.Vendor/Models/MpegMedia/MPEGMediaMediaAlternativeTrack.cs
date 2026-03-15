@@ -4,7 +4,7 @@
 namespace glTFNet.Extensions.Vendor.Models.MpegMedia;
 
 [Serializable]
-public class MPEGMediaMediaAlternativeTrack : glTFNet.Models.GlTFProperty
+public class MPEGMediaMediaAlternativeTrack : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// URL fragment to access the track within the media alternative.  The URL structure is defined for the following formats: DASH: Using MPD Anchors (URL fragments) as defined in ISO/IEC 23009-1:2019:Annex C (Table C.1); ISOBMFF: URL fragments as specified in ISO/IEC 14496-12:2020:Annex C. SDP: stream identifier of the media stream as defined in ISO/IEC 20390-14:Annex C. When V3C data is referenced in the scene description document as in item in MPEG_media.alternative.tracks and the referenced item corresponds to an ISBOBMFF track, the following applies: for single-track encapsulated V3C data, the referenced track in MPEG_media shall be the V3C bitstream track. for multi-track encapsulated V3C data, the referenced track in MPEG_media shall be the V3C atlas track.

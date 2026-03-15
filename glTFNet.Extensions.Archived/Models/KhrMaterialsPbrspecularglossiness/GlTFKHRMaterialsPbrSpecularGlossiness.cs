@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Archived.Models.KhrMaterialsPbrspecularglossiness;
 /// glTF extension that defines the specular-glossiness material model from Physically-Based Rendering (PBR) methodology.
 /// </summary>
 [Serializable]
-public class GlTFKHRMaterialsPbrSpecularGlossiness : glTFNet.Models.GlTFProperty
+public class GlTFKHRMaterialsPbrSpecularGlossiness : glTFNet.Specifications.Models.GlTFProperty
 {
     /// <summary>
     /// The RGBA components of the reflected diffuse color of the material. Metals have a diffuse value of `[0.0, 0.0, 0.0]`. The fourth component (A) is the alpha coverage of the material. The `alphaMode` property specifies how alpha is interpreted. The values are linear.
@@ -21,7 +21,7 @@ public class GlTFKHRMaterialsPbrSpecularGlossiness : glTFNet.Models.GlTFProperty
     /// <summary>
     /// The diffuse texture. This texture contains RGB components of the reflected diffuse color of the material encoded with the sRGB transfer function. If the fourth component (A) is present, it represents the linear alpha coverage of the material. Otherwise, an alpha of 1.0 is assumed. The `alphaMode` property specifies how alpha is interpreted. The stored texels must not be premultiplied.
     /// </summary>
-    public glTFNet.Models.TextureInfo? DiffuseTexture { get; set; }
+    public glTFNet.Specifications.Models.TextureInfo? DiffuseTexture { get; set; }
 
     /// <summary>
     /// The specular RGB color of the material. This value is linear.
@@ -44,5 +44,5 @@ public class GlTFKHRMaterialsPbrSpecularGlossiness : glTFNet.Models.GlTFProperty
     /// <summary>
     /// The specular-glossiness texture is an RGBA texture, containing the specular color (RGB) encoded with the sRGB transfer function and the linear glossiness value (A).
     /// </summary>
-    public glTFNet.Models.TextureInfo? SpecularGlossinessTexture { get; set; }
+    public glTFNet.Specifications.Models.TextureInfo? SpecularGlossinessTexture { get; set; }
 }
