@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using glTFNet.IO;
+using glTFNet.IO.Interfaces;
 using glTFNet.Specifications.Models;
 using JetBrains.Annotations;
 using Buffer = glTFNet.Specifications.Models.Buffer;
@@ -404,7 +405,7 @@ public static class GltfRefExtensions
     /// <returns>Returns the buffer.</returns>
     public static async Task<GltfBuffer> Open(this GltfRef<Buffer> instance)
     {
-        var buffer = await instance.Context.OpenUriAsBuffer(instance.Data.Uri);
+        var buffer = await instance.Context.As<IGltfLoaderContext>().OpenUriAsBuffer(instance.Data.Uri);
         if (buffer is null)
         {
             throw new Exception($"Could not resolve buffer: {instance.Data.Uri ?? "(null)"}");
@@ -585,9 +586,9 @@ public static class GltfRefExtensions
             }
             return loadedBufferView.AsStream();
         }
-            
+        
         // Load from file
-        var stream = await instance.Context.OpenUriAsStream(instance.Data.Uri);
+        var stream = await instance.Context.As<IGltfLoaderContext>().OpenUriAsStream(instance.Data.Uri);
         if (stream is null)
         {
             throw new Exception($"Could not resolve image from uri: {instance.Data.Uri ?? "(null)"}");
@@ -629,7 +630,7 @@ public static class GltfRefExtensions
         }
 
         // Getting the JSON type info
-        var typeInfo = instance.Context.GetTypeInfo<TExtension>();
+        var typeInfo = instance.Context.As<IGltfSerializerContext>().GetTypeInfo<TExtension>();
         if (typeInfo is null)
         {
             extension = default;

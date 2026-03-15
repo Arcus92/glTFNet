@@ -1,4 +1,5 @@
 using System.Text.Json;
+using glTFNet.IO.Interfaces;
 using glTFNet.Specifications;
 using glTFNet.Specifications.Models;
 using JetBrains.Annotations;
@@ -9,7 +10,7 @@ namespace glTFNet.IO;
 /// A loader class for GlTF files and binaries.
 /// </summary>
 [PublicAPI]
-public class GltfLoader : GltfSerializer, IGltfContext, IDisposable, IAsyncDisposable
+public class GltfLoader : GltfSerializer, IGltfContext, IGltfLoaderContext, IDisposable, IAsyncDisposable
 {
     /// <summary>
     /// Gets the loaded glTF data.
@@ -126,7 +127,7 @@ public class GltfLoader : GltfSerializer, IGltfContext, IDisposable, IAsyncDispo
     }
     
     /// <inheritdoc />
-    public T Parent<T>()
+    T IGltfContext.Parent<T>()
     {
         if (Data is T data)
         {
@@ -135,7 +136,18 @@ public class GltfLoader : GltfSerializer, IGltfContext, IDisposable, IAsyncDispo
         
         throw new InvalidOperationException($"The glTF model does not contain a parent of type {typeof(T)}.");
     }
-    
+
+    /// <inheritdoc />
+    T IGltfContext.As<T>()
+    {
+        if (this is T result)
+        {
+            return result;
+        }
+        
+        throw new InvalidOperationException($"The context type {typeof(T)} could not be resolved.");
+    }
+
     /// <inheritdoc/>
     public async Task<Stream?> OpenUriAsStream(string? uri)
     {

@@ -1,3 +1,4 @@
+using glTFNet.IO.Interfaces;
 using JetBrains.Annotations;
 
 namespace glTFNet.IO;

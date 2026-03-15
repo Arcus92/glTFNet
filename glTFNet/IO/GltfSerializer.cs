@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
+using glTFNet.IO.Interfaces;
 using glTFNet.Specifications;
 using JetBrains.Annotations;
 
@@ -9,7 +10,7 @@ namespace glTFNet.IO;
 /// Base class to handle glTF JSON serialization.
 /// </summary>
 [PublicAPI]
-public class GltfSerializer
+public class GltfSerializer : IGltfSerializerContext
 {
     /// <summary>
     /// A list of all serializers loaded.

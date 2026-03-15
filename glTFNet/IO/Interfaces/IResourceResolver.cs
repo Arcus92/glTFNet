@@ -1,6 +1,6 @@
 using JetBrains.Annotations;
 
-namespace glTFNet.IO;
+namespace glTFNet.IO.Interfaces;
 
 /// <summary>
 /// Resolves a resource uri and loads the resource stream.
