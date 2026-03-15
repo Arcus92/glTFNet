@@ -19,4 +19,29 @@
       <ProjectReference Include="..\glTFNet\glTFNet.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Examples\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Examples\glTF\Avocado.bin">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Examples\glTF\Avocado.gltf">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Examples\glTF\Avocado_baseColor.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Examples\glTF\Avocado_normal.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Examples\glTF\Avocado_roughnessMetallic.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Examples\glTF-Binary\Avocado.glb">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
