@@ -79,7 +79,7 @@ public static class GltfRefExtensions
     /// Gets all cameras of the glTF root.
     /// </summary>
     /// <param name="instance">The glTF reference.</param>
-    public static GltfListRef<Camera> Camera(this GltfRef<Gltf> instance)
+    public static GltfListRef<Camera> Cameras(this GltfRef<Gltf> instance)
     {
         var root = instance.Context.Parent<Gltf>();
         return root.Cameras is null ? GltfListRef<Camera>.Empty : instance.RefList(root.Cameras);

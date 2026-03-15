@@ -32,7 +32,7 @@ public readonly struct GltfIndexedListRef<T>(IGltfContext context, IList<T> sour
     }
 
     /// <inheritdoc />
-    public int Count => source.Count;
+    public int Count => indices.Count;
 
     /// <inheritdoc />
     public GltfRef<T> this[int index]
