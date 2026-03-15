@@ -27,5 +27,11 @@
       <ProjectReference Include="..\glTFNet.Specifications\glTFNet.Specifications.csproj" />
       <ProjectReference Include="..\glTFNet\glTFNet.csproj" />
     </ItemGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="JetBrains.Annotations" Version="2025.2.4">
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+    </ItemGroup>
 
 </Project>

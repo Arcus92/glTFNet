@@ -1,16 +1,16 @@
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Text.Json.Serialization.Metadata;
 using glTFNet.Specifications;
 using glTFNet.Specifications.Models;
+using JetBrains.Annotations;
 
 namespace glTFNet.IO;
 
 /// <summary>
 /// A loader class for GlTF files and binaries.
 /// </summary>
+[PublicAPI]
 // ReSharper disable once InconsistentNaming
-public class GlTFLoader : IGlTFContext, IDisposable, IAsyncDisposable
+public class GlTFLoader : GlTFSerializer, IGlTFContext, IDisposable, IAsyncDisposable
 {
     /// <summary>
     /// Gets the loaded glTF data.
@@ -26,48 +26,6 @@ public class GlTFLoader : IGlTFContext, IDisposable, IAsyncDisposable
     /// Stores all open buffers by uri. The embedded buffer of GBL files has an empty uri.
     /// </summary>
     private readonly Dictionary<string, GlTFBuffer> _buffers = new();
-
-    /// <summary>
-    /// A list of all serializers loaded.
-    /// </summary>
-    private readonly List<JsonSerializerContext> _serializerContexts = [ GlTFSerializerContext.Default ];
-
-    /// <summary>
-    /// Adds a new serializer context for extension serialization.
-    /// </summary>
-    /// <remarks>
-    /// This is necessary when using external extensions via <see cref="GlTFRefExtensions.TryGetExtension"/>.
-    /// </remarks>
-    /// <param name="serializerContext">The serializer context to regierst.</param>
-    public void AddSerializerContext(JsonSerializerContext serializerContext)
-    {
-        if (_serializerContexts.Contains(serializerContext))
-        {
-            return;
-        }
-        _serializerContexts.Add(serializerContext);
-    }
-
-    /// <summary>
-    /// Gets the <see cref="JsonTypeInfo{T}"/> from the given type.
-    /// </summary>
-    /// <remarks>
-    /// Use <see cref="AddSerializerContext"/> to add support for external extensions.
-    /// </remarks>
-    /// <typeparam name="T">The type to get the type info from.</typeparam>
-    /// <returns>Returns the type info.</returns>
-    public JsonTypeInfo<T>? GetTypeInfo<T>()
-    {
-        foreach (var serializerContext in _serializerContexts)
-        {
-            if (serializerContext.GetTypeInfo(typeof(T)) is JsonTypeInfo<T> typeInfo)
-            {
-                return typeInfo;
-            }
-        }
-
-        return null;
-    }
     
     /// <summary>
     /// Opens a GlTF file from the given path.

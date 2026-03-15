@@ -1,5 +1,6 @@
 using System.Collections;
 using glTFNet.IO;
+using JetBrains.Annotations;
 
 namespace glTFNet;
 
@@ -11,6 +12,7 @@ namespace glTFNet;
 /// <param name="dictionary">The dictionary of indexes referencing items from the <paramref name="source"/> list.</param>
 /// <typeparam name="TKey">The dictionary index type.</typeparam>
 /// <typeparam name="T">The glTF model type.</typeparam>
+[PublicAPI]
 // ReSharper disable once InconsistentNaming
 public readonly struct GlTFIndexedDictionaryRef<TKey, T>(
     IGlTFContext context,

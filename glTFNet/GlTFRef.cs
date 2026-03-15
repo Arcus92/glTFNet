@@ -1,4 +1,5 @@
 using glTFNet.IO;
+using JetBrains.Annotations;
 
 namespace glTFNet;
 
@@ -9,6 +10,7 @@ namespace glTFNet;
 /// <param name="context">The context this glTF was loaded from.</param>
 /// <param name="data">The glTF model data.</param>
 /// <typeparam name="T">The glTF model type.</typeparam>
+[PublicAPI]
 // ReSharper disable once InconsistentNaming
 public readonly struct GlTFRef<T>(IGlTFContext context, T data)
 {

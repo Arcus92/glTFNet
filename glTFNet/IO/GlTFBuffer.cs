@@ -1,10 +1,12 @@
 using glTFNet.Specifications.Models;
+using JetBrains.Annotations;
 
 namespace glTFNet.IO;
 
 /// <summary>
 /// An open buffer from a <see cref="GlTFLoader"/>.
 /// </summary>
+[PublicAPI]
 // ReSharper disable once InconsistentNaming
 public class GlTFBuffer : IDisposable, IAsyncDisposable
 {
