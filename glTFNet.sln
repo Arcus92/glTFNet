@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "glTFNet.Extensions.Archived
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "glTFNet.Specifications", "glTFNet.Specifications\glTFNet.Specifications.csproj", "{957410F2-4AEF-4890-88FA-ECF83C3D9B33}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "glTFNet.Tests", "glTFNet.Tests\glTFNet.Tests.csproj", "{4720EB41-6089-4322-B474-BAB265462CD9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{957410F2-4AEF-4890-88FA-ECF83C3D9B33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{957410F2-4AEF-4890-88FA-ECF83C3D9B33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{957410F2-4AEF-4890-88FA-ECF83C3D9B33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4720EB41-6089-4322-B474-BAB265462CD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4720EB41-6089-4322-B474-BAB265462CD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4720EB41-6089-4322-B474-BAB265462CD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4720EB41-6089-4322-B474-BAB265462CD9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
