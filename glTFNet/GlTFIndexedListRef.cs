@@ -1,6 +1,5 @@
 using System.Collections;
 using glTFNet.IO;
-using JetBrains.Annotations;
 
 namespace glTFNet;
 
@@ -11,7 +10,6 @@ namespace glTFNet;
 /// <param name="source">The glTF root list items.</param>
 /// <param name="indices">The list of indexes referencing items from the <paramref name="source"/> list.</param>
 /// <typeparam name="T">The glTF model type.</typeparam>
-[PublicAPI]
 // ReSharper disable once InconsistentNaming
 public readonly struct GlTFIndexedListRef<T>(IGlTFContext context, IList<T> source, IList<int> indices) : IReadOnlyList<GlTFRef<T>>
 {

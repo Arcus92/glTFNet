@@ -1,11 +1,8 @@
-using JetBrains.Annotations;
-
 namespace glTFNet.IO;
 
 /// <summary>
 /// Resolves a resource uri and loads the resource stream.
 /// </summary>
-[PublicAPI]
 public interface IResourceResolver
 {
     /// <summary>

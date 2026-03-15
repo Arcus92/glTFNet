@@ -1,7 +1,6 @@
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using glTFNet.Specifications.Models;
-using JetBrains.Annotations;
 
 namespace glTFNet.IO;
 
@@ -10,7 +9,6 @@ namespace glTFNet.IO;
 /// </summary>
 /// <param name="data">The initial data.</param>
 /// <param name="bufferView">The parent buffer view.</param>
-[PublicAPI]
 // ReSharper disable once InconsistentNaming
 public class GlTFBufferView(byte[] data, BufferView bufferView)
 {

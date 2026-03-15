@@ -3,14 +3,12 @@ using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
 using glTFNet.Specifications;
 using glTFNet.Specifications.Models;
-using JetBrains.Annotations;
 
 namespace glTFNet.IO;
 
 /// <summary>
 /// A loader class for GlTF files and binaries.
 /// </summary>
-[PublicAPI]
 // ReSharper disable once InconsistentNaming
 public class GlTFLoader : IGlTFContext, IDisposable, IAsyncDisposable
 {
@@ -76,7 +74,6 @@ public class GlTFLoader : IGlTFContext, IDisposable, IAsyncDisposable
     /// This also sets the <see cref="ResourceResolver"/> to load files from the parent directory.
     /// </summary>
     /// <param name="path">The file path to open.</param>
-    [PublicAPI]
     public async Task<GlTFRef<GlTF>> Open(string path)
     {
         var directory = Path.GetDirectoryName(path);
