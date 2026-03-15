@@ -443,6 +443,9 @@ public class SchemaAnalyser
         {
             name = name[..index];
         }
+
+        // Fixing C# naming convention of glTF
+        name = name.Replace("glTF", "Gltf");
         
         return name.ToPascalCase();
     }

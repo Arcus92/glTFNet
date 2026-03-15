@@ -7,7 +7,7 @@ namespace glTFNet.Specifications.Models;
 /// A keyframe animation.
 /// </summary>
 [Serializable]
-public class Animation : GlTFChildOfRootProperty
+public class Animation : GltfChildOfRootProperty
 {
     /// <summary>
     /// An array of animation channels. An animation channel combines an animation sampler with a target property being animated. Different channels of the same animation **MUST NOT** have the same targets.

@@ -4,7 +4,7 @@
 namespace glTFNet.Extensions.Khronos.Models.KhrDracoMeshCompression;
 
 [Serializable]
-public class MeshPrimitiveKHRDracoMeshCompression : glTFNet.Specifications.Models.GlTFProperty
+public class MeshPrimitiveKHRDracoMeshCompression : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The index of the bufferView.

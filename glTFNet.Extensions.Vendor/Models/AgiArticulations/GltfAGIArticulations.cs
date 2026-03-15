@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.AgiArticulations;
 /// glTF Extension that defines metadata for applying external analysis or effects to a model.
 /// </summary>
 [Serializable]
-public class GltfAGIArticulations : glTFNet.Specifications.Models.GlTFProperty
+public class GltfAGIArticulations : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// An array of articulations.  An articulation indicates a named range of motion available to one or more nodes within the model.

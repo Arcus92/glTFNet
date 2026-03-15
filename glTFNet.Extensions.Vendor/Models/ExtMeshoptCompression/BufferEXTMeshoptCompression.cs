@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.ExtMeshoptCompression;
 /// Compressed data for bufferView.
 /// </summary>
 [Serializable]
-public class BufferEXTMeshoptCompression : glTFNet.Specifications.Models.GlTFProperty
+public class BufferEXTMeshoptCompression : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// Set to true to indicate that the buffer is only referenced by bufferViews that have EXT_meshopt_compression extension and as such doesn't need to be loaded.

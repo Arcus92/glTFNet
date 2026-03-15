@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.AgiStkMetadata;
 /// A solar panel group definition.
 /// </summary>
 [Serializable]
-public class SolarPanelGroup : glTFNet.Specifications.Models.GlTFProperty
+public class SolarPanelGroup : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The name of this solar panel group.  The group name must be unique within this model, and may not contain spaces.

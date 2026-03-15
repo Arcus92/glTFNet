@@ -7,7 +7,7 @@ namespace glTFNet.Specifications.Models;
 /// The descriptor of the animated property.
 /// </summary>
 [Serializable]
-public class AnimationChannelTarget : GlTFProperty
+public class AnimationChannelTarget : GltfProperty
 {
     /// <summary>
     /// The index of the node to animate. When undefined, the animated object **MAY** be defined by an extension.

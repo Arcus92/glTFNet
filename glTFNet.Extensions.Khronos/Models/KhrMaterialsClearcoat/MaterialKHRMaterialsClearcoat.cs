@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrMaterialsClearcoat;
 /// glTF extension that defines the clearcoat material layer.
 /// </summary>
 [Serializable]
-public class MaterialKHRMaterialsClearcoat : glTFNet.Specifications.Models.GlTFProperty
+public class MaterialKHRMaterialsClearcoat : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The clearcoat layer intensity (aka opacity) of the material. A value of 0.0 means the material has no clearcoat layer enabled.

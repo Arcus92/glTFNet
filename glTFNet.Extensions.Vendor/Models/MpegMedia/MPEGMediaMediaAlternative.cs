@@ -4,7 +4,7 @@
 namespace glTFNet.Extensions.Vendor.Models.MpegMedia;
 
 [Serializable]
-public class MPEGMediaMediaAlternative : glTFNet.Specifications.Models.GlTFProperty
+public class MPEGMediaMediaAlternative : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The uri of the media. Relative paths are relative to the .gltf file. If the reference media is a real-time media stream, then the uri may follow the referencing scheme defined in ISO/IEC 23090-14:Annex C. If the tracks element is present, the last part of the URI (i.e. the stream identifier such as the mid) is provided by the tracks information.

@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrLightsPunctual;
 /// A directional, point, or spot light.
 /// </summary>
 [Serializable]
-public class Light : glTFNet.Specifications.Models.GlTFChildOfRootProperty
+public class Light : glTFNet.Specifications.Models.GltfChildOfRootProperty
 {
     /// <summary>
     /// Color of the light source.

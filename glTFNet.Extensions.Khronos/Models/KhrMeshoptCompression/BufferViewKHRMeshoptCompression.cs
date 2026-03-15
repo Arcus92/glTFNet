@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrMeshoptCompression;
 /// Compressed data for bufferView.
 /// </summary>
 [Serializable]
-public class BufferViewKHRMeshoptCompression : glTFNet.Specifications.Models.GlTFProperty
+public class BufferViewKHRMeshoptCompression : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The index of the buffer with compressed data.

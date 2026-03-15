@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Archived.Models.KhrTechniquesWebgl;
 /// The technique to use for a material and any additional uniform values.
 /// </summary>
 [Serializable]
-public class MaterialKHRTechniquesWebgl : glTFNet.Specifications.Models.GlTFProperty
+public class MaterialKHRTechniquesWebgl : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The index of the technique.

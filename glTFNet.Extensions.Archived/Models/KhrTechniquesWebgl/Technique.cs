@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Archived.Models.KhrTechniquesWebgl;
 /// A template for material appearances.
 /// </summary>
 [Serializable]
-public class Technique : glTFNet.Specifications.Models.GlTFChildOfRootProperty
+public class Technique : glTFNet.Specifications.Models.GltfChildOfRootProperty
 {
     /// <summary>
     /// The index of the program.

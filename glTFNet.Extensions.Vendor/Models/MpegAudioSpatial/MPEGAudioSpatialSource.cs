@@ -4,7 +4,7 @@
 namespace glTFNet.Extensions.Vendor.Models.MpegAudioSpatial;
 
 [Serializable]
-public class MPEGAudioSpatialSource : glTFNet.Specifications.Models.GlTFProperty
+public class MPEGAudioSpatialSource : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// A unique identifier of the audio source in the scene.

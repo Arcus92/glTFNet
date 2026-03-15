@@ -7,7 +7,7 @@ namespace glTFNet.Specifications.Models;
 /// An animation sampler combines timestamps with a sequence of output values and defines an interpolation algorithm.
 /// </summary>
 [Serializable]
-public class AnimationSampler : GlTFProperty
+public class AnimationSampler : GltfProperty
 {
     /// <summary>
     /// The index of an accessor containing keyframe timestamps. The accessor **MUST** be of scalar type with floating-point components. The values represent time in seconds with `time[0] &gt;= 0.0`, and strictly increasing values, i.e., `time[n + 1] &gt; time[n]`.

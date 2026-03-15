@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.MpegMeshLinking;
 /// glTF extension to specify a logical link between two meshes
 /// </summary>
 [Serializable]
-public class MPEGMeshLinking : glTFNet.Specifications.Models.GlTFProperty
+public class MPEGMeshLinking : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// Provides a reference to the `accessor`, by specifying the accessor's index in accessors array, that describe the buffer where the correspondence values between the dependent mesh and its associated shadow mesh  will be made available. The componentType of the referenced accessor shall be as indicated in ISO/IEC 23090-14:7.4 and the type shall be `SCALAR`.

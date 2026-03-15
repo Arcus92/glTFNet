@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrTextureTransform;
 /// glTF extension that enables shifting and scaling UV coordinates on a per-texture basis
 /// </summary>
 [Serializable]
-public class TextureInfoKHRTextureTransform : glTFNet.Specifications.Models.GlTFProperty
+public class TextureInfoKHRTextureTransform : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The offset of the UV coordinate origin as a factor of the texture dimensions.

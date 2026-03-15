@@ -7,6 +7,6 @@ namespace glTFNet.Extensions.Khronos.Models.KhrMaterialsUnlit;
 /// glTF extension that defines the unlit material model.
 /// </summary>
 [Serializable]
-public class MaterialKHRMaterialsUnlit : glTFNet.Specifications.Models.GlTFProperty
+public class MaterialKHRMaterialsUnlit : glTFNet.Specifications.Models.GltfProperty
 {
 }

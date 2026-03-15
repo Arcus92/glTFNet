@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.AgiStkMetadata;
 /// glTF Extension for an individual node in a glTF model, to associate it with the model's root AGI_stk_metadata object.
 /// </summary>
 [Serializable]
-public class NodeAGIStkMetadata : glTFNet.Specifications.Models.GlTFProperty
+public class NodeAGIStkMetadata : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The name of a Solar Panel Group that includes this node.  Solar Panel Groups are defined in the glTF root extension.

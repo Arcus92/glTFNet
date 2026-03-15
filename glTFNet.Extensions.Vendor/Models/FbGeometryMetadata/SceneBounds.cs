@@ -4,7 +4,7 @@
 namespace glTFNet.Extensions.Vendor.Models.FbGeometryMetadata;
 
 [Serializable]
-public class SceneBounds : glTFNet.Specifications.Models.GlTFProperty
+public class SceneBounds : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The bounding box corner with the numerically lowest scene-space coordinates

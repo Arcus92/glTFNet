@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrGaussianSplatting;
 /// Data defining a 3D Gaussian Splat primitive.
 /// </summary>
 [Serializable]
-public class MeshPrimitiveKHRGaussianSplatting : glTFNet.Specifications.Models.GlTFProperty
+public class MeshPrimitiveKHRGaussianSplatting : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// Property specifying parameters regarding the kernel used to generate the Gaussians.

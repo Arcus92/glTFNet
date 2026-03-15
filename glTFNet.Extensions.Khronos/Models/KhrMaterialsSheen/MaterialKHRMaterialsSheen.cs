@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrMaterialsSheen;
 /// glTF extension that defines the sheen material model.
 /// </summary>
 [Serializable]
-public class MaterialKHRMaterialsSheen : glTFNet.Specifications.Models.GlTFProperty
+public class MaterialKHRMaterialsSheen : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// Color of the sheen layer (in linear space).

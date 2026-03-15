@@ -7,7 +7,7 @@ namespace glTFNet.Specifications.Models;
 /// An animation channel combines an animation sampler with a target property being animated.
 /// </summary>
 [Serializable]
-public class AnimationChannel : GlTFProperty
+public class AnimationChannel : GltfProperty
 {
     /// <summary>
     /// The index of a sampler in this animation used to compute the value for the target, e.g., a node's translation, rotation, or scale (TRS).

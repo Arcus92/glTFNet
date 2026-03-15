@@ -7,7 +7,7 @@ namespace glTFNet.Specifications.Models;
 /// Geometry to be rendered with the given material.
 /// </summary>
 [Serializable]
-public class MeshPrimitive : GlTFProperty
+public class MeshPrimitive : GltfProperty
 {
     /// <summary>
     /// A plain JSON object, where each key corresponds to a mesh attribute semantic and each value is the index of the accessor containing attribute's data.

@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrNodeVisibility;
 /// glTF extension that defines node's visibility.
 /// </summary>
 [Serializable]
-public class NodeKHRNodeVisibility : glTFNet.Specifications.Models.GlTFProperty
+public class NodeKHRNodeVisibility : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// Specifies whether the node is visible. A value of false means that the node and all its children are hidden.

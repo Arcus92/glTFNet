@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrMaterialsDiffuseTransmission;
 /// glTF extension that defines the diffuse transmission of the material.
 /// </summary>
 [Serializable]
-public class MaterialKHRMaterialsDiffuseTransmission : glTFNet.Specifications.Models.GlTFProperty
+public class MaterialKHRMaterialsDiffuseTransmission : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The percentage of non-specularly reflected light that is transmitted through the surface via a Lambertian diffuse transmission.

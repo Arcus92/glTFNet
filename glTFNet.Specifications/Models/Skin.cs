@@ -7,7 +7,7 @@ namespace glTFNet.Specifications.Models;
 /// Joints and matrices defining a skin.
 /// </summary>
 [Serializable]
-public class Skin : GlTFChildOfRootProperty
+public class Skin : GltfChildOfRootProperty
 {
     /// <summary>
     /// The index of the accessor containing the floating-point 4x4 inverse-bind matrices. Its `accessor.count` property **MUST** be greater than or equal to the number of elements of the `joints` array. When undefined, each matrix is a 4x4 identity matrix.

@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.MpegBufferCircular;
 /// In order to support timed data access, the buffer element is extended to provide functionality of a circular buffer. The `MPEG_buffer_circular` may be included as part of the `buffer`. `buffer` that provides access to timed data shall include the `MPEG_buffer_circular` extension.
 /// </summary>
 [Serializable]
-public class MPEGBufferCircular : glTFNet.Specifications.Models.GlTFProperty
+public class MPEGBufferCircular : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The count field provides the recommended number of sequential buffer frames to be offered by a circular buffer to the presentation engine. This information may be used by the application to setup the circular buffer towards the presentation engine.

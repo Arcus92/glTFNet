@@ -4,7 +4,7 @@
 namespace glTFNet.Extensions.Vendor.Models.ExtLightsIes;
 
 [Serializable]
-public class NodeEXTLightsIes : glTFNet.Specifications.Models.GlTFProperty
+public class NodeEXTLightsIes : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The id of the light profile referenced by this node.

@@ -4,7 +4,7 @@
 namespace glTFNet.Extensions.Vendor.Models.MpegAudioSpatial;
 
 [Serializable]
-public class MPEGAudioSpatialReverb : glTFNet.Specifications.Models.GlTFProperty
+public class MPEGAudioSpatialReverb : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// Indicates if the reverb unit can be bypassed if the audio renderer does not support it.

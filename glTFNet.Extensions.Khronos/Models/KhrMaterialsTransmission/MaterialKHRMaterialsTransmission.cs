@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrMaterialsTransmission;
 /// glTF extension that defines the optical transmission of a material.
 /// </summary>
 [Serializable]
-public class MaterialKHRMaterialsTransmission : glTFNet.Specifications.Models.GlTFProperty
+public class MaterialKHRMaterialsTransmission : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The base percentage of non-specularly reflected light that is transmitted through the surface. i.e. of the light that penetrates a surface (isn't specularly reflected), this is the percentage that is transmitted and not diffusely re-emitted.

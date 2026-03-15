@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.MpegSceneDynamic;
 /// glTF extension to expose dynamic scene updates using the JSON patch protocol with MPEG media
 /// </summary>
 [Serializable]
-public class MPEGSceneDynamic : glTFNet.Specifications.Models.GlTFProperty
+public class MPEGSceneDynamic : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The index of the media in `MPEG_media` that provides dynamic scene update information.

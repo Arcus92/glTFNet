@@ -7,7 +7,7 @@ namespace glTFNet.Specifications.Models;
 /// An orthographic camera containing properties to create an orthographic projection matrix.
 /// </summary>
 [Serializable]
-public class CameraOrthographic : GlTFProperty
+public class CameraOrthographic : GltfProperty
 {
     /// <summary>
     /// The floating-point horizontal magnification of the view. This value **MUST NOT** be equal to zero. This value **SHOULD NOT** be negative.

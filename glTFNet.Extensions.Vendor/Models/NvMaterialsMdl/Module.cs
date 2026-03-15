@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.NvMaterialsMdl;
 /// An MDL module.
 /// </summary>
 [Serializable]
-public class Module : glTFNet.Specifications.Models.GlTFChildOfRootProperty
+public class Module : glTFNet.Specifications.Models.GltfChildOfRootProperty
 {
     /// <summary>
     /// The URI (or IRI) of the MDL module.  Relative paths are relative to the current glTF asset.  Instead of referencing an external file, this field **MAY** contain a `data:`-URI. This field **MUST NOT** be defined when `bufferView` is defined.

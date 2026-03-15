@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.MpegTextureVideo;
 /// glTF extension to specify textures using MPEG defined formats
 /// </summary>
 [Serializable]
-public class MPEGTextureVideo : glTFNet.Specifications.Models.GlTFProperty
+public class MPEGTextureVideo : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// Provides a reference to the `accessor`, by specifying the accessor's index in accessors array, that describes the buffer where the decoded timed texture will be made available. The `accessor` shall have the `MPEG_accessor_timed` extension. The type, componentType, and count of the accessor depend on the width, height, and format.

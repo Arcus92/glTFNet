@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrMeshoptCompression;
 /// Compressed data for bufferView.
 /// </summary>
 [Serializable]
-public class BufferKHRMeshoptCompression : glTFNet.Specifications.Models.GlTFProperty
+public class BufferKHRMeshoptCompression : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// Set to true to indicate that the buffer is only referenced by bufferViews that have KHR_meshopt_compression extension and as such doesn't need to be loaded.

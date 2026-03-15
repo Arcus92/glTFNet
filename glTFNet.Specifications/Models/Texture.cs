@@ -7,7 +7,7 @@ namespace glTFNet.Specifications.Models;
 /// A texture and its sampler.
 /// </summary>
 [Serializable]
-public class Texture : GlTFChildOfRootProperty
+public class Texture : GltfChildOfRootProperty
 {
     /// <summary>
     /// The index of the sampler used by this texture. When undefined, a sampler with repeat wrapping and auto filtering **SHOULD** be used.

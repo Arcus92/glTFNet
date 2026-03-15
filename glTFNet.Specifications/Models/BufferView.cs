@@ -7,7 +7,7 @@ namespace glTFNet.Specifications.Models;
 /// A view into a buffer generally representing a subset of the buffer.
 /// </summary>
 [Serializable]
-public class BufferView : GlTFChildOfRootProperty
+public class BufferView : GltfChildOfRootProperty
 {
     /// <summary>
     /// The index of the buffer.

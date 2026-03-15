@@ -5,7 +5,7 @@ var inputDirectory = Path.Combine("../../../../glTF/");
 var outputDirectory = Path.Combine("../../../../");
 
 
-const string jsonSerializerContextClassName = "GlTFSerializerContext";
+const string jsonSerializerContextClassName = "GltfSerializerContext";
 
 // Defines JSON converters added to the serializer contexts
 const string converterNamespace = "glTFNet.Specifications.Converters";

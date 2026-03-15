@@ -7,7 +7,7 @@ namespace glTFNet.Specifications.Models;
 /// Sparse storage of accessor values that deviate from their initialization value.
 /// </summary>
 [Serializable]
-public class AccessorSparse : GlTFProperty
+public class AccessorSparse : GltfProperty
 {
     /// <summary>
     /// Number of deviating accessor values stored in the sparse array.

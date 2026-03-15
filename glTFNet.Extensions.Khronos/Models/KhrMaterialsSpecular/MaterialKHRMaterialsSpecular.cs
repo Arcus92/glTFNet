@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrMaterialsSpecular;
 /// glTF extension that defines the strength of the specular reflection.
 /// </summary>
 [Serializable]
-public class MaterialKHRMaterialsSpecular : glTFNet.Specifications.Models.GlTFProperty
+public class MaterialKHRMaterialsSpecular : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// This parameter scales the amount of specular reflection on non-metallic surfaces. It has no effect on metals.

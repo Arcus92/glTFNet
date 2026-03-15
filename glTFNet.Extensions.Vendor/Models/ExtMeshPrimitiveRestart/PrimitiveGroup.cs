@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.ExtMeshPrimitiveRestart;
 /// A group of primitives that can be drawn together using a single index buffer containing restart values
 /// </summary>
 [Serializable]
-public class PrimitiveGroup : glTFNet.Specifications.Models.GlTFProperty
+public class PrimitiveGroup : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The indices of the primitives that will be combined and drawn using a single set of indices. All properties except for `indices` (e.g., `material`, `mode`, and `attributes`) will be obtained from the first primitive in the list, and all other primitives in the list **MUST** have identical values for those properties. The `mode` must be TRIANGLE_FAN, TRIANGLE_STRIP, LINE_LOOP, or LINE_STRIP.

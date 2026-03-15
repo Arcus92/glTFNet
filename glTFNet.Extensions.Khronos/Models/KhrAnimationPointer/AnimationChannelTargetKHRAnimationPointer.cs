@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrAnimationPointer;
 /// Extension object providing the JSON Pointer to the animated property.
 /// </summary>
 [Serializable]
-public class AnimationChannelTargetKHRAnimationPointer : glTFNet.Specifications.Models.GlTFProperty
+public class AnimationChannelTargetKHRAnimationPointer : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// JSON pointer to the animated property. The animation channel path value **MUST** be `pointer`.

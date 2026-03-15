@@ -7,7 +7,7 @@ namespace glTFNet.Specifications.Models;
 /// Texture sampler properties for filtering and wrapping modes.
 /// </summary>
 [Serializable]
-public class Sampler : GlTFChildOfRootProperty
+public class Sampler : GltfChildOfRootProperty
 {
     /// <summary>
     /// Magnification filter.

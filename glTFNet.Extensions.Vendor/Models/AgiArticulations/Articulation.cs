@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.AgiArticulations;
 /// A model articulation definition.
 /// </summary>
 [Serializable]
-public class Articulation : glTFNet.Specifications.Models.GlTFProperty
+public class Articulation : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The name of this articulation.  The articulation name must be unique within this model.  Articulation names may not contain spaces.

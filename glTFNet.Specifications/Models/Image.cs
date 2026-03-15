@@ -7,7 +7,7 @@ namespace glTFNet.Specifications.Models;
 /// Image data used to create a texture. Image **MAY** be referenced by an URI (or IRI) or a buffer view index.
 /// </summary>
 [Serializable]
-public class Image : GlTFChildOfRootProperty
+public class Image : GltfChildOfRootProperty
 {
     /// <summary>
     /// The URI (or IRI) of the image.  Relative paths are relative to the current glTF asset.  Instead of referencing an external file, this field **MAY** contain a `data:`-URI. This field **MUST NOT** be defined when `bufferView` is defined.

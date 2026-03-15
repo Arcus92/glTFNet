@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.ExtMeshoptCompression;
 /// Compressed data for bufferView.
 /// </summary>
 [Serializable]
-public class BufferViewEXTMeshoptCompression : glTFNet.Specifications.Models.GlTFProperty
+public class BufferViewEXTMeshoptCompression : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The index of the buffer with compressed data.

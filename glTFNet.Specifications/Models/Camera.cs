@@ -7,7 +7,7 @@ namespace glTFNet.Specifications.Models;
 /// A camera's projection.  A node **MAY** reference a camera to apply a transform to place the camera in the scene.
 /// </summary>
 [Serializable]
-public class Camera : GlTFChildOfRootProperty
+public class Camera : GltfChildOfRootProperty
 {
     /// <summary>
     /// An orthographic camera containing properties to create an orthographic projection matrix. This property **MUST NOT** be defined when `perspective` is defined.

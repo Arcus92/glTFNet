@@ -7,7 +7,7 @@ namespace glTFNet.Specifications.Models;
 /// A set of primitives to be rendered.  Its global transform is defined by a node that references it.
 /// </summary>
 [Serializable]
-public class Mesh : GlTFChildOfRootProperty
+public class Mesh : GltfChildOfRootProperty
 {
     /// <summary>
     /// An array of primitives, each defining geometry to be rendered.

@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.AgiArticulations;
 /// glTF Extension for an individual node in a glTF model, to associate it with the model's root AGI_articulations object.
 /// </summary>
 [Serializable]
-public class NodeAGIArticulations : glTFNet.Specifications.Models.GlTFProperty
+public class NodeAGIArticulations : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// Set to true to indicate that this node's origin and orientation act as an attach point for external objects, analysis, or effects.

@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.AgiStkMetadata;
 /// glTF Extension that defines metadata for use with STK (Systems Tool Kit).
 /// </summary>
 [Serializable]
-public class GltfAGIStkMetadata : glTFNet.Specifications.Models.GlTFProperty
+public class GltfAGIStkMetadata : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// An array of solar panel groups.

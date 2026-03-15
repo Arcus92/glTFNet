@@ -7,7 +7,7 @@ namespace glTFNet.Specifications.Models;
 /// A buffer points to binary geometry, animation, or skins.
 /// </summary>
 [Serializable]
-public class Buffer : GlTFChildOfRootProperty
+public class Buffer : GltfChildOfRootProperty
 {
     /// <summary>
     /// The URI (or IRI) of the buffer.  Relative paths are relative to the current glTF asset.  Instead of referencing an external file, this field **MAY** contain a `data:`-URI.

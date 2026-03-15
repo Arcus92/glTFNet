@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Archived.Models.KhrTechniquesWebgl;
 /// A uniform input to a technique, and an optional semantic and value.
 /// </summary>
 [Serializable]
-public class TechniqueUniform : glTFNet.Specifications.Models.GlTFProperty
+public class TechniqueUniform : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// When defined, the uniform is an array of `count` elements of the specified type.  Otherwise, the uniform is not an array.  When defined, `value`'s length must equal `count`, times the number of components in the `type`, e.g., `3` for `FLOAT_VEC3`.  A uniform array of scalar values is not the same as a uniform vector of the same size; for example, when count is 2 and type is `5126` (`FLOAT`), the uniform is an array of two floating-point values, not a `FLOAT_VEC2`. When a glTF-defined semantic is used, the semantic must be `JOINTMATRIX`; application-specific uniforms can be arrays and, therefore, define `count`.

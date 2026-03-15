@@ -7,7 +7,7 @@ namespace glTFNet.Specifications.Models;
 /// A perspective camera containing properties to create a perspective projection matrix.
 /// </summary>
 [Serializable]
-public class CameraPerspective : GlTFProperty
+public class CameraPerspective : GltfProperty
 {
     /// <summary>
     /// The floating-point aspect ratio of the field of view. When undefined, the aspect ratio of the rendering viewport **MUST** be used.

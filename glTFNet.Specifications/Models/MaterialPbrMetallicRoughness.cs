@@ -7,7 +7,7 @@ namespace glTFNet.Specifications.Models;
 /// A set of parameter values that are used to define the metallic-roughness material model from Physically-Based Rendering (PBR) methodology.
 /// </summary>
 [Serializable]
-public class MaterialPbrMetallicRoughness : GlTFProperty
+public class MaterialPbrMetallicRoughness : GltfProperty
 {
     /// <summary>
     /// The factors for the base color of the material. This value defines linear multipliers for the sampled texels of the base color texture.

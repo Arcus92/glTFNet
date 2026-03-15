@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Archived.Models.KhrXmp;
 /// References an XMP packet listed in `KHR_xmp glTF extension`
 /// </summary>
 [Serializable]
-public class NodeKHRXmp : glTFNet.Specifications.Models.GlTFProperty
+public class NodeKHRXmp : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The id of the XMP packet referenced by this node.

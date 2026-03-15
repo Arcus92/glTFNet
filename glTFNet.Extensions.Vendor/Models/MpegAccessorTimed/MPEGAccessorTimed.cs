@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.MpegAccessorTimed;
 /// glTF extension to specify timed accessor format formats
 /// </summary>
 [Serializable]
-public class MPEGAccessorTimed : glTFNet.Specifications.Models.GlTFProperty
+public class MPEGAccessorTimed : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// This flag equal to false indicates the accessor information componentType, type, and normalized may change over time. The changing values of componentType, type and normalized are provided through accessor information header. This flag equal to true indicates the accessor information componentType, type, and normalized do not change over time and are not present in the accessor information header. Note that count, max, min, and byteOffset are expected to change and are always included as part of the timed accessor information header.

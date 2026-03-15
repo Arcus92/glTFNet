@@ -7,7 +7,7 @@ namespace glTFNet.Specifications.Models;
 /// The root nodes of a scene.
 /// </summary>
 [Serializable]
-public class Scene : GlTFChildOfRootProperty
+public class Scene : GltfChildOfRootProperty
 {
     /// <summary>
     /// The indices of each root node.

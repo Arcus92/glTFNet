@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrMaterialsDispersion;
 /// glTF extension that defines the strength of dispersion.
 /// </summary>
 [Serializable]
-public class MaterialKHRMaterialsDispersion : glTFNet.Specifications.Models.GlTFProperty
+public class MaterialKHRMaterialsDispersion : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// This parameter defines dispersion in terms of the 20/Abbe number formulation.

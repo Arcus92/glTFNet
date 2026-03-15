@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrMaterialsAnisotropy;
 /// glTF extension that defines anisotropy.
 /// </summary>
 [Serializable]
-public class MaterialKHRMaterialsAnisotropy : glTFNet.Specifications.Models.GlTFProperty
+public class MaterialKHRMaterialsAnisotropy : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The anisotropy strength. When the anisotropy texture is present, this value is multiplied by the texture's blue channel.

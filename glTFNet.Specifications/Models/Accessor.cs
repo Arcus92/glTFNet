@@ -7,7 +7,7 @@ namespace glTFNet.Specifications.Models;
 /// A typed view into a buffer view that contains raw binary data.
 /// </summary>
 [Serializable]
-public class Accessor : GlTFChildOfRootProperty
+public class Accessor : GltfChildOfRootProperty
 {
     /// <summary>
     /// The index of the buffer view. When undefined, the accessor **MUST** be initialized with zeros; `sparse` property or extensions **MAY** override zeros with actual values.

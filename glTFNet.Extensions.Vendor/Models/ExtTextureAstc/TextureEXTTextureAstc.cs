@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.ExtTextureAstc;
 /// glTF extension to specify textures using the KTX v2 images with ASTC compression.
 /// </summary>
 [Serializable]
-public class TextureEXTTextureAstc : glTFNet.Specifications.Models.GlTFProperty
+public class TextureEXTTextureAstc : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The index of the image which points to a KTX v2 resource with ASTC compression.

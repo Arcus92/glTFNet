@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.AdobeMaterialsClearcoatTint;
 /// glTF extension that defines the colour tint of the clearcoat.
 /// </summary>
 [Serializable]
-public class MaterialADOBEMaterialsClearcoatTint : glTFNet.Specifications.Models.GlTFProperty
+public class MaterialADOBEMaterialsClearcoatTint : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The colour of light allowed to be transmitted through the clearcoat layer of the material. A value of black means no light passes through. A value of white means all light passes through. These values are linear.

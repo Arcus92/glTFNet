@@ -7,7 +7,7 @@ namespace glTFNet.Specifications.Models;
 /// The material appearance of a primitive.
 /// </summary>
 [Serializable]
-public class Material : GlTFChildOfRootProperty
+public class Material : GltfChildOfRootProperty
 {
     /// <summary>
     /// A set of parameter values that are used to define the metallic-roughness material model from Physically Based Rendering (PBR) methodology. When undefined, all the default values of `pbrMetallicRoughness` **MUST** apply.

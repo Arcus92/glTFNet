@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Vendor.Models.MpegAudioSpatial;
 /// glTF extension to specify spatial audio support
 /// </summary>
 [Serializable]
-public class MPEGAudioSpatial : glTFNet.Specifications.Models.GlTFProperty
+public class MPEGAudioSpatial : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// An array of audio sources.

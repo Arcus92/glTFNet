@@ -7,7 +7,7 @@ namespace glTFNet.Extensions.Khronos.Models.KhrMaterialsIridescence;
 /// glTF extension that defines an iridescence effect.
 /// </summary>
 [Serializable]
-public class MaterialKHRMaterialsIridescence : glTFNet.Specifications.Models.GlTFProperty
+public class MaterialKHRMaterialsIridescence : glTFNet.Specifications.Models.GltfProperty
 {
     /// <summary>
     /// The iridescence intensity factor.
