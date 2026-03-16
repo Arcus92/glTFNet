@@ -59,6 +59,17 @@ public class GltfRefTests
         Assert.IsFalse(result);
         Assert.IsNull(scene.Data);
     }
+    
+    [TestMethod]
+    public void GltfRef_ImplicitCast()
+    {
+        var model = Model.MockRef();
+
+        var scene = model.Scene()!.Value;
+        Scene item = scene;
+        Assert.IsNotNull(item);
+        Assert.AreEqual("scene #0", item.Name);
+    }
 
     [TestMethod]
     public void GltfRef_Gltf_Asset()
