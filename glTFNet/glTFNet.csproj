@@ -6,7 +6,7 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <Title>glTFNet</Title>
         <Authors>David Schulte</Authors>
-        <Description>A fast and mordern glTF reader.</Description>
+        <Description>A fast and modern glTF reader.</Description>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageProjectUrl>https://github.com/Arcus92/glTFNet</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>

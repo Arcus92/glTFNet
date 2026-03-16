@@ -1,6 +1,6 @@
 # glTFNet
 
-A fast and mordern glTF reader.
+A fast and modern glTF reader.
 
 This library can read binary and JSON-based glTF 2.0 files.
 
@@ -14,22 +14,23 @@ This project contains a C# code generator to convert the schema definition provi
 var inputFile = "Examples/glTF-Binary/Avocado.glb";
 
 // Loading the glTF data
-await using var loader = new GlTFLoader();
+await using var loader = new GltfLoader();
 var gltf = await loader.Open(inputFile);
 
-var scene = gltf.Scene;
-if (!scene.HasValue) return;
+if (!gltf.Scene().TryGet(out var scene)) return;
 
-foreach (var node in scene.Value.Nodes)
+foreach (var node in scene.Nodes())
 {
-    if (!node.Mesh.HasValue) continue;
-    
-    foreach (var meshPrimitive in node.Mesh.Value.Primitives)
+    if (!node.Mesh().TryGet(out var mesh)) continue;
+
+    foreach (var meshPrimitive in mesh.Primitives())
     {
-        if (!meshPrimitive.Indices.HasValue) continue;
+        if (!meshPrimitive.Indices().TryGet(out var indicesAccessor)) continue;
+        if (!meshPrimitive.Attributes().TryGetValue("POSITION", out var positionAccessor)) continue;
         
-        // Lazy-loading the indices from the gbl file
-        var indices = await meshPrimitive.Indices.Value.Read();
+        // Lazy-loading the data from the gbl file
+        var indices = await indicesAccessor.Read();
+        var positions = await positionAccessor.Read();
         
         // ...
     }
