@@ -1,6 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
-using System.Text.Json.Nodes;
 using glTFNet.IO;
 using glTFNet.IO.Interfaces;
 using glTFNet.Specifications.Models;
@@ -606,12 +605,14 @@ public static class GltfRefExtensions
     /// <typeparam name="TExtension">The extension type.</typeparam>
     /// <typeparam name="T">The glTF model type.</typeparam>
     /// <returns>Returns true, if the extension was found.</returns>
-    public static bool TryGetExtension<T, TExtension>(this GltfRef<T> instance, string extensionName, [MaybeNullWhen(false)] out TExtension extension) where T : GltfProperty
+    public static bool TryGetExtension<T, TExtension>(this GltfRef<T> instance, string extensionName, [MaybeNullWhen(false)] out TExtension extension) 
+        where T : GltfProperty 
+        where TExtension : class
     {
         if (instance.Data.Extensions is null || 
-            instance.Data.Extensions.TryGetValue(extensionName, out var extensionObject))
+            !instance.Data.Extensions.TryGetValue(extensionName, out var extensionObject))
         {
-            extension = default;
+            extension = null;
             return false;
         }
 
@@ -623,9 +624,9 @@ public static class GltfRefExtensions
         }
         
         // The extension is a JSON object and needs to be deserialized
-        if (extensionObject is not JsonObject extensionJsonObject)
+        if (extensionObject is not JsonElement extensionJsonElement)
         {
-            extension = default;
+            extension = null;
             return false;
         }
 
@@ -633,19 +634,12 @@ public static class GltfRefExtensions
         var typeInfo = instance.Context.As<IGltfSerializerContext>().GetTypeInfo<TExtension>();
         if (typeInfo is null)
         {
-            extension = default;
+            extension = null;
             return false;
         }
 
         // Deserialize the extension
-        var deserializedExtension = extensionJsonObject.Deserialize(typeInfo);
-        if (deserializedExtension is null)
-        {
-            extension = default;
-            return false;
-        }
-        
-        extension = deserializedExtension;
+        extension = extensionJsonElement.Deserialize(typeInfo)!;
         return true;
     }
 
@@ -657,7 +651,9 @@ public static class GltfRefExtensions
     /// <param name="instance">The glTF base instance.</param>
     /// <typeparam name="TExtension">The extension type.</typeparam>
     /// <typeparam name="T">The glTF model type.</typeparam>
-    public static void SetExtension<T, TExtension>(this GltfRef<T> instance, string extensionName, TExtension? extension) where T : GltfProperty
+    public static void SetExtension<T, TExtension>(this GltfRef<T> instance, string extensionName, TExtension? extension) 
+        where T : GltfProperty
+        where TExtension : class
     {
         instance.Data.Extensions ??= new Extension();
         

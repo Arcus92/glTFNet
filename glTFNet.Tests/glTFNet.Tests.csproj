@@ -16,6 +16,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\glTFNet.Extensions.Archived\glTFNet.Extensions.Archived.csproj" />
+      <ProjectReference Include="..\glTFNet.Extensions.Khronos\glTFNet.Extensions.Khronos.csproj" />
+      <ProjectReference Include="..\glTFNet.Extensions.Vendor\glTFNet.Extensions.Vendor.csproj" />
       <ProjectReference Include="..\glTFNet\glTFNet.csproj" />
     </ItemGroup>
 
