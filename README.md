@@ -17,16 +17,16 @@ var inputFile = "Examples/glTF-Binary/Avocado.glb";
 await using var loader = new GltfLoader();
 var gltf = await loader.Open(inputFile);
 
-if (!gltf.Scene().TryGet(out var scene)) return;
+if (!gltf.HasScene(out var scene)) return;
 
 foreach (var node in scene.Nodes())
 {
-    if (!node.Mesh().TryGet(out var mesh)) continue;
+    if (!node.HasMesh(out var mesh)) continue;
 
     foreach (var meshPrimitive in mesh.Primitives())
     {
-        if (!meshPrimitive.Indices().TryGet(out var indicesAccessor)) continue;
-        if (!meshPrimitive.Attributes().TryGetValue("POSITION", out var positionAccessor)) continue;
+        if (!meshPrimitive.HasIndices(out var indicesAccessor)) continue;
+        if (!meshPrimitive.HasAttributes("POSITION", out var positionAccessor)) continue;
         
         // Lazy-loading the data from the gbl file
         var indices = await indicesAccessor.Read();

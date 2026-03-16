@@ -64,4 +64,25 @@ public class GltfRefTextureInfoTests
         var texture = item.Texture();
         Assert.IsFalse(texture.HasValue);
     }
+    
+    [TestMethod]
+    public void GltfRef_TextureInfo_HasTexture()
+    {
+        var gltf = Model.MockRef();
+
+        var item = gltf.Materials()[0].PbrMetallicRoughness()!.Value.BaseColorTexture()!.Value;
+        Assert.IsTrue(item.HasBuffer(out var texture));
+        Assert.AreEqual(0, texture.Index);
+        Assert.AreEqual("texture #0", texture.Data.Name);
+    }
+    
+    [TestMethod]
+    public void GltfRef_TextureInfo_HasTexture_Empty()
+    {
+        var gltf = Empty.MockRef();
+
+        var item = gltf.Materials()[0].PbrMetallicRoughness()!.Value.BaseColorTexture()!.Value;
+        Assert.IsFalse(item.HasBuffer(out var texture));
+        Assert.IsNull(texture.Data);
+    }
 }

@@ -39,23 +39,23 @@ public class GltfRefTests
     };
 
     [TestMethod]
-    public void GltfRef_TryGet_True()
+    public void GltfRef_TryGetValue_True()
     {
         var model = Model.MockRef();
 
         var nullableScene = model.Scene();
-        var result = nullableScene.TryGet(out var scene);
+        var result = nullableScene.TryGetValue(out var scene);
         Assert.IsTrue(result);
         Assert.AreEqual("scene #0", scene.Data.Name);
     }
     
     [TestMethod]
-    public void GltfRef_TryGet_False()
+    public void GltfRef_TryGetValue_False()
     {
         var model = Empty.MockRef();
 
         var nullableScene = model.Scene();
-        var result = nullableScene.TryGet(out var scene);
+        var result = nullableScene.TryGetValue(out var scene);
         Assert.IsFalse(result);
         Assert.IsNull(scene.Data);
     }
@@ -100,6 +100,25 @@ public class GltfRefTests
 
         var item = gltf.Scene();
         Assert.IsFalse(item.HasValue);
+    }
+    
+    [TestMethod]
+    public void GltfRef_Gltf_HasScene()
+    {
+        var gltf = Model.MockRef();
+        
+        Assert.IsTrue(gltf.HasScene(out var item));
+        Assert.AreEqual(0, item.Index);
+        Assert.AreEqual("scene #0", item.Data.Name);
+    }
+
+    [TestMethod]
+    public void GltfRef_Gltf_HasScene_Empty()
+    {
+        var gltf = Empty.MockRef();
+        
+        Assert.IsFalse(gltf.HasScene(out var item));
+        Assert.IsNull(item.Data);
     }
 
     [TestMethod]

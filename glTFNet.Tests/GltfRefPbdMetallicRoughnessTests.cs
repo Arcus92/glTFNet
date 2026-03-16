@@ -51,6 +51,26 @@ public class GltfRefPbdMetallicRoughnessTests
     }
     
     [TestMethod]
+    public void GltfRef_PbrMetallicRoughness_HasBaseColorTexture()
+    {
+        var gltf = Model.MockRef();
+
+        var item = gltf.Materials()[0].PbrMetallicRoughness()!.Value;
+        Assert.IsTrue(item.HasBaseColorTexture(out var baseColorTexture));
+        Assert.IsNotNull(baseColorTexture.Data);
+    }
+    
+    [TestMethod]
+    public void GltfRef_PbrMetallicRoughness_HasBaseColorTexture_Empty()
+    {
+        var gltf = Model.MockRef();
+
+        var item = gltf.Materials()[1].PbrMetallicRoughness()!.Value;
+        Assert.IsFalse(item.HasBaseColorTexture(out var baseColorTexture));
+        Assert.IsNull(baseColorTexture.Data);
+    }
+    
+    [TestMethod]
     public void GltfRef_PbrMetallicRoughness_MetallicRoughnessTexture()
     {
         var gltf = Model.MockRef();
@@ -68,5 +88,25 @@ public class GltfRefPbdMetallicRoughnessTests
         var item = gltf.Materials()[1].PbrMetallicRoughness()!.Value;
         var metallicRoughnessTexture = item.MetallicRoughnessTexture();
         Assert.IsFalse(metallicRoughnessTexture.HasValue);
+    }
+    
+    [TestMethod]
+    public void GltfRef_PbrMetallicRoughness_HasMetallicRoughnessTexture()
+    {
+        var gltf = Model.MockRef();
+
+        var item = gltf.Materials()[0].PbrMetallicRoughness()!.Value;
+        Assert.IsTrue(item.HasMetallicRoughnessTexture(out var metallicRoughnessTexture));
+        Assert.IsNotNull(metallicRoughnessTexture.Data);
+    }
+    
+    [TestMethod]
+    public void GltfRef_PbrMetallicRoughness_HasMetallicRoughnessTexture_Empty()
+    {
+        var gltf = Model.MockRef();
+
+        var item = gltf.Materials()[1].PbrMetallicRoughness()!.Value;
+        Assert.IsFalse(item.HasMetallicRoughnessTexture(out var metallicRoughnessTexture));
+        Assert.IsNull(metallicRoughnessTexture.Data);
     }
 }

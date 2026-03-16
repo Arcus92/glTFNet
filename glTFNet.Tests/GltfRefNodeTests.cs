@@ -63,6 +63,27 @@ public class GltfRefNodeTests
     }
     
     [TestMethod]
+    public void GltfRef_Node_HasCamera()
+    {
+        var gltf = Model.MockRef();
+
+        var item = gltf.Nodes()[0];
+        Assert.IsTrue(item.HasCamera(out var camera));
+        Assert.AreEqual(0, camera.Index);
+        Assert.AreEqual("camera #0", camera.Data.Name);
+    }
+    
+    [TestMethod]
+    public void GltfRef_Node_HasCamera_Empty()
+    {
+        var gltf = Model.MockRef();
+
+        var item = gltf.Nodes()[1];
+        Assert.IsFalse(item.HasCamera(out var camera));
+        Assert.IsNull(camera.Data);
+    }
+    
+    [TestMethod]
     public void GltfRef_Node_Mesh()
     {
         var gltf = Model.MockRef();
@@ -82,5 +103,26 @@ public class GltfRefNodeTests
         var item = gltf.Nodes()[1];
         var mesh = item.Mesh();
         Assert.IsFalse(mesh.HasValue);
+    }
+    
+    [TestMethod]
+    public void GltfRef_Node_HasMesh()
+    {
+        var gltf = Model.MockRef();
+
+        var item = gltf.Nodes()[0];
+        Assert.IsTrue(item.HasMesh(out var mesh));
+        Assert.AreEqual(0, mesh.Index);
+        Assert.AreEqual("mesh #0", mesh.Data.Name);
+    }
+    
+    [TestMethod]
+    public void GltfRef_Node_HasMesh_Empty()
+    {
+        var gltf = Model.MockRef();
+
+        var item = gltf.Nodes()[1];
+        Assert.IsFalse(item.HasMesh(out var mesh));
+        Assert.IsNull(mesh.Data);
     }
 }

@@ -41,6 +41,27 @@ public class GltfRefTextureTests
     }
     
     [TestMethod]
+    public void GltfRef_Texture_HasSource()
+    {
+        var gltf = Model.MockRef();
+
+        var item = gltf.Textures()[0];
+        Assert.IsTrue(item.HasSource(out var source));
+        Assert.AreEqual(0, source.Index);
+        Assert.AreEqual("image #0", source.Data.Name);
+    }
+    
+    [TestMethod]
+    public void GltfRef_Texture_HasSource_Empty()
+    {
+        var gltf = Model.MockRef();
+
+        var item = gltf.Textures()[1];
+        Assert.IsFalse(item.HasSource(out var source));
+        Assert.IsNull(source.Data);
+    }
+    
+    [TestMethod]
     public void GltfRef_Texture_Sampler()
     {
         var gltf = Model.MockRef();
@@ -60,5 +81,26 @@ public class GltfRefTextureTests
         var item = gltf.Textures()[1];
         var sampler = item.Sampler();
         Assert.IsFalse(sampler.HasValue);
+    }
+    
+    [TestMethod]
+    public void GltfRef_Texture_HasSampler()
+    {
+        var gltf = Model.MockRef();
+
+        var item = gltf.Textures()[0];
+        Assert.IsTrue(item.HasSampler(out var sampler));
+        Assert.AreEqual(0, sampler.Index);
+        Assert.AreEqual("sampler #0", sampler.Data.Name);
+    }
+    
+    [TestMethod]
+    public void GltfRef_Texture_HasSampler_Empty()
+    {
+        var gltf = Model.MockRef();
+
+        var item = gltf.Textures()[1];
+        Assert.IsFalse(item.HasSampler(out var sampler));
+        Assert.IsNull(sampler.Data);
     }
 }

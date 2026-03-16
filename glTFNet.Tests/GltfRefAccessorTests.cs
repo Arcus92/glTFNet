@@ -38,4 +38,25 @@ public class GltfRefAccessorTests
         var bufferView = item.BufferView();
         Assert.IsFalse(bufferView.HasValue);
     }
+    
+    [TestMethod]
+    public void GltfRef_Accessor_HasBufferView()
+    {
+        var gltf = Model.MockRef();
+
+        var item = gltf.Accessors()[0];
+        Assert.IsTrue(item.HasBufferView(out var bufferView));
+        Assert.AreEqual(0, bufferView.Index);
+        Assert.AreEqual("bufferView #0", bufferView.Data.Name);
+    }
+    
+    [TestMethod]
+    public void GltfRef_Accessor_HasBufferView_Empty()
+    {
+        var gltf = Model.MockRef();
+
+        var item = gltf.Accessors()[1];
+        Assert.IsFalse(item.HasBufferView(out var bufferView));
+        Assert.IsNull(bufferView.Data);
+    }
 }

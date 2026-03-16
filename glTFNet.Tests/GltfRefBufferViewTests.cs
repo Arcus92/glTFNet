@@ -48,4 +48,25 @@ public class GltfRefBufferViewTests
         var buffer = item.Buffer();
         Assert.IsFalse(buffer.HasValue);
     }
+    
+    [TestMethod]
+    public void GltfRef_BufferView_HasBuffer()
+    {
+        var gltf = Model.MockRef();
+
+        var item = gltf.BufferViews()[0];
+        Assert.IsTrue(item.HasBuffer(out var buffer));
+        Assert.AreEqual(0, buffer.Index);
+        Assert.AreEqual("buffer #0", buffer.Data.Name);
+    }
+    
+    [TestMethod]
+    public void GltfRef_BufferView_HasBuffer_Empty()
+    {
+        var gltf = Empty.MockRef();
+
+        var item = gltf.BufferViews()[0];
+        Assert.IsFalse(item.HasBuffer(out var buffer));
+        Assert.IsNull(buffer.Data);
+    }
 }

@@ -81,6 +81,27 @@ public class GltfRefMeshPrimitiveTests
     }
     
     [TestMethod]
+    public void GltfRef_MeshPrimitive_HasIndices()
+    {
+        var gltf = Model.MockRef();
+
+        var item = gltf.Meshes()[0].Primitives()[0];
+        Assert.IsTrue(item.HasIndices(out var indices));
+        Assert.AreEqual(0, indices.Index);
+        Assert.AreEqual("accessor #0", indices.Data.Name);
+    }
+    
+    [TestMethod]
+    public void GltfRef_MeshPrimitive_HasIndices_Empty()
+    {
+        var gltf = Model.MockRef();
+
+        var item = gltf.Meshes()[0].Primitives()[1];
+        Assert.IsFalse(item.HasIndices(out var indices));
+        Assert.IsNull(indices.Data);
+    }
+    
+    [TestMethod]
     public void GltfRef_MeshPrimitive_Material()
     {
         var gltf = Model.MockRef();
@@ -103,6 +124,27 @@ public class GltfRefMeshPrimitiveTests
     }
     
     [TestMethod]
+    public void GltfRef_MeshPrimitive_HasMaterial()
+    {
+        var gltf = Model.MockRef();
+
+        var item = gltf.Meshes()[0].Primitives()[0];
+        Assert.IsTrue(item.HasMaterial(out var material));
+        Assert.AreEqual(0, material.Index);
+        Assert.AreEqual("material #0", material.Data.Name);
+    }
+    
+    [TestMethod]
+    public void GltfRef_MeshPrimitive_HasMaterial_Empty()
+    {
+        var gltf = Model.MockRef();
+
+        var item = gltf.Meshes()[0].Primitives()[1];
+        Assert.IsFalse(item.HasMaterial(out var material));
+        Assert.IsNull(material.Data);
+    }
+    
+    [TestMethod]
     public void GltfRef_MeshPrimitive_Attributes()
     {
         var gltf = Model.MockRef();
@@ -121,5 +163,26 @@ public class GltfRefMeshPrimitiveTests
         var item = gltf.Meshes()[0].Primitives()[0];
         var attributes = item.Attributes();
         Assert.AreEqual(0, attributes.Count);
+    }
+    
+    [TestMethod]
+    public void GltfRef_MeshPrimitive_HasAttributes()
+    {
+        var gltf = Model.MockRef();
+
+        var item = gltf.Meshes()[0].Primitives()[0];
+        Assert.IsTrue(item.HasAttribute("POSITION", out var attribute));
+        Assert.AreEqual(0, attribute.Index);
+        Assert.AreEqual("accessor #0", attribute.Data.Name);
+    }
+    
+    [TestMethod]
+    public void GltfRef_MeshPrimitive_HasAttributes_Invalid()
+    {
+        var gltf = Empty.MockRef();
+
+        var item = gltf.Meshes()[0].Primitives()[0];
+        Assert.IsFalse(item.HasAttribute("POSITION", out var attribute));
+        Assert.IsNull(attribute.Data);
     }
 }
