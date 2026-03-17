@@ -31,6 +31,6 @@ public static class GltfRefTextureInfoExtensions
     /// <param name="instance">The glTF reference.</param>
     /// <param name="result">Returns the texture if found.</param>
     /// <returns>Returns true, if the texture was found.</returns>
-    public static bool HasBuffer<T>(this GltfRef<T> instance, out GltfRef<Texture> result) where T : TextureInfo =>
+    public static bool HasTexture<T>(this GltfRef<T> instance, out GltfRef<Texture> result) where T : TextureInfo =>
         instance.Texture().TryGetValue(out result);
 }
