@@ -1,7 +1,7 @@
 using glTFNet.IO;
 using glTFNet.Specifications.Models;
 
-namespace glTFNet.Tests;
+namespace glTFNet.Tests.Helper;
 
 internal static class TestExtensions
 {

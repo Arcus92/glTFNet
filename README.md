@@ -14,8 +14,8 @@ This project contains a C# code generator to convert the schema definition provi
 var inputFile = "Examples/glTF-Binary/Avocado.glb";
 
 // Loading the glTF data
-await using var loader = new GltfLoader();
-var gltf = await loader.Open(inputFile);
+await using var gltfFile = new GltfFile();
+var gltf = await gltfFile.Open(inputFile);
 
 if (!gltf.HasScene(out var scene)) return;
 

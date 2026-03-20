@@ -1,4 +1,5 @@
 using glTFNet.Specifications.Models;
+using glTFNet.Tests.Helper;
 
 namespace glTFNet.Tests;
 

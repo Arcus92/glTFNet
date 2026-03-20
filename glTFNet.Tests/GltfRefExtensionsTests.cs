@@ -23,7 +23,7 @@ public class GltfRefExtensionsTests
     [TestMethod]
     public void GltfRef_Extensions_TryGetExtension()
     {
-        var context = new GltfLoader();
+        var context = new GltfFile();
         context.UseKhronosExtensions();
         
         var data = JsonSerializer.Deserialize(Json, Specifications.GltfSerializerContext.Default.Material)!;
@@ -37,7 +37,7 @@ public class GltfRefExtensionsTests
     [TestMethod]
     public void GltfRef_Extensions_TryGetExtension_Empty()
     {
-        var context = new GltfLoader();
+        var context = new GltfFile();
         context.UseKhronosExtensions();
         
         var data = JsonSerializer.Deserialize(Json, Specifications.GltfSerializerContext.Default.Material)!;
@@ -50,7 +50,7 @@ public class GltfRefExtensionsTests
     [TestMethod]
     public void GltfRef_Extensions_TryGetExtension_Null()
     {
-        var context = new GltfLoader();
+        var context = new GltfFile();
         context.UseKhronosExtensions();
         
         var data = JsonSerializer.Deserialize(Json, Specifications.GltfSerializerContext.Default.Material)!;
@@ -63,7 +63,7 @@ public class GltfRefExtensionsTests
     [TestMethod]
     public void GltfRef_Extensions_SetExtension()
     {
-        var context = new GltfLoader();
+        var context = new GltfFile();
         context.UseKhronosExtensions();
         
         var data = JsonSerializer.Deserialize(Json, Specifications.GltfSerializerContext.Default.Material)!;
@@ -79,7 +79,7 @@ public class GltfRefExtensionsTests
     [TestMethod]
     public void GltfRef_Extensions_SetExtension_Remove()
     {
-        var context = new GltfLoader();
+        var context = new GltfFile();
         context.UseKhronosExtensions();
         
         var data = JsonSerializer.Deserialize(Json, Specifications.GltfSerializerContext.Default.Material)!;
@@ -94,7 +94,7 @@ public class GltfRefExtensionsTests
     [TestMethod]
     public void GltfRef_Extensions_TryGetExtension_ExtensionsNotRegistered()
     {
-        var context = new GltfLoader();
+        var context = new GltfFile();
         
         var data = JsonSerializer.Deserialize(Json, Specifications.GltfSerializerContext.Default.Material)!;
         var material = new GltfRef<Material>(context, data);

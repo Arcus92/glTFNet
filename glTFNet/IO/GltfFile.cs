@@ -10,7 +10,7 @@ namespace glTFNet.IO;
 /// A loader class for GlTF files and binaries.
 /// </summary>
 [PublicAPI]
-public class GltfLoader : GltfSerializer, IGltfContext, IGltfLoaderContext, IDisposable, IAsyncDisposable
+public class GltfFile : GltfSerializer, IGltfContext, IGltfLoaderContext, IDisposable, IAsyncDisposable
 {
     /// <summary>
     /// Gets the loaded glTF data.

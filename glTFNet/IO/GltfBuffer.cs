@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 namespace glTFNet.IO;
 
 /// <summary>
-/// An open buffer from a <see cref="GltfLoader"/>.
+/// An open buffer from a <see cref="GltfFile"/>.
 /// </summary>
 [PublicAPI]
 public class GltfBuffer : IDisposable, IAsyncDisposable

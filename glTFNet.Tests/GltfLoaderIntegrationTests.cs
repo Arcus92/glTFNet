@@ -8,7 +8,7 @@ public class GltfLoaderIntegrationTests
     [TestMethod]
     public async Task GltfLoader_LoadGltf()
     {
-        await using var loader = new GltfLoader();
+        await using var loader = new GltfFile();
         var gltf = await loader.Open("Examples/glTF/Avocado.gltf");
 
         // Verify access to the first texture image
@@ -28,7 +28,7 @@ public class GltfLoaderIntegrationTests
     [TestMethod]
     public async Task GltfLoader_LoadGlb()
     {
-        await using var loader = new GltfLoader();
+        await using var loader = new GltfFile();
         var gltf = await loader.Open("Examples/glTF-Binary/Avocado.glb");
 
         // Verify access to the first texture image
