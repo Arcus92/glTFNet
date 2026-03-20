@@ -1,3 +1,4 @@
+using glTFNet.IO.Interfaces;
 using glTFNet.Specifications.Models;
 using glTFNet.Tests.Helper;
 using Buffer = glTFNet.Specifications.Models.Buffer;
@@ -27,6 +28,8 @@ public class GltfRefBufferViewTests
             new BufferView { Name = "bufferView #0", Buffer = 0, ByteLength = 0 }
         ]
     };
+    
+    private static readonly IResourceResolver ResourceResolver = new MockResourceResolver().Add([]);
 
     [TestMethod]
     public void GltfRef_BufferView_Buffer()
@@ -69,5 +72,25 @@ public class GltfRefBufferViewTests
         var item = gltf.BufferViews()[0];
         Assert.IsFalse(item.HasBuffer(out var buffer));
         Assert.IsNull(buffer.Data);
+    }
+    
+    [TestMethod]
+    public async Task GltfRef_BufferView_Open()
+    {
+        var gltf = Model.MockRef(ResourceResolver);
+
+        var item = gltf.BufferViews()[0];
+        var bufferView = await item.Open();
+        Assert.IsNotNull(bufferView);
+    }
+    
+    [TestMethod]
+    public async Task GltfRef_BufferView_Open_Empty()
+    {
+        var gltf = Empty.MockRef(ResourceResolver);
+
+        var item = gltf.BufferViews()[0];
+        var bufferView = await item.Open();
+        Assert.IsNull(bufferView);
     }
 }
